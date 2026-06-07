@@ -33,7 +33,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install jupyter-book
+        pip install jupyter-book==0.15.1
 
     - name: Build the book
       run: |
@@ -41,6 +41,8 @@ jobs:
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
+      with:
+        enablement: true
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
