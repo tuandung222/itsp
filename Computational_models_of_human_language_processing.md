@@ -1,304 +1,60 @@
-# Computational models of human language processing
+# Các mô hình tính toán về xử lý ngôn ngữ ở con người (Computational models of human language processing)
 
-One area of research making use of speech technology is the study of
-human language learning and processing. Language is a highly complex
-phenomenon with physical, biological, psychological, social and cultural
-dimensions. Therefore it is also studied across several disciplines,
-such as linguistics, neuroscience, psychology, and anthropology. While
-many of these fields primarily focus on empirical and theoretical work
-on language, computational models and simulations provide another
-important aspect to the research: capability to test theoretical models
-in practice. Implementation of models capable of processing real speech
-data requires techniques from speech processing and machine learning.
-For instance, techniques for speech
-[signal representation](Representations/Representations.md)
- and
-[pre-processing](Pre-processing.md) are needed to interface the models with
-acoustic speech recordings. Different types of [classifiers and machine
-learning algorithms](Modelling_tools_in_speech_processing.md) are needed to
-implement learning mechanisms in the models or to analyze behavior of
-the developed models. In addition, model training data may be generated
-with [speech synthesizers](Speech_Synthesis.md) (e.g., {cite:p}`havard2017speech`), whereas linguistic reference data for model evaluation may
-be extracted from speech recordings using [automatic speech
-recognition](Recognition/Speech_Recognition.md). 
+Một lĩnh vực nghiên cứu sử dụng công nghệ tiếng nói là nghiên cứu về quá trình học tập và xử lý ngôn ngữ ở con người. Ngôn ngữ là một hiện tượng vô cùng phức tạp với các khía cạnh vật lý, sinh học, tâm lý, xã hội và văn hóa. Do đó, nó cũng được nghiên cứu liên ngành trong nhiều lĩnh vực khác nhau, chẳng hạn như ngôn ngữ học, khoa học thần kinh, tâm lý học và nhân học. Trong khi nhiều lĩnh vực này chủ yếu tập trung vào các nghiên cứu thực nghiệm và lý thuyết về ngôn ngữ, các mô hình tính toán và mô phỏng cung cấp một khía cạnh quan trọng khác cho nghiên cứu: khả năng kiểm chứng các mô hình lý thuyết trong thực tế. Việc triển khai các mô hình có khả năng xử lý dữ liệu tiếng nói thực tế đòi hỏi các kỹ thuật từ xử lý tiếng nói và học máy. Ví dụ, các kỹ thuật [biểu diễn tín hiệu](Representations/Representations.md) và [tiền xử lý](Pre-processing.md) tiếng nói là cần thiết để kết nối các mô hình với các bản ghi âm tiếng nói âm học thực tế. Các loại [thuật toán học máy và bộ phân loại](Modelling_tools_in_speech_processing.md) khác nhau là cần thiết để triển khai các cơ chế học tập trong mô hình hoặc để phân tích hành vi của các mô hình đã phát triển. Ngoài ra, dữ liệu huấn luyện mô hình có thể được tạo ra bằng [bộ tổng hợp tiếng nói](Speech_Synthesis.md) (ví dụ: {cite:p}`havard2017speech`), trong khi dữ liệu tham chiếu ngôn ngữ để đánh giá mô hình có thể được trích xuất từ các bản ghi âm tiếng nói bằng cách sử dụng [nhận dạng tiếng nói tự động](Recognition/Speech_Recognition.md).
 
-The basic idea of computational modeling is to understand how humans
-learn and process language by implementing human-like learning and
-speech processing capabilities as computational algorithms. The models
-are then exposed to inputs similar to what humans observe, and the model
-behavior is then recorded and compared to human data (Fig. 1).
-Computational models can focus on questions such as how adult speech
-perception operates (e.g., the highly-influential TRACE model of speech
-perception; {cite:t}`mcclelland1986trace`), how language learning takes place
-in young children (native language aka. L1 learners; e.g., {cite:p}`rasanen2012computational,dupoux2018cognitive`) or in second-language (L2) learners, or they may
-study the emergence and evolution of language through communicative
-coordination between multiple agents (see, e.g.,  {cite:t}`steels1997synthetic,kirby2002natural`, for overviews).
+Ý tưởng cơ bản của mô hình hóa tính toán là tìm hiểu cách con người học tập và xử lý ngôn ngữ bằng cách triển khai các năng lực học tập và xử lý tiếng nói giống như con người dưới dạng các thuật toán tính toán. Các mô hình này sau đó được tiếp xúc với các đầu vào tương tự như những gì con người quan sát được, và hành vi của mô hình sau đó được ghi lại và so sánh với dữ liệu thực tế từ con người (Hình 1). Các mô hình tính toán có thể tập trung vào các câu hỏi như cách thức hoạt động của nhận thức tiếng nói ở người trưởng thành (ví dụ: mô hình TRACE cực kỳ có ảnh hưởng về nhận thức tiếng nói; {cite:t}`mcclelland1986trace`), cách thức học ngôn ngữ diễn ra ở trẻ nhỏ (ngôn ngữ mẹ đẻ hay còn gọi là người học L1; ví dụ: {cite:p}`rasanen2012computational,dupoux2018cognitive`) hoặc ở người học ngôn ngữ thứ hai (L2), hoặc nghiên cứu sự xuất hiện và tiến hóa của ngôn ngữ thông qua sự phối hợp giao tiếp giữa nhiều tác tử (multi-agent) (xem ví dụ các bài tổng quan trong {cite:t}`steels1997synthetic,kirby2002natural`).
 
-  
-
-  
 ![basic_modeling_.schematic.png](attachments/180302220.png)
-**Figure 1:** A high-level schematic view of a typical computational model development and evaluation process.
+**Hình 1:** Sơ đồ nguyên lý mức cao của quy trình phát triển và đánh giá mô hình tính toán điển hình.
 
-## Human cognition as a sensorimotor information processing system
+## Nhận thức của con người như một hệ thống xử lý thông tin cảm giác-vận động
 
-Computational modeling research is based on the metaphor of human brain
-as a computational information processing system. From an external
-observer viewpoint, this system perceives the environment using a number
-of input channels (senses), processes the information using some type of
-processing steps (the nervous system), and creates outputs (motor
-actions) based on the available sensory information and other internal
-states of the system. This input/output-relationship is affected by
-developmental factors and learning from earlier sensorimotor experience,
-realized as changes in the connectivity and structure of the central
-nervous system. Computational research attempts to understand the
-components of this perception-action loop by replacing the human
-physiology and neurophysiology with computational algorithms for sensory
-(or sensorimotor) information processing. Typically the aim is not to
-replicate information processing of the brain at the level of individual
-neurons, but to focus on the *computational and algorithmic principles*
-of the process, i.e., the *information representation*, *flow* and
-*transformation* within the system (see [Marr's levels of
-analysis](https://en.wikipedia.org/wiki/David_Marr_(neuroscientist)#Levels_of_analysis);
-{cite:t}`marr2010vision`). These processing steps could then be implemented in
-infinitely many ways using different hardware (biological neurons,
-silicon chips architectures, CPU instruction sets, quantum computing
-etc.) or translations from computational description to
-implementation-specific instructions (consider, e.g., different
-programming languages with the same CPU instruction set). Despite the
-implementation differences, the observed behavior of the system in terms
-of inputs and the resulting outputs can still be similar.
+Nghiên cứu mô hình hóa tính toán dựa trên phép ẩn dụ rằng bộ não con người hoạt động như một hệ thống xử lý thông tin tính toán. Dưới góc nhìn của một quan sát viên bên ngoài, hệ thống này nhận biết môi trường xung quanh bằng cách sử dụng một số kênh đầu vào (các giác quan), xử lý thông tin bằng các bước xử lý nào đó (hệ thần kinh) và tạo ra các đầu ra (hành động vận động - motor actions) dựa trên thông tin cảm giác có sẵn cùng các trạng thái nội bộ khác của hệ thống. Mối quan hệ đầu vào/đầu ra này bị ảnh hưởng bởi các yếu tố phát triển và việc tự học hỏi từ trải nghiệm cảm giác-vận động (sensorimotor experience) trước đó, được hiện thực hóa bằng những thay đổi trong cấu trúc liên kết của hệ thần kinh trung ương. Nghiên cứu tính toán cố gắng hiểu các thành phần của vòng lặp nhận thức-hành động (perception-action loop) này bằng cách thay thế sinh lý và sinh lý thần kinh của con người bằng các thuật toán tính toán để xử lý thông tin cảm giác (hoặc cảm giác-vận động). Thông thường, mục tiêu không phải là sao chép hoạt động xử lý thông tin của não bộ ở cấp độ từng nơ-ron riêng lẻ, mà tập trung vào *các nguyên lý tính toán và thuật toán* của quy trình, tức là *sự biểu diễn*, *luồng đi* và *sự biến đổi thông tin* bên trong hệ thống (xem [các cấp độ phân tích của Marr](https://en.wikipedia.org/wiki/David_Marr_(neuroscientist)#Levels_of_analysis); {cite:t}`marr2010vision`). Các bước xử lý này sau đó có thể được triển khai theo vô số cách khác nhau bằng cách sử dụng phần cứng khác nhau (nơ-ron sinh học, cấu trúc chip silicon, tập lệnh CPU, tính toán lượng tử, v.v.) hoặc chuyển dịch từ mô tả tính toán sang các hướng dẫn đặc thù của phần cứng triển khai (hãy xem xét các ngôn ngữ lập trình khác nhau có chung tập lệnh CPU). Bất chấp những khác biệt về mặt triển khai vật lý, hành vi quan sát được của hệ thống dưới dạng các đầu vào và đầu ra kết quả vẫn có thể tương đồng.
 
-To give an example, a model of adult spoken word recognition could focus
-on explaining the acoustic, phonetic and/or other linguistic factors
-that affect the process of word recognition. Such a model could focus on
-the details of how word recognition process evolves over time when a
-spoken word is heard, describing how alternative word candidates are
-being considered or rejected during this process (see, e.g., {cite:t}`weber2012models,magnuson2020earshot`, for examples). Even if the
-model would not focus on modeling neurons of the human brain, it could
-still explain how our minds decode linguistic information from speech
-input. This explanation could include how the process is affected by
-factors such as noisy environments, misprounciations, distributional
-characteristics of the input, or non-native language background of the
-listener—all useful information to understand both theoretical
-underpinnings and practical aspects of speech communication.
+Ví dụ, một mô hình nhận dạng từ nói ở người trưởng thành có thể tập trung vào việc giải thích các yếu tố âm học, ngữ âm và/hoặc các yếu tố ngôn ngữ khác ảnh hưởng đến quá trình nhận dạng từ. Một mô hình như vậy có thể tập trung vào các chi tiết về cách quá trình nhận dạng từ tiến triển theo thời gian khi nghe một từ nói, mô tả cách các ứng viên từ thay thế được cân nhắc hoặc loại bỏ trong quá trình này (xem ví dụ trong {cite:t}`weber2012models,magnuson2020earshot`). Ngay cả khi mô hình không tập trung vào việc mô phỏng các nơ-ron của não người, nó vẫn có thể giải thích cách tâm trí chúng ta giải mã thông tin ngôn ngữ từ đầu vào tiếng nói. Giải thích này có thể bao gồm cách quy trình bị ảnh hưởng bởi các yếu tố như môi trường ồn ào, phát âm sai, đặc trưng phân phối của đầu vào, hoặc nền tảng ngôn ngữ không phải mẹ đẻ của người nghe—tất cả đều là những thông tin hữu ích để hiểu cả nền tảng lý thuyết lẫn khía cạnh thực tiễn của giao tiếp tiếng nói.
 
-Another central aspect of the modeling is the relationship between human
-learning and computational methods trying to characterize the process.
-According to the present understanding, *human language learning is
-largely driven by* the interaction of *statistical regularities in the
-sensory input* available to the learner (e.g., {cite:t}`werker1984cross,saffran1996statistical,maye2002infant,saffran2018infant`),
-*innate mechanisms, constraints, and biases for perception and learning*
-from such input, and *other mechanisms responsible for social,
-communicative and exploratory needs* *o*f the learner. By extracting the
-statistical regularities from their sensorimotor linguistic enviroment,
-children are capable of learning any of the world's languages while
-fundamentally sharing the same basic cognitive mechanisms. A central
-topic in computational modeling of language acqusition is therefore to
-understand how much of language structure can be learned from the input
-data, and how much language-related prior knowledge needs to be built-in
-to the hard-coded mechanisms of these models. Note that human
-statistical learning is closely related to machine learning in
-computers, as both aim to extract statistical regularities from data
-using some sort of pre-specified learning principles. However, unlike
-standard speech technology systems such as [automatic speech
-recognition](Recognition/Speech_Recognition.md), humans learners do not have access to
-data labels or consistent reward signals. For instance, a computational
-model of early infant word learning is essentially trying to find a
-solution to unsupervised pattern discovery problem: how to learn words
-from acoustic or multimodal input when there is no data labeling
-available. By applying a combination of speech processing and machine
-learning techniques to data representative of infant language
-experiences, explanation proposals for such a process can be created.
+Một khía cạnh cốt lõi khác của mô hình hóa là mối quan hệ giữa việc học của con người và các phương pháp tính toán cố gắng mô tả quy trình này. Theo hiểu biết hiện tại, *việc học ngôn ngữ ở con người phần lớn được thúc đẩy bởi* sự tương tác của *các quy luật thống kê trong đầu vào cảm giác* có sẵn cho người học (ví dụ: {cite:t}`werker1984cross,saffran1996statistical,maye2002infant,saffran2018infant`), *các cơ chế bẩm sinh, các ràng buộc và thiên kiến (biases) cho nhận thức và học hỏi* từ đầu vào đó, cùng *các cơ chế khác chịu trách nhiệm cho các nhu cầu xã hội, giao tiếp và khám phá* của người học. Bằng cách trích xuất các quy luật thống kê từ môi trường ngôn ngữ cảm giác-vận động của mình, trẻ em có khả năng học bất kỳ ngôn ngữ nào trên thế giới trong khi về cơ bản chia sẻ cùng các cơ chế nhận thức cơ bản giống nhau. Do đó, một chủ đề trung tâm trong mô hình hóa tính toán của việc thụ đắc ngôn ngữ (language acquisition) là hiểu xem có bao nhiêu cấu trúc ngôn ngữ có thể được học từ dữ liệu đầu vào, và bao nhiêu kiến thức tiên nghiệm liên quan đến ngôn ngữ cần được xây dựng sẵn (hard-coded) vào các cơ chế cố định của các mô hình này. Lưu ý rằng việc học thống kê ở con người có liên quan chặt chẽ với học máy trong máy tính, vì cả hai đều nhằm mục đích trích xuất các quy luật thống kê từ dữ liệu bằng cách sử dụng một số nguyên tắc học tập được chỉ định trước. Tuy nhiên, không giống như các hệ thống công nghệ tiếng nói tiêu chuẩn như [nhận dạng tiếng nói tự động](Recognition/Speech_Recognition.md), người học là con người không có quyền truy cập vào các nhãn dữ liệu hoặc tín hiệu phần thưởng nhất quán. Ví dụ, một mô hình tính toán về việc học từ thuở sơ sinh của trẻ em về cơ bản là cố gắng tìm giải pháp cho bài toán khám phá mẫu không giám sát: cách học các từ từ đầu vào âm học hoặc đa phương thức (multimodal) khi không có sẵn nhãn dữ liệu. Bằng cách áp dụng kết hợp các kỹ thuật xử lý tiếng nói và học máy vào dữ liệu đại diện cho trải nghiệm ngôn ngữ của trẻ sơ sinh, các đề xuất giải thích cho quy trình đó có thể được xây dựng.
 
-### Computational modeling versus cognitive computationalism
+### Mô hình hóa tính toán đối với chủ nghĩa tính toán nhận thức
 
-Note that computational modeling and *representations* often studied in
-the models should not be confused with classical
-[computationalism](https://en.wikipedia.org/wiki/Computational_theory_of_mind).
-The latter is loaded with certain assumptions regarding the nature of
-the entities processed by the computational system (e.g., *content of
-the representations, symbols*) and what are the basic computational
-operations (e.g., *symbol manipulation* using Turing machines). In
-contrast, computational models are simply descriptions of the studied
-process in terms of the described assumptions, inputs, outputs, and
-processing mechanisms without prescribing further *meaning* to the
-components (unless otherwise specified). For instance, *representations*
-of typical DSP and machine-learning -based models can simply be treated
-as quantifiable states, such as artificial neuron/layer activations,
-posterior distributions, neural layer weights, distribution parameters.
-In other words, the representations are scalars, vectors, or matrices
-that are somehow causally related to the inputs of the system. Behavior
-of these representations can then be correlated and compared with
-theoretical concepts regarding the phenomenon of interest (e.g.,
-comparing selectivity of neural layer activations towards known phoneme
-categories in the acoustic input to the model; see, e.g., {cite:t}`nagamine2015exploring`) or comparing the overall model behavior to human behavior
-with similar input (e.g., {cite:t}`rasanen2015joint`). As long as the models
-are able to explain the data or phenomena of interest, the *models are a
-computational and hypothetical explanation* to the phenomenon without
-loading the components with additional theoretical or philosophical
-assumptions. Additional theoretical loading comes from the *data* and
-*evaluation protocols* chosen to investigate the models and in terms of
-how the modeling findings are interpreted.
+Cần lưu ý rằng mô hình hóa tính toán và *các biểu diễn (representations)* thường được nghiên cứu trong các mô hình không nên bị nhầm lẫn với [chủ nghĩa tính toán nhận thức](https://en.wikipedia.org/wiki/Computational_theory_of_mind) cổ điển. Chủ nghĩa tính toán cổ điển mang theo một số giả định nhất định liên quan đến bản chất của các thực thể được xử lý bởi hệ thống tính toán (ví dụ: *nội dung của biểu diễn, ký hiệu*) và các phép toán tính toán cơ bản (ví dụ: *thao tác ký hiệu* sử dụng máy Turing). Ngược lại, các mô hình tính toán đơn giản là các mô tả về quy trình nghiên cứu dưới góc độ các giả định, đầu vào, đầu ra và cơ chế xử lý được mô tả mà không quy định thêm *ý nghĩa* cho các thành phần (trừ khi có quy định khác). Ví dụ, *các biểu diễn* của các mô hình dựa trên DSP và học máy điển hình chỉ đơn giản được coi là các trạng thái có thể định lượng được, chẳng hạn như kích hoạt của các nơ-ron/lớp nhân tạo, phân phối hậu nghiệm (posterior distributions), trọng số lớp nơ-ron, tham số phân phối. Nói cách khác, các biểu diễn là các đại lượng vô hướng, vector hoặc ma trận có mối quan hệ nhân quả nào đó với các đầu vào của hệ thống. Hành vi của các biểu diễn này sau đó có thể được liên kết và so sánh với các khái niệm lý thuyết liên quan đến hiện tượng quan tâm (ví dụ: so sánh tính chọn lọc của các kích hoạt lớp nơ-ron đối với các danh mục âm vị đã biết trong đầu vào âm học của mô hình; xem ví dụ {cite:t}`nagamine2015exploring`) hoặc so sánh hành vi tổng thể của mô hình với hành vi của con người với đầu vào tương tự (ví dụ: {cite:t}`rasanen2015joint`). Miễn là các mô hình có thể giải thích dữ liệu hoặc hiện tượng quan tâm, *các mô hình là một lời giải thích tính toán và mang tính giả định* cho hiện tượng đó mà không gán cho các thành phần các giả định lý thuyết hoặc triết học bổ sung. Các giả định lý thuyết bổ sung chỉ đến từ *dữ liệu* và *giao thức đánh giá* được chọn để nghiên cứu mô hình cũng như cách thức diễn giải các phát hiện mô hình hóa.
 
-##  Role of computational models in scientific research
+## Vai trò của các mô hình tính toán trong nghiên cứu khoa học
 
-Computational modeling has a role in scientific theory development and
-hypothesis testing by providing the means to test high-level theories of
-language processing with practical simulations (Fig. 2). This supports
-the more traditional approaches to language research that include
-collection of empirical data on human language processing, conducting
-brain research, or running controlled behavioral experiments in the
-laboratory or as real-world intervention studies. By implementing
-high-level conceptual models of language processing using real
-algorithms operating on real-world language data, one can test whether
-the models scale up to complexity of real-world sensory data accessible
-to human listeners. In addition to explaining already collected data on
-human language processing, computational models can also lead to new
-insights and hypotheses about the human processing to be tested in
-behavioral experiments.
+Mô hình hóa tính toán đóng một vai trò trong việc phát triển lý thuyết khoa học và kiểm chứng giả thuyết bằng cách cung cấp các phương tiện để kiểm tra các lý thuyết cấp cao về xử lý ngôn ngữ bằng các mô phỏng thực tế (Hình 2). Điều này hỗ trợ các cách tiếp cận truyền thống hơn đối với nghiên cứu ngôn ngữ bao gồm thu thập dữ liệu thực nghiệm về xử lý ngôn ngữ ở con người, tiến hành nghiên cứu não bộ, hoặc chạy các thử nghiệm hành vi được kiểm soát trong phòng thí nghiệm hoặc dưới dạng các nghiên cứu can thiệp trong thế giới thực. Bằng cách triển khai các mô hình khái niệm cấp cao về xử lý ngôn ngữ bằng cách sử dụng các thuật toán thực tế hoạt động trên dữ liệu ngôn ngữ thế giới thực, người ta có thể kiểm tra xem các mô hình có mở rộng quy mô được tương ứng với độ phức tạp của dữ liệu cảm giác thế giới thực mà người nghe là con người tiếp cận được hay không. Ngoài việc giải thích dữ liệu đã thu thập về xử lý ngôn ngữ ở con người, các mô hình tính toán cũng có thể dẫn đến những hiểu biết và giả thuyết mới về quá trình xử lý ở con người cần được kiểm chứng trong các thử nghiệm hành vi.
 
-  
 ![role_of_comp_mods](attachments/180300259.png)
-**Figure 2:**
-Different aspects of human language processing research and how they
-interact.  
-Computational modeling uses data from empirical research to test and
-inform high-level theories related to the given topic.
+**Hình 2:** Các khía cạnh khác nhau của nghiên cứu xử lý ngôn ngữ ở con người và cách chúng tương tác với nhau. Mô hình hóa tính toán sử dụng dữ liệu từ nghiên cứu thực nghiệm để kiểm tra và cung cấp thông tin cho các lý thuyết cấp cao liên quan đến chủ đề đã cho.
 
-  
+Một ưu điểm tiềm năng của mô hình hóa tính toán là khả năng giải quyết đồng thời nhiều cơ chế xử lý và hiện tượng ngôn ngữ. Điều này là do *các mô hình tính toán có thể, và phải, giải quyết rõ ràng tất cả các khía cạnh của chuỗi xử lý thông tin* từ dữ liệu đầu vào đến hành vi kết quả. Bằng cách trước hết xây dựng các lý thuyết xử lý ngôn ngữ dưới dạng các mục tiêu và phép toán tính toán, sau đó triển khai chúng dưới dạng các thuật toán xử lý tín hiệu và học máy chức năng, và cuối cùng tiếp xúc với dữ liệu cảm giác thực tế tương đương với những gì con người thực tế trải nghiệm, tính hợp lý sinh thái và tính hiệu lực của các lý thuyết cơ sở có thể được kiểm chứng một cách rõ ràng (so sánh với {cite:t}`marr2010vision`). Ngược lại, các thử nghiệm hành vi với con người thực—mặc dù cần thiết cho sự tiến bộ của hiểu biết khoa học của chúng ta và cho việc thu thập dữ liệu nói chung—thường chỉ có thể tập trung vào một hiện tượng tại một thời điểm do nhu cầu kiểm soát chặt chẽ thiết lập thử nghiệm. Sự phân mảnh trọng tâm này cũng khiến việc kết hợp kiến thức từ các nghiên cứu riêng lẻ vào các khung lý thuyết toàn diện trở nên khó khăn (ví dụ: hiểu cách việc học âm vị, từ vựng và cú pháp phụ thuộc lẫn nhau trong sự phát triển ngôn ngữ sớm).
 
-One potential advantage of computational modeling is its capability to
-address multiple processing mechanisms and language phenomena
-simultaneously. This is since *computational models can, and must,
-explicitly address all aspects of the information processing chain* from
-input data to the resulting behaviour. By first formulating theories of
-language processing in terms of computational goals and operations, then
-implementing them as functional signal processing and machine learning
-algorithms, and finally exposing them to realistic sensory data
-comparable to what real humans experience, ecological plausibility and
-validity of the underlying theories can be explicitly tested (cf. {cite:t}`marr2010vision`). In contrast, behavioral experiments with real humans—although
-necessary for the advancement of our scientific understanding and for
-general data collection—can usually focus on only one phenomenon at a
-time due to the need for highly-controlled experimental setups. The
-fragmentation of focus also makes it difficult to combine knowledge from
-individual studies into holistic theoretical frameworks (e.g.,
-understanding how phonemic, lexical, and syntactic learning are
-dependent on each other in early language development). 
+## Các ví dụ về nghiên cứu mô hình hóa tính toán
 
-## Examples of computational modeling research
+***Các mô hình tính toán về sự phát triển ngôn ngữ ở trẻ em***: Các mô hình tính toán về học ngôn ngữ nhằm mục đích tìm hiểu cách trẻ em loài người học cách nhận thức và sản sinh ngôn ngữ mẹ đẻ của chúng. Ý tưởng cơ bản là mô phỏng quá trình học tập của một đứa trẻ, bắt đầu từ lúc "sinh ra" hoặc từ một giai đoạn phát triển ngôn ngữ cụ thể. Các mô hình riêng lẻ thường nhằm mục đích trả lời các câu hỏi như: các danh mục âm vị được học như thế nào, việc phân đoạn từ (word segmentation) được thực hiện như thế nào, các từ nói được liên kết với ý nghĩa tham chiếu của chúng như thế nào, hoặc cú pháp ngôn ngữ được thụ đắc như thế nào? Thách thức lớn nhất là hiểu cách thức mà sự hiểu biết ngôn ngữ giống như người lớn dưới dạng một hệ thống rời rạc, tượng trưng và có tính cấu thành (compositional) có thể xuất hiện từ việc tiếp xúc với môi trường cảm giác-vận động ồn ào và liên tục vốn có. Các câu hỏi nghiên cứu mô hình hóa tính toán điển hình bao gồm: 1) *ở mức độ nào ngôn ngữ có thể học được từ các số liệu thống kê của trải nghiệm cảm giác*, 2) *loại cơ chế học tập hoặc ràng buộc nào là cần thiết cho quy trình này*, và 3) *loại dữ liệu nào và bao nhiêu dữ liệu* ("trải nghiệm") là cần thiết trong quy trình (chất lượng và số lượng tiếng nói, đầu vào đơn lẻ so với đa phương thức, v.v.). Một góc nhìn rộng hơn tính đến thực tế là trẻ em không chỉ là những đối tượng tiếp nhận thông tin cảm giác một cách thụ động mà có thể tương tác với người chăm sóc và môi trường của chúng như những người khám phá và người học chủ động. Do đó, nghiên cứu cũng quan tâm đến 4) *loại cơ chế liên quan đến tương tác bổ sung nào và các trải nghiệm được tạo ra một cách năng động là cực kỳ quan trọng*. Câu hỏi lớn và vẫn chưa có lời giải đáp là các thành phần quan trọng nào cho việc học ngôn ngữ thành công, vì tất cả trẻ em phát triển bình thường với các trải nghiệm ngôn ngữ, môi trường và các kỹ năng nhận thức khác nhau rất nhiều vẫn tìm cách hội tụ về một hệ thống giao tiếp chung của ngôn ngữ mẹ đẻ của chúng.
 
-***Computational models of child language development***: Computational
-models of language learning aim at understanding how human children
-learn to perceive and produce their native language. The basic idea is
-to simulate the learning of a human child, either starting from "birth"
-or from a specific stage of language development. Individual models
-typically aim to answer questions such as: how phonemic categories are
-learned, how word segmentation is achieved, how spoken words are
-associated with their referential meanings, or how syntax can be
-acquired? The grand challenge is to understand how the adult-like
-understanding of language as a discrete, symbolic, and compositional
-system can emerge from the exposure to noisy and inherently continuous
-sensorimotor environment. Typical computational modeling research
-questions include: 1) *to what extent are languages learnable from the
-statistics of sensory experiences*, 2) *what type of learning mechanisms
-or constraints are needed for the process*, and 3) *what kind of and how
-much data* ("experiences") are required in the process (quality and
-quantity of speech, uni- vs. multimodal input etc.). A broader view
-takes into account the fact that the children are not just passive
-receivers of sensory information but can interact with their caregivers
-and their environment as active explorers and learners. Therefore it is
-also of interest 4) *what type of additional interaction-related
-mechanisms and dynamically created experiences are critica*l. The big
-and yet unaswered question is what are the critical ingredients for
-successful language learning, as all normally developing children with
-very different language experiences, environments, and also somewhat
-differing cognitive skills still manage to converge to a shared
-communicative system of their native language.  
-      As the short-term outcomes, models of language learning can test
-and propose different hypotheses for different aspects of language
-learning. They also produce functional algorithms for processing
-acoustic or multimodal language data in low-resource settings, where
-access to data labels is limited (e.g., {cite:t}`kakouros20163pro,kamper2017segmental,rasanen2018pre`). Long-term outcomes from language
-acquisition modeling contribute to both basic science and practice. In
-terms of basic science, the research tries to answer the question of how
-one of the most advanced aspects of human cognition, i.e., language,
-operates. Long-term practical goals include understanding the impact of
-external factors in language development and how to ensure equally
-supportive environments for children in different social settings,
-understanding different types of language-related disorders and how to
-best respond to them, but also how to develop autonomous AI systems
-capable of human-like language learning and understanding without
-supervised training, i.e.., development of systems ultimately capable of
-*understanding the intentions and meaning in communication*.   
-     Computational modeling of early language acquisition is closely
-related to zero-resource speech processing (see
-<http://www.zerospeech.com/>) that aims at algorithms capable of
-unsupervised language learning from speech data.
+Với tư cách là các kết quả ngắn hạn, các mô hình học ngôn ngữ có thể kiểm tra và đề xuất các giả thuyết khác nhau cho các khía cạnh khác nhau của việc học ngôn ngữ. Chúng cũng tạo ra các thuật toán chức năng để xử lý dữ liệu ngôn ngữ âm học hoặc đa phương thức trong các thiết lập tài nguyên thấp, nơi quyền truy cập vào nhãn dữ liệu bị hạn chế (ví dụ: {cite:t}`kakouros20163pro,kamper2017segmental,rasanen2018pre`). Các kết quả dài hạn từ mô hình hóa việc thụ đắc ngôn ngữ đóng góp cho cả khoa học cơ bản và thực tiễn. Về mặt khoa học cơ bản, nghiên cứu cố gắng trả lời câu hỏi về cách một trong những khía cạnh tiên tiến nhất của nhận thức con người, tức là ngôn ngữ, hoạt động. Các mục tiêu thực tiễn dài hạn bao gồm hiểu được tác động của các yếu tố bên ngoài trong sự phát triển ngôn ngữ và cách đảm bảo môi trường hỗ trợ bình đẳng cho trẻ em trong các bối cảnh xã hội khác nhau, hiểu các loại rối loạn liên quan đến ngôn ngữ khác nhau và cách ứng phó tốt nhất với chúng, cũng như cách phát triển các hệ thống AI tự trị có khả năng học tập và hiểu ngôn ngữ giống như con người mà không cần huấn luyện có giám sát, tức là phát triển các hệ thống cuối cùng có khả năng *hiểu được ý đồ và ý nghĩa trong giao tiếp*.
 
-***Models of spoken word recognition**:* Another widely studied topic is
-speech perception in adults. Computational models developed for this
-purpose attempt to explain how the brain processes incoming speech in
-order to recognize words in the input. Models in this area may focus on
-explaining the interaction between sub-word and word-level units in
-perception, on how words compete with each other during the recognition
-process, or, e.g., on how the speech perception is affected by noise in
-native and non-native listeners. Since word recognition is essentially a
-temporal process, particular attention is typically paid to the
-evolution of the recognition process as a function of time (or
-proportion of input word or utterance perceived).  
-    For an overview, see {cite:t}`weber2012models`. For some examples
-of models, see {cite:t}`mcclelland1986trace,magnuson2020earshot,norris1994shortlist`.
+Mô hình hóa tính toán về việc thụ đắc ngôn ngữ sớm có liên quan chặt chẽ với xử lý tiếng nói không cần tài nguyên (zero-resource speech processing, xem <http://www.zerospeech.com/>), nhằm mục đích xây dựng các thuật toán có khả năng học ngôn ngữ không giám sát từ dữ liệu tiếng nói.
 
-***Models of speech production***: This line of research attempts to
-explain how human speech production works in terms of articulators and
-their motor control. Some studies also focus on the acquisition of
-speech production skills. Typical speech production models involve an
-articulatory [speech synthesizer](Speech_Synthesis.md)—an algorithm capable
-of producing audible speech signals by modeling the physical
-characteristics of the vocal apparatus—and some type of motor control
-algorithms that are responsible for phonation and articulator movements.
-Sometimes hearing system is simulated as well. These models have various
-uses from general understanding of the articulatory basis of speech to
-understanding speech pathologies, articulatory learning in childhood or
-adulthood, or special types of sound production such as singing.  
-    For classical and more recent examples of articulatory models of
-speech production, see, e.g., {cite:t}`maeda1988improved,birkholz3d,birkholz2015contribution`. For models of infant learning of speech
-production, see, e.g.,{cite:t}`tourville2011diva,howard2014learning,rasilo2017online`.
+***Các mô hình nhận dạng từ nói***: Một chủ đề được nghiên cứu rộng rãi khác là nhận thức tiếng nói ở người trưởng thành. Các mô hình tính toán được phát triển cho mục đích này cố gắng giải thích cách não bộ xử lý tiếng nói truyền vào để nhận dạng các từ trong đầu vào. Các mô hình trong lĩnh vực này có thể tập trung vào việc giải thích sự tương tác giữa các đơn vị dưới cấp độ từ và cấp độ từ trong nhận thức, cách các từ cạnh tranh với nhau trong quá trình nhận dạng, hoặc cách nhận thức tiếng nói bị ảnh hưởng bởi nhiễu ở người nghe bản ngữ và không phải bản ngữ. Vì nhận dạng từ về cơ bản là một quy trình thời gian, sự chú ý đặc biệt thường được dành cho sự tiến triển của quá trình nhận dạng dưới dạng hàm của thời gian (hoặc tỷ lệ từ hoặc câu thoại đầu vào được nhận biết).
 
-***Multi-agent models of language learning, evolution and
-communication:*** Languages are essentially cultural conventions based
-on social activity, enabled by genetically coded cognitive and
-physiological mechanisms, and learned through interactions between
-people. One branch of computational modeling focuses on understanding
-how languages emerge, evolve, and are learned through multi-agent
-communication and interaction. These simulations, sometimes referred to
-as *language games* or *iterated learning* (see {cite:t}`kirby2002natural`), focus on
-non-linear dynamical systems that result from the interaction of
-multiple communicative computational agents. These agents can be purely
-based on simulation, or they can be based on physical robots interacting
-in a shared  physical environment. By providing the agents with
-different types of innate goals, mechanisms, learning skills and
-environmental conditions, one can study the extent that language-like
-signaling systems (as a social system) or language skills (as subjective
-capabilities) can emerge from such conditions.  
-    For overviews, see {cite:t}`steels1997synthetic,kirby2002natural`.
+Để có cái nhìn tổng quan, xem {cite:t}`weber2012models`. Đối với một số ví dụ về mô hình, xem {cite:t}`mcclelland1986trace,magnuson2020earshot,norris1994shortlist`.
 
-## References and further reading
+***Các mô hình sản sinh tiếng nói***: Hướng nghiên cứu này cố gắng giải thích cách thức sản sinh tiếng nói ở con người hoạt động dưới góc độ các cơ quan cấu âm và sự điều khiển vận động của chúng. Một số nghiên cứu cũng tập trung vào việc thụ đắc các kỹ năng sản sinh tiếng nói. Các mô hình sản sinh tiếng nói điển hình bao gồm một bộ tổng hợp tiếng nói dựa trên cấu âm (articulatory speech synthesizer)—một thuật toán có khả năng tạo ra tín hiệu tiếng nói có thể nghe được bằng cách mô hình hóa các đặc tính vật lý của bộ máy phát âm—và một số thuật toán điều khiển vận động chịu trách nhiệm cho việc phát âm và chuyển động của cơ quan cấu âm. Đôi khi hệ thống thính giác cũng được mô phỏng. Các mô hình này có các ứng dụng khác nhau từ việc hiểu biết tổng quát về cơ sở cấu âm của tiếng nói đến hiểu các bệnh lý về tiếng nói, học cấu âm ở thời thơ ấu hoặc tuổi trưởng thành, hoặc các loại sản sinh âm thanh đặc biệt như ca hát.
+
+Đối với các ví dụ cổ điển và gần đây về mô hình cấu âm của sản sinh tiếng nói, xem ví dụ trong {cite:t}`maeda1988improved,birkholz3d,birkholz2015contribution`. Đối với các mô hình học tập của trẻ sơ sinh về sản sinh tiếng nói, xem ví dụ trong {cite:t}`tourville2011diva,howard2014learning,rasilo2017online`.
+
+***Các mô hình đa tác tử về học tập, tiến hóa và giao tiếp ngôn ngữ***: Ngôn ngữ về cơ bản là các quy ước văn hóa dựa trên hoạt động xã hội, được kích hoạt bởi các cơ chế nhận thức và sinh lý được mã hóa di truyền, và được học thông qua các tương tác giữa con người với nhau. Một nhánh của mô hình hóa tính toán tập trung vào việc tìm hiểu cách ngôn ngữ xuất hiện, tiến hóa và được học thông qua giao tiếp và tương tác giữa nhiều tác tử (multi-agent). Các mô phỏng này, đôi khi được gọi là *trò chơi ngôn ngữ (language games)* hoặc *học tập lặp đi lặp lại (iterated learning)* (xem {cite:t}`kirby2002natural`), tập trung vào các hệ thống động lực phi tuyến tính sinh ra từ sự tương tác của nhiều tác tử tính toán giao tiếp. Các tác tử này có thể hoàn toàn dựa trên mô phỏng, hoặc có thể dựa trên các robot vật lý tương tác trong một môi trường vật lý chung. Bằng cách cung cấp cho các tác tử các loại mục tiêu bẩm sinh, cơ chế, kỹ năng học tập và điều kiện môi trường khác nhau, người ta có thể nghiên cứu mức độ mà các hệ thống tín hiệu dạng ngôn ngữ (như một hệ thống xã hội) hoặc kỹ năng ngôn ngữ (như các năng lực chủ quan) có thể xuất hiện từ các điều kiện đó.
+
+Để biết các bài tổng quan, xem {cite:t}`steels1997synthetic,kirby2002natural`.
+
+## Tài liệu tham khảo và đọc thêm
 
 {cite:empty}`oudeyer2019computational`
 
+Birkholz, P.: VocalTractLab: <http://www.vocaltractlab.de/> \[cho các nghiên cứu về tổng hợp cấu âm\]
 
-Birkholz, P.: VocalTractLab: <http://www.vocaltractlab.de/> \[for work
-on articulatory synthesis\]
-
-Dupoux, E. et al.: Zero Resource Speech Challenge:
-<http://www.zerospeech.com/> \[a challenge on unsupervised speech
-pattern learning\]
-
-  
-
- 
+Dupoux, E. et al.: Zero Resource Speech Challenge: <http://www.zerospeech.com/> \[một thử thách về học mẫu tiếng nói không giám sát\]
 
 ```{bibliography}
 :filter: docname in docnames

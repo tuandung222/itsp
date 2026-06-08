@@ -1,85 +1,24 @@
 (content:enhancement)=
-# Speech enhancement
+# Nâng cao chất lượng tiếng nói (Speech enhancement)
 
-When using speech technology in real environments, we are often faced
-with less than perfect signal quality. For example, if you make a phone
-call at cafeteria, typically you have plenty of other people speaking in
-the background, there could be music playing and the room itself can
-have reverberation. Such effects distort the desired speech signal such
-that the receiving end, the desired speech sounds less pleasant,
-requires more effort to understand or at the worst case, it becomes less
-intelligible. *Speech enhancement* refers to methods which try to reduce
-such distortions, to make speech sounds more pleasant, reduce listening
-effort and improve intelligibility.
+Khi sử dụng công nghệ tiếng nói trong môi trường thực tế, chúng ta thường phải đối mặt với chất lượng tín hiệu không hoàn hảo. Ví dụ, nếu bạn thực hiện một cuộc gọi điện thoại tại quán ăn tự phục vụ (cafeteria), thông thường sẽ có rất nhiều người khác đang nói chuyện ở chế độ nền, có thể có nhạc đang phát và bản thân căn phòng có thể có hiện tượng dội âm (reverberation). Những hiệu ứng như vậy làm biến dạng tín hiệu tiếng nói mong muốn, khiến cho ở đầu thu, tiếng nói nghe kém dễ chịu hơn, đòi hỏi người nghe phải nỗ lực nhiều hơn để hiểu hoặc trong trường hợp xấu nhất, nó trở nên khó hiểu hơn. **Nâng cao chất lượng tiếng nói** (Speech enhancement) đề cập đến các phương pháp cố gắng giảm thiểu các biến dạng đó, làm cho tiếng nói nghe dễ chịu hơn, giảm nỗ lực nghe và cải thiện độ rõ (intelligibility).
 
-The most prominent categories of speech enhancement are:
+Các phân loại nổi bật nhất của nâng cao chất lượng tiếng nói bao gồm:
 
-1.  [Noise attenuation](Enhancement/Noise_attenuation.ipynb), where we try to extract the
-    desired speech signalm when distorted by background noise(s).
-2.  [Echo cancellation](Enhancement/Echo_cancellation.md) and feedback cancellation are
-    used when the sound played from a loudspeaker is picked up by a
-    microphone distorting the desired signal.
-3.  [Bandwidth extensions](Enhancement/Bandwidth_extension_BWE.ipynb) refers to methods
-    which convert a signal at a lower sampling rate to a higher sampling
-    rate and fills the missing range of the spectrum with some plausible
-    content.
-4.  *Dereverberation* refers to methods which attenuate the effect of room
-    acoustics on the desired signal.
-5.  *Source separation* methods try to extract sounds of single sources
-    from a mixture, for example, in the classical cocktail-party
-    problem, we would like to isolate single speakers when multiple
-    people are talking at the same time.
-6.  [Beamforming](Enhancement/Multi-channel_speech_enhancement_and_beamforming.ipynb)
-    refers to spatially selective methods, where the objective is
-    isolate sounds coming from a particular direction, by using the
-    information about the spatial separation of a set of microphones.
-7.  *Active noise cancellation* methods aim to attenuate noises in the 
+1.  **[Giảm tiếng ồn (Noise attenuation)](Enhancement/Noise_attenuation.ipynb):** Nơi chúng ta cố gắng trích xuất tín hiệu tiếng nói mong muốn khi nó bị biến dạng bởi (các) tiếng ồn nền.
+2.  **[Triệt tiêu tiếng vọng (Echo cancellation)](Enhancement/Echo_cancellation.md):** Triệt tiêu tiếng vọng và triệt tiêu phản hồi (feedback cancellation) được sử dụng khi âm thanh phát ra từ loa được micrô thu lại, làm biến dạng tín hiệu mong muốn.
+3.  **[Mở rộng băng tần (Bandwidth extensions)](Enhancement/Bandwidth_extension_BWE.ipynb):** Đề cập đến các phương pháp chuyển đổi tín hiệu ở tần số lấy mẫu thấp hơn sang tần số lấy mẫu cao hơn, đồng thời lấp đầy phần dải phổ bị thiếu bằng nội dung hợp lý.
+4.  **Triệt tiêu dội âm (Dereverberation):** Đề cập đến các phương pháp làm giảm thiểu ảnh hưởng của âm học phòng (room acoustics) lên tín hiệu mong muốn.
+5.  **Phân tách nguồn (Source separation):** Các phương pháp cố gắng trích xuất âm thanh của từng nguồn riêng lẻ từ một hỗn hợp âm thanh phức tạp. Ví dụ, trong bài toán kinh điển "bữa tiệc cocktail" (cocktail-party problem), chúng ta muốn cô lập từng người nói khi có nhiều người đang nói chuyện cùng một lúc.
+6.  **[Tạo búp sóng (Beamforming)](Enhancement/Multi-channel_speech_enhancement_and_beamforming.ipynb):** Đề cập đến các phương pháp chọn lọc không gian (spatially selective methods), trong đó mục tiêu là cô lập các âm thanh đến từ một hướng cụ thể bằng cách sử dụng thông tin về sự phân tách không gian của một tập hợp các micrô.
+7.  **Khử tiếng ồn chủ động (Active noise cancellation):** Các phương pháp nhằm mục đích làm giảm tiếng ồn ngoài môi trường truyền tới tai người nghe.
 
-The objective of speech enhancement however requires a bit more
-consideration. In its most classical form, the objective is to extract a
-clean speech signal from a distorted mixture, where the distortions can
-be background and sensor noises, as well as room reverberation. Here the
-clean reference signal is considered to be that signal which would be
-rerecorded with a microphone close to the speaker, which does not
-contain said noises or reverberation. It is then clear that it will be
-challenging to obtain realistic data, since even a microphone close to
-the speaker will usually contain background noises and effect of
-reverberation. For development of methods, it is therefore often
-difficult to obtain data which would accurately correspond to a
-realistic situation. In any case, a typical objective would be to
-improve the signal to noise ratio (with or without perceptual weighting)
-as much as possible.
+Tuy nhiên, mục tiêu của việc nâng cao chất lượng tiếng nói đòi hỏi chúng ta phải xem xét kỹ lưỡng hơn. Ở dạng cổ điển nhất, mục tiêu là trích xuất một tín hiệu tiếng nói sạch (clean speech signal) từ một hỗn hợp bị biến dạng, nơi các biến dạng có thể là tiếng ồn nền, tiếng ồn của cảm biến thu âm, cũng như hiện tượng dội âm của phòng. Ở đây, tín hiệu tham chiếu sạch được coi là tín hiệu được ghi lại bằng micrô đặt rất sát người nói, vốn không chứa các tiếng ồn hoặc dội âm kể trên. Rõ ràng việc thu thập dữ liệu thực tế như vậy là rất thách thức, vì ngay cả một micrô đặt sát người nói thông thường vẫn thu lẫn tiếng ồn nền và hiệu ứng dội âm. Để phát triển các phương pháp, do đó thường rất khó thu thập dữ liệu phản ánh chính xác các tình huống thực tế. Dù vậy, một mục tiêu điển hình vẫn là cải thiện tỷ lệ tín hiệu trên nhiễu SNR (có hoặc không có trọng số cảm giác) càng nhiều càng tốt.
 
-A more challenging scenario is when two or more persons are speaking in
-the same acoustic environment. The second speaker can then be viewed as
-a competing speaker (undesired source) or as a discussion partner
-(desired source). Even if the two speakers are in an interaction with
-each other, then often they will speak on top of each other, even if
-stereotypically we think of a dialogue as a non-overlapping back and
-forth exchange of non-overlapping arguments. If we want to separate
-between the two speakers, then overlaps are difficult, because the
-statistics of the both speech signals will be rather similar, whereas
-noise signals with distinct statistics are easier to attenuate.
+Một kịch bản thách thức hơn là khi có hai hoặc nhiều người đang nói chuyện trong cùng một môi trường âm học. Người nói thứ hai khi đó có thể được xem như một người nói cạnh tranh (nguồn không mong muốn) hoặc như một đối tác trò chuyện (nguồn mong muốn). Ngay cả khi hai người nói đang tương tác với nhau, họ thường sẽ nói chồng lên nhau, mặc dù theo khuôn mẫu chúng ta thường nghĩ về một cuộc đối thoại như một sự trao đổi qua lại không chồng lấn giữa các lập luận. Nếu chúng ta muốn phân tách giữa hai người nói, thì phần chồng lấn là rất khó xử lý vì các đặc tính thống kê của cả hai tín hiệu tiếng nói sẽ khá tương đồng, trong khi các tín hiệu tiếng ồn có đặc tính thống kê khác biệt thì dễ giảm thiểu hơn nhiều.
 
-Sometimes we do not want to remove all distortions entirely, but just
-attenuate their effect. Completely removing artefacts can sometimes make
-the signal sound unnatural and besides removing distortions, processing
-methods also almost always distorts the desired signal. Therefore, to
-retain a natural-sounding signal and to minimize distortion of the
-desired speech signal, we often limit the extent to which distortions
-are removed. 
+Đôi khi chúng ta không muốn loại bỏ hoàn toàn tất cả các biến dạng, mà chỉ muốn giảm thiểu ảnh hưởng của chúng. Việc loại bỏ hoàn toàn các tạp âm đôi khi có thể làm cho tín hiệu nghe mất tự nhiên, và bên cạnh việc loại bỏ các biến dạng, các phương pháp xử lý hầu như luôn làm méo chính tín hiệu mong muốn. Do đó, để duy trì tín hiệu nghe tự nhiên và giảm thiểu sự méo mó của tín hiệu tiếng nói mong muốn, chúng ta thường giới hạn mức độ loại bỏ các biến dạng. 
 
-A further aspect of enhancement is intelligibility and pleasantness; as
-a starting point, observe that the speech of some people is by nature
-difficult to understand or otherwise just annoying (unpleasant). It then
-conceivable that we device some processing which improves the speech
-signal to better than the original. What "sounds better" is however a
-difficult concept, since we do not have unambiguous measures for "how
-good it sounds" and opinions between listeners will certainly diverge.
+Một khía cạnh khác của việc nâng cao chất lượng là độ rõ (intelligibility) và độ dễ chịu (pleasantness). Hãy bắt đầu bằng quan sát rằng giọng nói của một số người bẩm sinh đã khó hiểu hoặc gây khó chịu cho người nghe. Khi đó, ta có thể thiết kế các quá trình xử lý giúp cải thiện tín hiệu tiếng nói tốt hơn cả tín hiệu gốc. Tuy nhiên, thế nào là "nghe tốt hơn" là một khái niệm phức tạp, vì chúng ta không có các độ đo rõ ràng cho việc "nó nghe tốt như thế nào", và ý kiến giữa các người nghe chắc chắn sẽ có sự khác biệt.
 
-Intelligibility with regard to human listeners is similarly complicated
-as pleasantness, but luckily, we can use speech recognition engines to
-obtain objective measures. That is, if we give noisy and improved speech
-signals to a speech recognizer, we can determine the recognition
-performance in both cases to estimate the benefit obtained with our
-processing.
+Độ rõ đối với người nghe cũng phức tạp tương tự như độ dễ chịu, nhưng may mắn là chúng ta có thể sử dụng các bộ nhận dạng tiếng nói (speech recognition engines) để thu được các độ đo khách quan. Cụ thể, nếu chúng ta đưa tín hiệu tiếng nói bị nhiễu và tín hiệu sau khi đã được nâng cao chất lượng vào bộ nhận dạng tiếng nói, chúng ta có thể so sánh hiệu suất nhận dạng trong cả hai trường hợp để ước lượng lợi ích thu được từ việc xử lý của mình.

@@ -20,7 +20,7 @@ html_sourcelink_suffix = ''
 html_theme = 'sphinx_book_theme'
 html_theme_options = {'search_bar_text': 'Search this book...', 'launch_buttons': {'notebook_interface': 'jupyterlab', 'binderhub_url': 'https://mybinder.org', 'jupyterhub_url': '', 'thebe': False, 'colab_url': 'https://colab.research.google.com'}, 'path_to_docs': '', 'repository_url': 'https://github.com/Speech-Interaction-Technology-Aalto-U/itsp', 'repository_branch': 'master', 'extra_footer': '<p>\n<img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" style="border-width: 0;" alt="Creative Commons License" />\nThis work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.    \n</p>\n', 'home_page_in_toc': True, 'announcement': '', 'analytics': {'google_analytics_id': ''}, 'use_repository_button': False, 'use_edit_page_button': False, 'use_issues_button': False}
 html_title = 'Introduction to Speech Processing'
-language = 'en'
+language = 'vi'
 latex_engine = 'pdflatex'
 myst_enable_extensions = ['amsmath', 'colon_fence', 'dollarmath', 'linkify', 'substitution', 'tasklist']
 myst_url_schemes = ['mailto', 'http', 'https']

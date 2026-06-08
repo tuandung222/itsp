@@ -1,59 +1,24 @@
-# Deltas and Delta-deltas
+# Delta và Delta-delta
 
 
-In [recognition tasks](content:recotasks), such as
-phoneme recognition or voice activity detection, a classic input feature
-are the [mel-frequency cepstral coefficients](content:mfcc)
-(MFCCs). They describes the instantaneous, spectral envelope shape of
-the speech signal. However, speech signals are time-variant signals and
-in a constant flux. Though we describe speech in linguistics as
-concatenated sequences of phonemes, the acoustical signal is more
-accurately described as a sequence of transitions between phonemes.
+Trong [các tác vụ nhận dạng](content:recotasks), chẳng hạn như nhận dạng âm tố (phoneme recognition) hoặc phát hiện hoạt động tiếng nói (voice activity detection), một đặc trưng đầu vào kinh điển là [hệ số cepstrum tần số mel](content:mfcc) (MFCC). Chúng mô tả hình dạng bao phổ tức thời của tín hiệu tiếng nói. Tuy nhiên, tín hiệu tiếng nói là tín hiệu biến đổi theo thời gian và luôn ở trạng thái biến động liên tục. Mặc dù trong ngôn ngữ học, ta mô tả tiếng nói như các chuỗi âm tố được nối tiếp nhau, tín hiệu âm thanh thực tế được mô tả chính xác hơn như một chuỗi các quá trình chuyển tiếp giữa các âm tố.
 
-The same observation applies to other features of speech like the
-[fundamental frequency (F0)](content:f0), which describes
-an instantaneous value. However, it is often more informative to analyse
-the overall shape of the F0 track, than the absolute value. For example
-emphasis in a sentence is often encoded with a distinct high-low
-contrast in F0 and questions have in many languages a characteristic
-low-high F0 contour.
+Nhận xét tương tự cũng áp dụng cho các đặc trưng khác của tiếng nói như [tần số cơ bản (F0)](content:f0), vốn mô tả một giá trị tức thời. Tuy nhiên, việc phân tích hình dạng tổng quát của đường F0 thường mang lại nhiều thông tin hơn so với giá trị tuyệt đối. Ví dụ, sự nhấn mạnh trong câu thường được mã hóa bằng sự tương phản cao-thấp rõ rệt trong F0, và câu hỏi trong nhiều ngôn ngữ có đường cong F0 đặc trưng dạng thấp-cao.
 
-A common method for extracting information about such transitions is to
-determine the first difference of signal features, known as the *delta*
-of a feature. Specifically, for a feature $f_k$, at
-time-instant *k*, the corresponding delta is defined as
+Một phương pháp phổ biến để trích xuất thông tin về các quá trình chuyển tiếp này là xác định sai phân bậc nhất của các đặc trưng tín hiệu, gọi là *delta* của một đặc trưng. Cụ thể, đối với đặc trưng $f_k$ tại thời điểm *k*, delta tương ứng được định nghĩa là
 
 $$ \Delta_k = f_k - f_{k-1}. $$
 
-The second difference, known as the delta-delta, is correspondingly
+Sai phân bậc hai, hay delta-delta, được định nghĩa tương ứng là
 
 $$ \Delta\Delta_k = \Delta_k - \Delta_{k-1}. $$
 
-Common short-hand notations for the deltas and delta-deltas are,
-respectively, $ \Delta $ and $ \Delta\Delta $ -features.
-Features in a recognition engine are then typically appended by their
-$ \Delta $ and $ \Delta\Delta $ -features to triple the
-number of features with a very small computational overhead.
+Các ký hiệu viết tắt phổ biến cho delta và delta-delta lần lượt là $ \Delta $ và $ \Delta\Delta $. Các đặc trưng trong một hệ thống nhận dạng thường được bổ sung thêm các đặc trưng $ \Delta $ và $ \Delta\Delta $ để tăng gấp ba lần số lượng đặc trưng với chi phí tính toán rất nhỏ.
 
-A trivial observation/interpretation of the delta and delta-delta
-features is that they approximate first and second derivatives of the
-signal. As estimates of the derivatives, they are not particularly
-accurate, but their simplicity probably makes up for that. The issue
-with accuracy is that differentiators tend to amplify white noise,
-whereas the desired signal remains unchanged. Consequently, the output
-is more noisy than the original signal. Differentiation is applied twice
-in the delta-delta feature such that issues with noise are also
-accumulated.
+Một nhận xét/cách diễn giải hiển nhiên về các đặc trưng delta và delta-delta là chúng xấp xỉ đạo hàm bậc nhất và bậc hai của tín hiệu. Với tư cách là các ước lượng đạo hàm, chúng không đặc biệt chính xác, nhưng tính đơn giản có lẽ bù đắp cho điều đó. Vấn đề về độ chính xác là các bộ vi phân (differentiator) có xu hướng khuếch đại nhiễu trắng, trong khi tín hiệu mong muốn không thay đổi. Do đó, tín hiệu đầu ra nhiễu hơn tín hiệu gốc. Phép vi phân được áp dụng hai lần trong đặc trưng delta-delta nên các vấn đề về nhiễu cũng bị tích lũy.
 
-Note that the delta-features are linear transforms of the input
-features, such that if they are combined with a linear layer in a
-subsequent neural network, then in principle, the two consecutive linear
-layers are redundant. However, using delta-features can still provide a
-benefit in convergence.
+Lưu ý rằng các đặc trưng delta là các phép biến đổi tuyến tính của các đặc trưng đầu vào, do đó nếu chúng được kết hợp với một lớp tuyến tính trong mạng nơ-ron tiếp theo, thì về nguyên tắc, hai lớp tuyến tính liên tiếp là dư thừa. Tuy nhiên, việc sử dụng đặc trưng delta vẫn có thể mang lại lợi ích trong quá trình hội tụ.
 
-In any case, delta- and delta-delta features are a classic component of
-machine learning algorithms. They are successful because they are very
-simple to calculate and provide often a clear benefit over the
-instantaneous features.
+Trong mọi trường hợp, các đặc trưng delta và delta-delta là một thành phần kinh điển của các thuật toán học máy. Chúng thành công vì rất đơn giản để tính toán và thường mang lại lợi ích rõ rệt so với các đặc trưng tức thời.
 
   

@@ -1,134 +1,69 @@
 (content:otherperformance)=
-# Other performance measures
+# Các tiêu chí hiệu suất khác
 
-## Computational Complexity
+## Độ phức tạp tính toán
 
-On an application level, speech processing algorithms are usually used
-on low-resource devices like mobile phones. Mobile devices have limited
-computational capabilities, so it
-is important to design efficient algorithms for them to preserve their battery. There are multiple
-ways of analyzing the computational complexity of an algorithm depending
-on the stage of the design process or the purpose of the final
-application:
+Ở cấp độ ứng dụng, các thuật toán xử lý tiếng nói thường được triển khai trên các thiết bị hạn chế tài nguyên như điện thoại di động. Các thiết bị di động có năng lực tính toán hạn chế, do đó việc thiết kế các thuật toán hiệu quả là rất quan trọng để tiết kiệm pin. Có nhiều cách khác nhau để phân tích độ phức tạp tính toán của một thuật toán, tùy thuộc vào giai đoạn thiết kế hoặc mục đích của ứng dụng thực tế:
 
-  
+### Ký hiệu O-lớn (Big-O)
 
-### Big-O notation:
+Độ phức tạp của một thuật toán thường được hiểu là thước đo lượng thời gian cần thiết để thuật toán hoàn thành với đầu vào có kích thước $n$. Khi kích thước đầu vào tăng lên, thời gian tính toán vẫn cần phải nằm trong một giới hạn thực tế. Vì lý do này, độ phức tạp được đo dưới dạng tiệm cận khi $n$ tiến tới vô cùng. Cách biểu diễn phổ biến nhất của độ phức tạp thuật toán là ký hiệu O-lớn (Big-O notation). Ký hiệu O-lớn cung cấp một giới hạn trên cho tốc độ tăng trưởng thời gian tính toán của một thuật toán. Điều này đặc biệt hữu ích vì ký hiệu này cho phép chúng ta so sánh các thuật toán trong các tình huống xấu nhất (worst-case scenarios). Hình 1 minh họa tốc độ tăng trưởng của các ký hiệu O-lớn khác nhau đối với kích thước đầu vào.
 
-  
+Ví dụ, độ phức tạp $O(n)$, đọc là "độ phức tạp O của n", đại diện cho một thuật toán có thời gian tính toán tăng tuyến tính với kích thước đầu vào. Dưới đây là một số ví dụ cho từng loại độ phức tạp:
 
-The complexity of an algorithm is usually understood as a measurement of
-the time that an algorithm would take to complete, given an input of
-size n. When the input size grows, the computing time should
-remain within a practical bound. For this reason, complexity is measured
-asymptotically as n approaches infinity. The most popular representation
-of algorithmic complexity is the Big-O notation. The Big-O notation
-gives an upper bound to the growth of the computing time of an
-algorithm. This proves especially useful because this notation allows
-us to compare algorithms in worst-case scenarios. Figure 1 shows the
-growth rate of different Big-O notations with respect to the input size.
-
-For example, a complexity of O(n), read as "O n complexity', represents
-an algorithm whose computation time grows linearly with the input size.
-Some examples of every type of complexity are:
-
-  
-
--   O(1) - The computation time does not grow with the size of the
-    input:  
-    -   Accessing an array index (a = array\[4\]).  
+-   $O(1)$ - Thời gian tính toán không tăng theo kích thước đầu vào:
+    -   Truy cập một phần tử trong mảng qua chỉ số (`a = array[4]`).
           
--   O(log n) - The computation time grows with the logarithm of the
-    input size:
-    -   Binary Search algorithms.  
+-   $O(\log n)$ - Thời gian tính toán tăng theo logarit của kích thước đầu vào:
+    -   Thuật toán tìm kiếm nhị phân (Binary Search).
           
--   O(n) - The computation time grows linearly with the input size:
-    -   Traversing an array.
-    -   Comparing two strings.  
+-   $O(n)$ - Thời gian tính toán tăng tuyến tính theo kích thước đầu vào:
+    -   Duyệt qua một mảng.
+    -   So sánh hai chuỗi ký tự.
           
--   O(n<sup>2</sup>) - The computation time grows with the square of the
-    input size:
-    -   Matrix operations like traversing a 2D array or multiplying a 1D
-        array with a 2D matrix.
-    -   Conventional Discrete Fourier Transform (Matrix
-        multiplication).  
+-   $O(n^2)$ - Thời gian tính toán tăng theo bình phương của kích thước đầu vào:
+    -   Các phép toán ma trận như duyệt qua mảng hai chiều hoặc nhân mảng một chiều với ma trận hai chiều.
+    -   Biến đổi Fourier rời rạc thông thường (phép nhân ma trận).
           
--   O(n log n) - The "log n" term is added when O(n<sup>2</sup>)
-    algorithms are performed with divide-and-conquer techniques to
-    increase their efficiency.
-    -   Fast Fourier Transform.  
+-   $O(n \log n)$ - Thành phần "$\log n$" được thêm vào khi các thuật toán $O(n^2)$ được thực hiện bằng các kỹ thuật chia để trị (divide-and-conquer) nhằm tăng hiệu suất của chúng.
+    -   Biến đổi Fourier nhanh (FFT).
           
--   O(2<sup>n</sup>) - The computation time doubles with each addition
-    to the input data, therefore it grows exponentially:
-    -   Recursive algorithms → To solve a problem of size N, it is
-        necessary to solve two problems of size N - 1.  
+-   $O(2^n)$ - Thời gian tính toán tăng gấp đôi sau mỗi lần thêm dữ liệu đầu vào, do đó tăng theo cấp số nhân (exponentially):
+    -   Các thuật toán đệ quy $\rightarrow$ Để giải một bài toán kích thước $N$, cần phải giải hai bài toán kích thước $N - 1$.
           
--   O(n!) - Factorial growth represents algorithms that grow even faster
-    than exponential examples:
-    -   Finding all the possible permutations of a list.
+-   $O(n!)$ - Tốc độ tăng trưởng giai thừa đại diện cho các thuật toán tăng thậm chí còn nhanh hơn cả các ví dụ hàm mũ:
+    -   Tìm tất cả các hoán vị có thể có của một danh sách.
 
-  
+### Triệu phép tính có trọng số trên giây (WMOPS)
+[ITU-T. Software tool library: User’s manual, 2009](https://www.itu.int/rec/T-REC-G.191-200911-S/en)
 
-  
+Ký hiệu O-lớn mang lại cho chúng ta khái niệm trực quan về độ phức tạp của các thuật toán cụ thể. Điều này giúp chúng ta so sánh và chọn lựa thuật toán hiệu quả nhất để sử dụng. Tuy nhiên, trong các ứng dụng như mã hóa tiếng nói (speech coding), việc biết chính xác số lượng phép tính mà hệ thống cần thực hiện để xử lý mỗi khung âm thanh (audio frame) là cực kỳ quan trọng.
 
-### Weighted Million Operations Per Second (WMOPS),  [ ITU-T. Software tool library: User’s manual, 2009 ](https://www.itu.int/rec/T-REC-G.191-200911-S/en)
+Liên minh Viễn thông Quốc tế (ITU-T) cung cấp các hướng dẫn để đo lường số lượng phép tính trong một chương trình. Phép đo này tính đến thực tế là không phải tất cả các phép tính đều có tải trọng tính toán như nhau và thực hiện gán trọng số tương ứng cho các giá trị của chúng. Ví dụ, phép tính logarit nặng hơn rất nhiều so với phép cộng. Kết quả cuối cùng được biểu diễn dưới dạng Triệu phép tính có trọng số trên giây (Weighted Million Operations Per Second - WMOPS). Bảng 1 trình bày trọng số được sử dụng cho từng phép tính cụ thể.
 
-  
-
-The Big-O notations give us an intuitive idea of the complexity of
-specific algorithms. This allows us to compare which algorithm to use
-and choose the most efficient option. However, in applications like
-speech coding, it is important to know the exact number of operations
-the system needs to perform to process each audio frame.
-
-The ITU-T provides guidelines to measure the number of operations in a
-program. This measurement considers that not all the operations
-have the same computational load and scales their values accordingly.
-For example, a logarithm is a much heavier operation than an addition.
-The final result is represented as Weighed Million Operations Per Second
-(WMOPS). Table 1 shows the weights used for each specific operation
-carried out.
-
-  
-
-  
-
-  
-
-  
 ![bigo](attachments/175510471.png)
 
-**Figure 1:** Evolution of computation time for multiple Big-O notations
-dependent on the input size.
+**Hình 1:** Sự tiến triển của thời gian tính toán đối với các ký hiệu O-lớn khác nhau phụ thuộc vào kích thước đầu vào.
 
-  
-
-  
-
-
-  
-
-|                           |                                |                                           |
+| Phép tính | Ví dụ | Trọng số |
 |:----------------------:|:------------------------:|:---------------------:|
-|         Operation         |            Example             |                  Weight                   |
-|         Addition          |           a = b + c            |                     1                     |
-|      Multiplication       |           a = b ∗ c            |                     1                     |
-| Multiplication + addition |           a+ = b ∗ c           |                     1                     |
-|           Move            |             a = b              |                     1                     |
-|      Store in array       |    a\[i\] = b\[i\] + c\[i\]    |                     1                     |
-|          Logical          |         AND, OR, etc.          |                     1                     |
-|           Shift           |          a = b \>\> c          |                     1                     |
-|          Branch           |         if, if...else          |                     4                     |
-|         Division          |            a = b/c             |                    18                     |
-|        Square-root        |          a = sqrt(b)           |                    10                     |
-|      Transcendental       |       sine, arctan, etc.       |                    25                     |
-|       Function call       |       a = func(b, c, d)        | 2 + number of arguments passed and returned |
-|    Loop initialization    |           for(i=0;i            |                     3                     |
-|    Indirect addressing    |            a = b.c             |                     2                     |
-|  Pointer initialization   |             a\[i\]             |                     1                     |
-|        Exponential        |            pow, en             |                    25                     |
-|         Logarithm         |              log               |                    25                     |
-|     Conditional test      | used in conjunction with BRANCH |                     2                     |
+| Phép cộng | a = b + c | 1 |
+| Phép nhân | a = b ∗ c | 1 |
+| Nhân + Cộng | a+ = b ∗ c | 1 |
+| Gán giá trị | a = b | 1 |
+| Lưu vào mảng | a\[i\] = b\[i\] + c\[i\] | 1 |
+| Phép toán logic | AND, OR, v.v. | 1 |
+| Phép dịch bit | a = b \>\> c | 1 |
+| Phép rẽ nhánh | if, if...else | 4 |
+| Phép chia | a = b/c | 18 |
+| Căn bậc hai | a = sqrt(b) | 10 |
+| Hàm siêu việt | sine, arctan, v.v. | 25 |
+| Gọi hàm | a = func(b, c, d) | 2 + số lượng đối số truyền vào và trả về |
+| Khởi tạo vòng lặp | for(i=0;i... | 3 |
+| Trỏ gián tiếp | a = b.c | 2 |
+| Khởi tạo con trỏ | a\[i\] | 1 |
+| Hàm mũ | pow, en | 25 |
+| Logarit | log | 25 |
+| Kiểm tra điều kiện | được sử dụng kết hợp với BRANCH | 2 |
 
-**Table 1:** Operations accounted by the WMOPS tool and their relative
-weight.
+**Bảng 1:** Các phép tính được công cụ WMOPS tính đến và trọng số tương đối của chúng.

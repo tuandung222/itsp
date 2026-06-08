@@ -1,8 +1,8 @@
-# Pre-processing
+# Tiền xử lý
 
-1.  [Pre-emphasis](Preprocessing/Pre-emphasis)
-2. [Noise gate](https://en.wikipedia.org/wiki/Noise_gate) (Wikipedia)
-3. [Dynamic Range Compression](https://en.wikipedia.org/wiki/Dynamic_range_compression) (Wikipedia)
-2.  [Voice activity detection (VAD)](content:vad)
-3.  Vocal tract length normalization
-4.  [Speech enhancement](Speech_enhancement)
+1.  [Nhấn mạnh trước](Preprocessing/Pre-emphasis)
+2. [Cổng nhiễu](https://en.wikipedia.org/wiki/Noise_gate) (Wikipedia)
+3. [Nén dải động](https://en.wikipedia.org/wiki/Dynamic_range_compression) (Wikipedia)
+2.  [Phát hiện hoạt động tiếng nói (VAD)](content:vad)
+3.  Chuẩn hóa chiều dài đường dẫn âm
+4.  [Nâng cao chất lượng tiếng nói](Speech_enhancement)

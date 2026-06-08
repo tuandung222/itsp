@@ -1,279 +1,100 @@
-# Echo cancellation
+# Triệt tiếng vọng (Echo cancellation)
 
-A frequently occurring distortion in speech telecommunication scenarios
-is echoes, which have either an electric or acoustic cause. Electric
-echoes appear in analogue networks at points of impedance mismatch.
-Since a majority of telecommunication networks today are digital, such
-electric echoes are mostly of historical interest and not discussed here
-further. Acoustic echoes however is a problem which has become more 
-important, especially with the increasing use of teleconferencing
-services. Such acoustic echoes appear when the speech of a person A is
-played through the loudspeakers for a person B, such that the
-loudspeaker sound is picked up by the microphone of person B and
-transmitted back to person A. If the delay would be mere milliseconds,
-then person A would perceive the feedback signal as reverberation, which
-is *not* too disturbing (in some circumstances such an effect, known as
-*side-talk*, could actually be a useful feature indicating that the
-microphone is recording). However, typically the transmission delay is
-above 100ms, such that the feedback is perceived as an echo, which is
-usually highly disconcerting and disturbing. Even worse, sometimes the
-acoustic echo signal completes the feedback loop and goes in a circle,
-again and again. If the feedback signal is attenuated on each loop, then
-the feedback slowly diminishes, but sometimes the feedback loop can
-amplify the signal such that the signal quickly escalates up to the
-physical limit of hardware or until the loudspeakers blow up. It is thus
-clear that echoes must be avoided in real-life systems.
+Một dạng biến dạng thường xuyên xảy ra trong các kịch bản viễn thông thoại là tiếng vọng (echo), xuất phát từ nguyên nhân điện học hoặc âm học. Tiếng vọng điện học (electric echo) xuất hiện trong các mạng tương tự (analogue) tại những điểm không tương thích trở kháng (impedance mismatch). Do phần lớn các mạng viễn thông ngày nay đã được số hóa, các tiếng vọng điện học này chủ yếu mang tính chất lịch sử và không được thảo luận thêm ở đây. Ngược lại, tiếng vọng âm học (acoustic echo) là một vấn đề ngày càng trở nên quan trọng, đặc biệt là với sự gia tăng của các dịch vụ hội nghị truyền hình (teleconferencing). Tiếng vọng âm học xuất hiện khi tiếng nói của người A được phát qua loa cho người B nghe, khiến âm thanh từ loa này bị micrô của người B thu lại và truyền ngược về cho người A. Nếu độ trễ chỉ ở mức vài mili giây, người A sẽ cảm nhận tín hiệu phản hồi này như một hiệu ứng vang (reverberation) và *không* quá khó chịu (trong một số trường hợp, hiệu ứng này—được gọi là *side-talk* hay tự âm—thậm chí còn là một tính năng hữu ích cho biết micrô đang ghi âm). Tuy nhiên, thông thường độ trễ truyền dẫn vượt quá 100 ms, khiến tín hiệu phản hồi được cảm nhận rõ ràng là một tiếng vọng, gây khó chịu và gián đoạn cuộc hội thoại. Tệ hơn nữa, đôi khi tín hiệu vọng âm học này tạo thành một vòng lặp phản hồi kín (feedback loop) và chạy tuần hoàn liên tục. Nếu tín hiệu phản hồi bị suy hao sau mỗi vòng lặp, tiếng vọng sẽ giảm dần và tắt đi; nhưng nếu vòng phản hồi khuếch đại tín hiệu, nó có thể nhanh chóng leo thang đến giới hạn vật lý của phần cứng hoặc làm hỏng loa. Do đó, việc triệt tiêu tiếng vọng là yêu cầu bắt buộc trong các hệ thống truyền thông thực tế.
 
-Fortunately, *echo cancellation* is well-understood problem with
-"standard" solutions available. In short, these methods are based on
-estimating the acoustic room-impulse-response (RIR), filtering the
-loudspeaker signal with the RIR to obtain an estimate of the acoustic
-echo, and subtracting the estimated echo from the microphone signal.
-Though it is a classic problem with off-the-shelf solutions available,
-it remains a difficult problem. Central difficulties include:
+May mắn thay, *triệt tiếng vọng* (echo cancellation) là một bài toán đã được nghiên cứu kỹ lưỡng với các giải pháp chuẩn hóa sẵn có. Nói một cách ngắn gọn, các phương pháp này dựa trên việc ước lượng đáp ứng xung phòng âm học (Room Impulse Response - RIR), lọc tín hiệu loa bằng RIR ước lượng để dự đoán tiếng vọng âm học, và trừ đi tiếng vọng ước lượng này khỏi tín hiệu thu được tại micrô. Mặc dù đây là một bài toán kinh điển đã có các giải pháp thương mại, nó vẫn ẩn chứa nhiều thách thức lớn, bao gồm:
 
--   The RIR is not stationary and must therefore be estimated on-line as
-    an *adaptive filter*. The RIR changes whenever a door or window is
-    opened or closed, furniture are moved or people move within the
-    room, and even when the temperature of the room changes. Changes are
-    even more rapid when using mobile, handheld or wearable devices,
-    when the location of the device can change rapidly. In the worst
-    case, the microphone and loudspeaker can be on different devices
-    such that their acoustic distance can change rapidly.
--   When the RIR has a long tail, that is, when the room has a long
-    reverberation, then the corresponding filters must be long, which
-    increases *computational complexity*. Fast adaptation to changing
-    RIRs also increases computational requirements.
+-   RIR không phải là một đặc trưng dừng (stationary) và do đó phải được ước lượng trực tuyến (on-line) thông qua một *bộ lọc thích ứng* (adaptive filter). RIR thay đổi bất cứ khi nào cửa ra vào hoặc cửa sổ được đóng/mở, bàn ghế dịch chuyển, con người di chuyển trong phòng, hoặc thậm chí khi nhiệt độ phòng thay đổi. Sự thay đổi này còn diễn ra nhanh hơn đối với các thiết bị di động, cầm tay hoặc thiết bị đeo, nơi vị trí của thiết bị có thể thay đổi liên tục. Trong trường hợp xấu nhất, micrô và loa nằm trên hai thiết bị khác nhau, khiến khoảng cách âm học giữa chúng biến đổi không ngừng.
+-   Khi RIR có đuôi dài (tức là phòng có thời gian âm vang dài), các bộ lọc tương ứng phải có bậc rất lớn, làm tăng đáng kể *độ phức tạp tính toán* (computational complexity). Yêu cầu thích ứng nhanh với sự thay đổi của RIR cũng đòi hỏi tài nguyên tính toán cao hơn.
 
-Observe that echo *cancellation* methods refer to *subtracting* the
-estimated echo from the microphone signal. In contrast, [noise
-attenuation](Noise_attenuation) methods *multiply* the microphone
-signal with a positive scalar, such that the output signal approximates
-the echo-free signal. The essential difference is that multiplicative
-methods generally estimate only the energy/magnitude of the signal,
-while subtractive methods try to match both magnitude and phase. The
-benefit of subtractive methods is that the output quality is generally
-better since the removal-method matches the physical process which
-creates the signal. Multiplicative methods however are much more robust
-than subtractive methods; in particular, if the phase is incorrectly
-estimated, then a subtractive method can *increase* the amount of noise
-in a signal. In the worst case, an echo canceller poorly matched to the
-room response can generate a catastrophic feedback loop, whereas
-multiplicative methods can be designed to never increase the amount of
-noise.
+Cần lưu ý rằng các phương pháp *triệt* tiếng vọng (echo *cancellation*) thực hiện phép *trừ* tiếng vọng ước lượng khỏi tín hiệu micrô. Ngược lại, các phương pháp [suy giảm nhiễu](Noise_attenuation) (noise attenuation) thực hiện phép *nhân* tín hiệu micrô với một đại lượng vô hướng dương, sao cho tín hiệu đầu ra tiệm cận với tín hiệu sạch không có tiếng vọng. Sự khác biệt cốt lõi là các phương pháp nhân thường chỉ ước lượng năng lượng/biên độ của tín hiệu, trong khi các phương pháp trừ cố gắng khớp cả biên độ lẫn pha. Ưu điểm của các phương pháp trừ là chất lượng âm thanh đầu ra thường tốt hơn, vì cơ chế loại bỏ mô phỏng chính xác quá trình vật lý tạo ra tín hiệu. Tuy nhiên, các phương pháp nhân lại tỏ ra mạnh mẽ (robust) hơn nhiều; cụ thể, nếu pha bị ước lượng sai, phương pháp trừ có thể làm *tăng* mức độ nhiễu trong tín hiệu. Trong trường hợp xấu nhất, bộ triệt tiếng vọng không khớp tốt với đáp ứng phòng có thể gây ra vòng phản hồi thảm họa, trong khi các phương pháp nhân có thể được thiết kế để không bao giờ làm tăng năng lượng nhiễu.
 
-*Echo suppression* methods use this insight to remove acoustic echo with
-a multiplicative method similar to that of spectral subtraction or
-Wiener filtering used in noise attenuation.
+Các phương pháp *nén tiếng vọng* (echo suppression) tận dụng đặc điểm này để loại bỏ tiếng vọng âm học bằng phương pháp nhân, tương tự như phương pháp trừ phổ (spectral subtraction) hoặc bộ lọc Wiener được sử dụng trong suy giảm nhiễu.
 
-## Echo cancellation solutions
+## Các giải pháp triệt tiếng vọng
 
-As it is mentioned above, the problem that echo cancellation needs to
-solve is the effect of the room in the path from a loudspeaker to the
-microphone used in the communication. This means that the signal played
-by the loudspeaker enters the system with a certain delay and multiple
-echo paths (Room impulse response). From now on, we will refer to the
-received signal played by the loudspeaker as far-end (*x(n)*), and the
-useful speech signal from the user will be called near-end signal
-(*s(n)*). The mixture recorded by the microphone that would be sent to
-the other end of the call can be represented as:
-
-  
+Như đã đề cập ở trên, bài toán mà triệt tiếng vọng cần giải quyết là loại bỏ ảnh hưởng của phòng trên đường truyền từ loa đến micrô. Điều này có nghĩa là tín hiệu phát ra từ loa sẽ đi vào hệ thống với một độ trễ nhất định và thông qua nhiều đường phản xạ khác nhau (đáp ứng xung phòng - RIR). Từ đây, chúng tôi gọi tín hiệu nhận được phát ra từ loa là tín hiệu đầu xa (far-end, $x(n)$), và tín hiệu tiếng nói hữu ích từ người dùng tại chỗ là tín hiệu đầu gần (near-end, $s(n)$). Hỗn hợp âm thanh ghi lại bởi micrô để gửi đến đầu kia của cuộc gọi được biểu diễn như sau:
 
 $$ d(n) = s(n) + h(n)*x(n) + v(n) $$
 
-  
+trong đó $v(n)$ đại diện cho nhiễu cộng tính trong phòng và để đơn giản, sẽ được coi là một phần của $s(n)$. Ảnh hưởng của phòng đối với tín hiệu đầu xa được mô hình hóa bằng một bộ lọc FIR $h(n)$, tác động lên tín hiệu đầu xa thông qua phép tích chập (convolution). Ý tưởng của triệt tiếng vọng là tìm một ước lượng của bộ lọc FIR này, áp dụng nó lên tín hiệu đầu xa nhận được, rồi trừ kết quả đó khỏi tín hiệu micrô $d(n)$ để trích xuất tín hiệu đầu gần hữu ích.
 
-  
+Việc ước lượng mô hình đường tiếng vọng được thực hiện bằng cách *tối thiểu hóa sai số bình phương trung bình* (Minimum Mean Square Error - MMSE) giữa tín hiệu ghi được và tín hiệu đầu xa đã qua lọc ước lượng, giả định rằng không có sự hiện diện của tín hiệu đầu gần $s(n)$. Tuy nhiên, việc chỉ thực hiện một lần ước lượng cố định là bất khả thi do các yếu tố sau:
 
-where *v(n)* represents additive noise in the scene and, for simplicity,
-will be considered part of *s(n)*. The effect of the room on the far-end
-signal can be modelled as an FIR filter *h(n)*, added to the far-end
-signal using a convolution. The idea of echo cancellation is to find an
-estimation of this FIR filter, and applying it to the received far-end
-signal, we can then subtract it from *d(n)* to extract the useful
-near-end signal.
+1.  Đường tiếng vọng chưa được biết trước khi bắt đầu cuộc hội thoại; ngoài ra, bất kỳ sự thay đổi nào trong đáp ứng phòng cũng có thể phá hỏng hoàn toàn kết quả ước lượng trước đó.
+2.  Tính phi dừng (non-stationarity) của tín hiệu tiếng nói khiến việc ước lượng đáp ứng tiếng vọng trở thành một tác vụ cực kỳ phức tạp.
+3.  Rất có thể tín hiệu đầu gần $s(n)$ xuất hiện đồng thời trong tín hiệu micrô ghi được, làm sai lệch quá trình ước lượng (hiện tượng nói đồng thời - Double-talk).
 
-The estimation of the echo path model is done by *minimizing* the *mean
-square error* (MMSE) between the recorded signal and the estimated
-filtered far-end, assuming that s(n) is not present. However, only one
-estimation is not possible due to multiple factors.
+Ba vấn đề này đòi hỏi hệ thống phải liên tục giám sát chất lượng ước lượng và cập nhật bộ lọc định kỳ để phản ánh chính xác đường tiếng vọng thực tế. Vì lý do đó, phương pháp MMSE phải được tính toán lặp (iterative) khi chúng ta nhận thêm thông tin từ tín hiệu đầu xa và tín hiệu micrô. Thuật toán phổ biến nhất để tính toán bộ lọc thích ứng này là thuật toán bình phương trung bình tối thiểu (Least Mean Squares - LMS) và các biến thể của nó. Hàm mục tiêu cần tối thiểu hóa là:
 
-1.  The echo path is unknown at the beginning of the communication,
-    additionally, any changes in the echo path can be catastrophic in
-    the estimation.
-2.  The non-stationariety of the speech signal makes the estimation of
-    the echo path a complex task.
-3.  It is very likely that *s(n)* is present in the recorded signal,
-    causing the estimation to be flawed (Double-talk).
+$$ MMSE = \min \|d(n) - \hat{h}(n)*x(n)\|^2 $$
 
-These three issues require a continuous monitoring of the quality of the
-estimation and the filter must be periodically updated in order to
-accurately represent the echo path. For that reason the MMSE method must
-be calculated iteratively as we receive more information from the
-far-end and recorded signals. The most popular algorithm to calculate
-this adaptive filter is Least Mean Squares (LMS) and its multiple
-variants. The expression to minimise is:
+Mục tiêu là tìm các hệ số của bộ lọc ước lượng sao cho tối thiểu hóa phương trình trên. Thuật toán LMS lặp được sử dụng để cập nhật bộ lọc có thể chia thành ba bước đơn giản như sau:
 
-  
-
-$$ MMSE = min \|d(n) - \hat{h}(n)*x(n)\|^2 $$
-
-  
-
-  
-
-The objective is to find the coefficients of the estimated filter that
-minimise the previous equation, and a simple depiction of the iterative
-LMS algorithm used to update the filter can be divided in three steps:
-
--   Estimate the recorded echo signal:
-
-  
+-   Ước lượng tín hiệu tiếng vọng ghi được:
 
 $$ \hat{y}(n) = \sum_{i} \hat{h}(n-i)*x(n-i) $$
 
-  
-
-  
-
--   Estimate the error:
-
-  
+-   Ước lượng sai số (error):
 
 $$ e(n) = d(n) - \hat{y}(n) $$
 
-  
+-   Cập nhật trọng số bộ lọc (filter weights):
 
-  
+$$ \hat{h}_{t+1}(n) = \hat{h}_{t}(n) + \mu \cdot e^H(n) \cdot x(n) $$
 
--   Update the filter weights:
+Tham số $\mu$ đại diện cho tốc độ học (learning rate) của thuật toán. Giá trị $\mu$ lớn giúp thuật toán hội tụ nhanh hơn nhưng có thể dao động quanh giá trị sai số lớn hơn, trong khi tốc độ học nhỏ hơn sẽ hội tụ chậm hơn và có thể không bắt kịp các thay đổi nhanh của đường tiếng vọng. Thực tế đã chứng minh rằng tốc độ học thích ứng (adaptive learning rate) mang lại kết quả tốt nhất, và hầu hết các biến thể của phương pháp này tập trung vào việc điều chỉnh tốc độ học thích ứng theo các yêu cầu kỹ thuật cụ thể. Như có thể thấy trong phương trình thứ hai, sai số ước lượng của thuật toán thích ứng cũng chính là tín hiệu được sử dụng làm đầu ra, và trong điều kiện tối ưu, nó sẽ chứa tín hiệu đầu gần $s(n)$ cần giữ lại.
 
-  
+Cách tiếp cận đầu tiên này của bộ lọc thích ứng LMS được đề xuất áp dụng trên miền thời gian (time domain) của tín hiệu âm thanh. Nếu bộ lọc cập nhật trên từng mẫu của tín hiệu âm thanh nhận được, việc mô hình hóa chính xác đáp ứng xung phòng sẽ đòi hỏi một bộ lọc có độ dài lên tới vài nghìn mẫu. Việc cập nhật bộ lọc trên mỗi mẫu mới trở nên cực kỳ tốn kém về mặt tính toán, và vì lý do đó, các phương pháp khác đã được đề xuất dựa trên hướng tiếp cận này:
 
-$$ \hat{h}_{t+1}(n) = \hat{h}_{t}(n) + \mu \cdot e^H(n) \cdot
-x(n) $$
+-   **BlockLMS:** Giảm tần suất cập nhật trong thuật toán, sao cho việc cập nhật chỉ được áp dụng sau một số lượng mẫu nhất định (theo khối). Điều này giúp giảm đáng kể độ phức tạp tính toán của thuật toán. Tuy nhiên, xử lý theo khối có thể ảnh hưởng đến khả năng hội tụ và làm giảm độ nhạy bén (sự phản hồi nhanh chóng) của thuật toán trước các thay đổi đột ngột.
+-   **Bộ lọc thích ứng trên miền tần số (Frequency Domain Adaptive Filters - FDAF):** Trường hợp đơn giản nhất của FDAF là chuyển đổi tín hiệu âm thanh sang miền tần số bằng phép biến đổi Fourier thời gian ngắn (STFT), sau đó áp dụng một bộ lọc LMS độc lập trên từng thành phần tần số của tín hiệu. Cách làm này cho phép biểu diễn đường tiếng vọng với số lượng mẫu nhỏ hơn nhiều. Do thuật toán LMS có độ phức tạp bình phương theo chiều dài bộ lọc, việc sử dụng nhiều bộ lọc ngắn sẽ hiệu quả hơn nhiều so với việc chỉ sử dụng một bộ lọc dài duy nhất trên miền thời gian.
 
-  
+Cuối cùng, như đã đề cập ở trên, thách thức lớn nhất mà các bộ lọc thích ứng phải đối mặt trong các ứng dụng liên lạc thực tế là hiện tượng nói đồng thời (double-talk). Trong một cuộc hội thoại thông thường giữa hai người, rất có thể cả hai người sẽ nói chuyện cùng một lúc. Trong khung làm việc của triệt tiếng vọng, điều đó có nghĩa là cả tín hiệu đầu xa $y(n)$ (sau khi truyền qua phòng) và tín hiệu đầu gần $s(n)$ sẽ cùng xuất hiện trong hỗn hợp micrô. Vì bộ lọc thích ứng cố gắng tối thiểu hóa sai số giữa tín hiệu đầu xa và tín hiệu micrô ghi được, khi xảy ra nói đồng thời, bộ lọc thích ứng sẽ có xu hướng phân kỳ (diverge) và gây méo tín hiệu đầu gần thay vì làm giảm tiếng vọng phản hồi.
 
-The term *μ* represents the learning rate of the algorithm. Higher
-values will make the algorithm converge faster, but might converge to a
-bigger error value, while smaller learning rate will converge slower and
-it might not be able to follow the changes in the echo path. It has been
-proven that an adaptive learning rate provides the best results and most
-modifications on this method, focus on handling an adaptive learning
-rate according to the required specifications. As we can see in the
-second equation, the estimation error of the adaptation algorithm is
-also the signal that will be used as output and that will contain the
-corresponding *s(n)* in an optimal case.
+Để giảm thiểu ảnh hưởng của hiện tượng nói đồng thời trong quá trình thích ứng, việc phát hiện thời điểm bắt đầu nói đồng thời để tạm dừng quá trình cập nhật bộ lọc là vô cùng quan trọng. Giả định rằng bộ lọc đã hội tụ trước phân đoạn nói đồng thời, tín hiệu đầu xa vẫn sẽ bị loại bỏ hiệu quả, trong khi giọng nói của người nói đầu gần sẽ được truyền qua nguyên vẹn. Nhiều phương pháp đã được đề xuất để kiểm soát tốc độ học của bộ lọc thích ứng dựa trên việc phát hiện nói đồng thời, phần lớn dựa trên ba ý tưởng chính:
 
-This first approach of the LMS adaptive filter is proposed to be applied
-on the time domain of the audio signal. If the filter updates on every
-sample of the received audio signal, accurately modelling a room impulse
-response will require a filter of a few thousand samples. Updating the
-filter on every new sample becomes computationally expensive, and for
-these reasons other methods are proposed based on this approach:
+-   **Phát hiện dựa trên năng lượng (Geigel detector):**
+    -   Bộ phát hiện này giả định rằng tỷ số năng lượng giữa tín hiệu đầu xa và tín hiệu micrô ghi được sẽ duy trì gần như không đổi cho đến khi có thêm giọng nói đầu gần xuất hiện. Khi tỷ số này thay đổi đáng kể, chúng ta có thể giả định rằng hiện tượng nói đồng thời đang xảy ra.
+    -   Đây là một phương pháp rất đơn giản và hầu như không làm tăng thêm độ phức tạp tính toán cho hệ thống.
+    -   Tuy nhiên, bộ phát hiện này giả định mức tiếng vọng khác biệt rõ rệt so với tiếng nói đầu gần. Do đó, phương pháp này chịu ảnh hưởng rất mạnh bởi nhiễu nền và sự lệch pha/lệch thời gian giữa các tín hiệu.
+    -   Phương pháp này cũng yêu cầu phải tinh chỉnh tham số cho từng cấu hình phần cứng cụ thể, và những thay đổi trong đường tiếng vọng trong lúc đàm thoại có thể kích hoạt nhầm bộ phát hiện nói đồng thời.
+-   **Tương quan chéo chuẩn hóa (Normalized Cross-Correlation - NCC):**
+    -   Phương pháp này đo lường độ tương quan giữa tín hiệu micrô $d(n)$ và tín hiệu sai số đã xử lý $e(n)$. Khi có mặt $s(n)$ trong $d(n)$, độ tương quan giữa hai tín hiệu này sẽ cao hơn vì $s(n)$ vẫn tồn tại trong tín hiệu sai số (nếu $\hat{y}(n)$ được ước lượng chính xác).
+    -   Ngược lại, nếu không có nói đồng thời (tức là $s(n)$ bằng 0) và bộ lọc đã hội tụ, $e(n)$ sẽ chỉ chứa nhiễu nền, dẫn đến độ tương quan thấp.
+    -   Phương pháp này hoạt động mạnh mẽ và ít nhạy cảm với nhiễu hơn so với phương pháp so sánh mức năng lượng đơn thuần.
+    -   Giá trị NCC sẽ gần bằng 1 khi xảy ra nói đồng thời và gần bằng 0 khi không xảy ra. Do đó, NCC có thể được sử dụng trực tiếp làm hệ số tỷ lệ để điều chỉnh tốc độ học $\mu$.
 
--   BlockLMS: Reduce the rate of updates in the algorithm, such that the
-    update is only applied once every certain number of samples can help
-    considerably reduce the complexity of the algorithm. However, the
-    block processing can affect the convergence of the algorithm and
-    reduce its responsiveness.
--   Frequency Domain Adaptive Filters (FDAF): The simplest case of FDAF
-    consists in converting the audio signal to the frequency domain
-    using an STFT, and then apply an independent LMS filter on each of
-    the frequency components of the signal. This alllows to represent
-    the echo path with a much smaller amount of samples. Considering the
-    algorithm with quadratic complexity, it is preferable to have many
-    short filters than having just a long one.
-
-Finally, as we mention above, the main problem that adaptive filters
-face in real-life communication applicatoins is double talk. In a common
-interaction between two people, it is very likely that both speakers are
-active at the same time. In the echo cancellation framework, that means
-that both far-end signal *y(n)* and near-end *s(n)* will be present in
-the mixture. As the adaptive filter tries to minimize the error between
-the far-end signal and the recorded one, in the presence of double-talk
-the filter will likely diverge and add distortion to the near-end signal
-instead of reducing the echo feedback.
-
-To reduce the effect of double-talk in the adaptation process, it is
-important to detect when double-talk starts and stop the adaptation.
-Assuming that the filter had converged before the double-talk segment,
-the the far-end signal should still be removed, while the near-end
-speaker would pass through. Many methods have been presented to control
-the learning rate of the adaptative filter depending on the detected
-double-talk, but most of them are based on three main ideas:
-
--   Energy based detection (Geigel detector):
-    -   This detector assumes that, if the energy ratio between the
-        far-end signal and the recorded one will remain almnost constant
-        until an additional voice is added from the near-end signal.
-        When the ratio between far-end and recorded signals changes, we
-        can assume that there is double-talk.
-    -   It is a very simple method that barely adds any computational
-        complexity to the system.
-    -   The detector assumes that the echo level is clearly different
-        than the near-end speech. Therefore, this method is highley
-        influenced by noise and signal misalignment.
-    -   The method also requires to be tuned for each specific
-        configuration and changes in the echo path during communication
-        might trigger the double-talk detection.
--   Normalized Cross-Correlation (NCC):
-    -   This method measures the correlation between the input *d(n)*
-        and the processed error signal *e(n)*. When *s(n)* is present
-        in *d(n)*, the correlation between term will be higher due to
-        *s(n)* remaining present in the error signal if $\hat{y}(n)$
-        was estimated correctly.
-    -   Alternatively, there is no double-talk if *s(n)* is not present,
-        and assuming a converged filter, *e(n)* will only contain noise,
-        thus resulting in a lower correlation.
-    -   This method is more robust to noise than the energy levels.
-    -   The value of NCC will be close to 1 when double-talk is present,
-        and 0 when it is not. Therefore, the NCC can be used as a
-        scaling factor for the learning rate.
-
-$$ NCC = \frac{\sigma^{2}_{ed}(n)}{\sigma_{e}(n)\sigma_{d}(n)}
-$$ 
+$$ NCC = \frac{\sigma^{2}_{ed}(n)}{\sigma_{e}(n)\sigma_{d}(n)} $$ 
 
 $$ \sigma^{2}_{x} = E[xx^H] $$
 
-$$ \sigma^{2}_{x}(n) =
-\lambda\sigma^{2}_{x}(n - 1) + (1 - \lambda)\sigma^{2}_{x} $$
+$$ \sigma^{2}_{x}(n) = \lambda\sigma^{2}_{x}(n - 1) + (1 - \lambda)\sigma^{2}_{x} $$
 
 $$ \mu_{NCC} = (1 - NCC)\mu_{max} $$
 
-  
-
--   Two-path Echo Cancellation:
-    -   Two filters, background and foreground, process the echo signal
-        simultaneously. The background filter is continuously adapting
-        on every step, while the foreground one remains fixed. A control
-        module then decides if there is double-talk and the better
-        solution is to update the coefficients or keep them unmodified
-        based on the output of the backround and foreground filters.
-    -   It is the most robust of the presented methods.
-    -   Requires additional computational complexity, as the far-end
-        signal needs to be filtered twice before deciding if ther is
-        double-talk.
+-   **Triệt tiếng vọng hai đường (Two-path Echo Cancellation):**
+    -   Hai bộ lọc—bộ lọc nền (background filter) và bộ lọc tiền cảnh (foreground filter)—cùng xử lý tín hiệu tiếng vọng đồng thời. Bộ lọc nền liên tục thích ứng và cập nhật hệ số tại mỗi bước, trong khi bộ lọc tiền cảnh được giữ cố định. Một mô-đun điều khiển sẽ quyết định xem có hiện tượng nói đồng thời hay không và đưa ra giải pháp tối ưu là cập nhật các hệ số của bộ lọc tiền cảnh bằng các hệ số của bộ lọc nền, hoặc giữ nguyên chúng dựa trên so sánh sai số đầu ra của cả hai bộ lọc.
+    -   Đây là phương pháp hoạt động mạnh mẽ và ổn định nhất trong các phương pháp được giới thiệu.
+    -   Đổi lại, phương pháp này yêu cầu độ phức tạp tính toán cao hơn, vì tín hiệu đầu xa cần được lọc qua cả hai bộ lọc trước khi đưa ra quyết định về hiện tượng nói đồng thời.
 
 
-The acoustic feedback loop in telecommunication applications.
+Vòng phản hồi âm học trong các ứng dụng viễn thông.
 
 ![echocancellation.png](attachments/175509295.png)
   
 
-Model of the echo path and estimated filter
+Mô hình đường truyền tiếng vọng và bộ lọc ước lượng
 
 ![image](attachments/203126383.png)
   
 
-Feedback loop for echo cancellation
+Vòng phản hồi dùng trong triệt tiếng vọng
 
 ![image2](attachments/203126386.png)
 
 
-Two-path echo cancellation model
+Mô hình triệt tiếng vọng hai đường (Two-path)
 
 ![twopath](attachments/203126388.png)
   

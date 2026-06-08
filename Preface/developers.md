@@ -1,16 +1,16 @@
 (content:developers)=
-# Instructions for Developers
+# Hướng dẫn cho Nhà phát triển
 
-## Getting started
+## Bắt đầu
 
-1. Download the source material from [https://github.com/Speech-Interaction-Technology-Aalto-U/itsp](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp). 
-2. Install required packages with e.g. 
+1. Tải mã nguồn từ [https://github.com/Speech-Interaction-Technology-Aalto-U/itsp](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp). 
+2. Cài đặt các gói cần thiết, ví dụ:
 
    ```bash
    pip install jupyter-book   
    ```
    ![]()
-3. Many chapters require further packages, which you should install if you plan to compile the whole book (not always required).
+3. Nhiều chương yêu cầu các gói bổ sung, cần cài đặt nếu bạn muốn biên dịch toàn bộ sách (không phải lúc nào cũng bắt buộc).
 
     ```bash
     pip install numpy scipy matplotlib ipython ipywidgets jupyterlab
@@ -21,63 +21,63 @@
     ```
     ![]()
 
-   Texlive is also needed in some chapters. Observe that speechbrain is picky about the python version and 
+   Một số chương cũng cần Texlive. Lưu ý rằng speechbrain khá kén phiên bản python và 
     
-5. The typical use case is that markdown (.md) and notebooks (.ipynb) are written with [JupyterLab](https://jupyter.org/), which can be started (in the folder of the project) by
+5. Cách sử dụng phổ biến là viết markdown (.md) và notebook (.ipynb) bằng [JupyterLab](https://jupyter.org/), có thể khởi chạy (trong thư mục dự án) bằng
 
     ```bash
     jupyter lab &
     ```
     ![]()
 
-   The easiest way to start is to write static [Markdown files](https://jupyterbook.org/en/stable/file-types/markdown.html#file-types-markdown). This disadvantage is that then you cannot use live code-examples in your document. Upgrading from markdown to notebooks is however easy.
+   Cách dễ nhất để bắt đầu là viết [file Markdown](https://jupyterbook.org/en/stable/file-types/markdown.html#file-types-markdown) tĩnh. Nhược điểm là khi đó bạn không thể sử dụng ví dụ lập trình trực tiếp trong tài liệu. Tuy nhiên, việc nâng cấp từ markdown lên notebook khá dễ dàng.
     
-6. Once you are reasonably happy with your new content, compile the html-book (in the folder of the project) by
+6. Khi đã tương đối hài lòng với nội dung mới, biên dịch sách HTML (trong thư mục dự án) bằng
 
     ```bash
     jupyter-book build .
     ```
     ![]()    
-    Verify that the html-book looks like intended - some elements might work slightly differently.
+    Kiểm tra xem sách HTML hiển thị đúng như mong muốn — một số thành phần có thể hoạt động hơi khác.
     
     
-## Tips and tricks
+## Mẹo và thủ thuật
 
-### Audio
+### Âm thanh
 
-Recording with python/jupyter is a nightmare, but playing audio works like a dream when using [IPython](https://ipython.org/) and [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/). See [Vocoder](content:vocoder) for an example. 
+Ghi âm bằng python/jupyter rất phiền phức, nhưng phát âm thanh hoạt động rất tốt khi sử dụng [IPython](https://ipython.org/) và [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/). Xem [Vocoder](content:vocoder) để biết ví dụ. 
 
-### Interactive elements
+### Thành phần tương tác
 
-Some demonstrations are best when readers get to modify parameters themselves and to observe the output. [IPython](https://ipython.org/) and [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) allows doing that. Unfortunately, some of the more advanced interactive elements currently require a running jupyter/python kernel (i.e. have to run the notebook on a server).
-For an example, check out [Representations/Spectrogram and the STFT](stft).
+Một số minh họa phát huy hiệu quả tốt nhất khi người đọc được tự thay đổi tham số và quan sát kết quả. [IPython](https://ipython.org/) và [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) cho phép thực hiện điều đó. Tuy nhiên, một số thành phần tương tác nâng cao hiện yêu cầu kernel jupyter/python đang chạy (tức là phải chạy notebook trên máy chủ).
+Để xem ví dụ, hãy tham khảo [Biểu diễn/Phổ đồ và STFT](stft).
 
-### Flow graphs and other static visualizations
+### Đồ thị luồng và trực quan hóa tĩnh khác
 
-[Tikz and PGF](https://tikz.dev/) is a combination powerful tool for visualizations inside [LaTeX](https://www.latex-project.org/) documents. These can be incorporated in jupyter notebooks through [itikz](https://pypi.org/project/itikz/). For examples, see [Security and Privacy](../Security_and_privacy.ipynb).
+[Tikz và PGF](https://tikz.dev/) là bộ công cụ mạnh mẽ để tạo trực quan hóa bên trong tài liệu [LaTeX](https://www.latex-project.org/). Chúng có thể được tích hợp vào notebook jupyter thông qua [itikz](https://pypi.org/project/itikz/). Xem ví dụ tại [Bảo mật và Quyền riêng tư](../Security_and_privacy.ipynb).
 
-*Tip:* In some scenarios, characters will get messed up when having multiple itikz-elements in a single document. If you're having this issue, please see the solution at the [discussion on Itikz-github](https://github.com/jbn/itikz/issues/28).
+*Mẹo:* Trong một số trường hợp, ký tự có thể bị lỗi khi có nhiều thành phần itikz trong cùng một tài liệu. Nếu gặp vấn đề này, hãy xem giải pháp tại [thảo luận trên Itikz-github](https://github.com/jbn/itikz/issues/28).
 
-### Hidden and removed codeblocks in Jupyter notebooks
+### Khối mã ẩn và bị xóa trong notebook Jupyter
 
-Codeblocks can be used as pedagogical elements, but often there also codeblocks which are just to plot stuff, which is not very interesting for a reader. It is then recommended to *hide* the codeblock to avoid visual clutter. A button "*click to show*" button then appears where the reader can see how the backend works. 
+Các khối mã có thể được sử dụng như thành phần sư phạm, nhưng thường có những khối mã chỉ dùng để vẽ đồ thị, không thực sự thú vị đối với người đọc. Khi đó nên *ẩn* khối mã để tránh rối mắt. Một nút "*nhấn để hiện*" sẽ xuất hiện, cho phép người đọc xem cách phần backend hoạt động. 
 
-An alternative is to *remove* the codeblock from the output entirely. This is best in cases where the codeblock does not have any pedagogic purpose, like when creating flowgraphs with *itikz* (see above). 
+Một lựa chọn khác là *xóa* hoàn toàn khối mã khỏi output. Cách này phù hợp nhất khi khối mã không có mục đích sư phạm, như khi tạo đồ thị luồng bằng *itikz* (xem ở trên). 
 
-Both functions can be achieved with "*tags*" in the jupyter notebook. This can be found by clicking on the "*Property inspector*" logo at the far right side of the jupyter notebook. There it is possible to add either "*hide-input*" or "*remove-input*" for respective functions. For more information see [Jupyter-book/Hide or remove content](https://jupyterbook.org/interactive/hiding.html).
+Cả hai chức năng đều có thể thực hiện bằng "*tags*" trong notebook jupyter. Có thể tìm thấy bằng cách nhấn vào biểu tượng "*Property inspector*" ở phía ngoài cùng bên phải của notebook. Tại đó, có thể thêm "*hide-input*" hoặc "*remove-input*" cho các chức năng tương ứng. Để biết thêm thông tin, xem [Jupyter-book/Ẩn hoặc xóa nội dung](https://jupyterbook.org/interactive/hiding.html).
 
-For an example of the use of both hidden and removed codeblocks, see [Enhancement/Noise attenuation](../Enhancement/Noise_attenuation.ipynb).
+Để xem ví dụ sử dụng cả khối mã ẩn và bị xóa, tham khảo [Nâng cao chất tiếng nói/Giảm nhiễu](../Enhancement/Noise_attenuation.ipynb).
 
-### References and citations
+### Trích dẫn và tham chiếu
 
-We use a bibtex based approach stored at [references.bib](../references.bib). For instructions, see e.g. [Jupyter-book/citations and references](https://jupyterbook.org/en/stable/content/citations.html). For an example, see [Computational_models_of_human_language_processing](../Computational_models_of_human_language_processing.md).
+Chúng tôi sử dụng phương pháp dựa trên bibtex được lưu tại [references.bib](../references.bib). Để biết hướng dẫn, xem [Jupyter-book/trích dẫn và tham chiếu](https://jupyterbook.org/en/stable/content/citations.html). Để xem ví dụ, tham khảo [Mô hình tính toán về xử lý ngôn ngữ người](../Computational_models_of_human_language_processing.md).
 
 
-### Executing notebooks / MyBinder badge
+### Chạy notebook / Huy hiệu MyBinder
 
-To allow for the user to run the code in notebooks, there needs to be a jupyter server. Such a server can be installed locally (see [Using this document](Using_this_document.ipynb)), but importantly, there are public servers which can be used as well. The simplest approach is to use [mybinder.org](https://mybinder.org). To make it simple to use, please place a badge on top of the notebook, which directly runs the notebook on the server with the following steps:
-1. Find the github url, folder and filename.
-2. Enter the above in the form at [mybinder.org](https://mybinder.org).
-3. This autogenerates a command to generate the badge; copy that code to the top of your jupyter notebook.
-4. Be sure to test it by clicking the badge.
-For an example of use, see the page [Noise attenuation](../Enhancement/Noise_attenuation.ipynb).
+Để cho phép người dùng chạy mã trong notebook, cần có máy chủ jupyter. Máy chủ này có thể được cài đặt cục bộ (xem [Sử dụng tài liệu này](Using_this_document.ipynb)), nhưng quan trọng hơn, có các máy chủ công cộng có thể sử dụng. Cách đơn giản nhất là sử dụng [mybinder.org](https://mybinder.org). Để thuận tiện sử dụng, vui lòng đặt huy hiệu ở đầu notebook, cho phép chạy trực tiếp notebook trên máy chủ theo các bước sau:
+1. Tìm URL github, thư mục và tên file.
+2. Nhập thông tin trên vào biểu mẫu tại [mybinder.org](https://mybinder.org).
+3. Hệ thống sẽ tự động tạo lệnh tạo huy hiệu; sao chép mã đó vào đầu notebook jupyter của bạn.
+4. Nhớ kiểm tra bằng cách nhấn vào huy hiệu.
+Để xem ví dụ, tham khảo trang [Giảm nhiễu](../Enhancement/Noise_attenuation.ipynb).

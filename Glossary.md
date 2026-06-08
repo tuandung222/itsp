@@ -1,38 +1,38 @@
-# Glossary
+# Bảng thuật ngữ (Glossary)
 
 ```{glossary}
 
-Backchannel
-  Speech is an *interaction*, where parties are in a constant communication. Though speakers generally take turns such that only one speaker 'has the turn' and speaks at a time, the other, listening participants actively participate in the interaction by nodding or shaking their heads in agreement or disagreement, or by corresponding interjection such as '*Uh-oh*', '*Yeah*', and '*Huh?*'. See also [Backchannel (linguistics) / Wikipedia](https://en.wikipedia.org/wiki/Backchannel_(linguistics)).
+Backchannel (Kênh phản hồi)
+  Tiếng nói mang tính chất *tương tác*, nơi các bên liên quan giao tiếp liên tục. Mặc dù người nói thường luân phiên lượt lời sao cho chỉ một người nói tại một thời điểm, những người lắng nghe khác cũng tích cực tham gia vào tương tác bằng cách gật đầu hoặc lắc đầu đồng ý/phản đối, hoặc bằng các từ chêm xen tương ứng như '*Uh-oh*', '*Yeah*' (Ừ), và '*Huh?*'. Xem thêm [Backchannel (linguistics) / Wikipedia](https://en.wikipedia.org/wiki/Backchannel_(linguistics)).
   
-Formants
-  The vocal tract has acoustic resonances, which emphasise some frequency ranges while attenuating others. Such high-energy regions of the spectrum are known as formants. They are important in speech since their location in frequency (and amplitude) uniquely identify vowels. By changing the shape of the vocal tract, we can change the location of those resonances and formants, to choose the vowel we want to utter. See also [Acoustic properties of speech signals](content:acoustic-properties) and [Formant / Wikipedia](https://en.wikipedia.org/wiki/Formant).
+Formants (Formant)
+  Đường ống dẫn âm (vocal tract) có các cộng hưởng âm học, giúp khuếch đại một số dải tần số nhất định trong khi làm suy giảm các dải tần số khác. Các vùng năng lượng cao này của phổ được gọi là các formant. Chúng đóng vai trò quan trọng trong tiếng nói vì vị trí tần số (và biên độ) của chúng giúp xác định duy nhất các nguyên âm. Bằng cách thay đổi hình dạng của đường ống dẫn âm, chúng ta có thể thay đổi vị trí của các tần số cộng hưởng và các formant này để phát ra nguyên âm mong muốn. Xem thêm [Các thuộc tính âm học của tín hiệu tiếng nói](content:acoustic-properties) và [Formant / Wikipedia](https://en.wikipedia.org/wiki/Formant).
 
-Fundamental frequency ($F_0$)
-  The vocal folds can oscillate when air flows through them and when they are appropriately tensioned. The frequency of such oscillation is known as the fundamental frequency, often abbreviated as $F_0$, and it is perceived as the pitch of a speech sound. See also [Acoustic properties of speech signals](content:acoustic-properties) and [Voice frequency / Wikipedia](https://en.wikipedia.org/wiki/Voice_frequency).
+Fundamental frequency (Tần số cơ bản - $F_0$)
+  Các dây thanh có thể dao động khi không khí đi qua và khi chúng được căng một cách phù hợp. Tần số của dao động đó được gọi là tần số cơ bản, thường được viết tắt là $F_0$, và được cảm nhận là cao độ (pitch) của âm thanh tiếng nói. Xem thêm [Các thuộc tính âm học của tín hiệu tiếng nói](content:acoustic-properties) và [Voice frequency / Wikipedia](https://en.wikipedia.org/wiki/Voice_frequency).
 
-Objective test
-   An evaluation methodology based on a computational algorithm. See also [Objective quality evaluation](Evaluation/Objective_quality_evaluation.md)
+Objective test (Kiểm thử khách quan)
+   Phương pháp đánh giá dựa trên một thuật toán tính toán. Xem thêm [Đánh giá chất lượng khách quan](Evaluation/Objective_quality_evaluation.md)
 
-Perceptual model
-  A model which simulates human perception. Typically used as a quality evaluation method, to judge how important different characteristics of a signal are for a human.
+Perceptual model (Mô hình cảm nhận)
+  Một mô hình mô phỏng lại nhận thức của con người. Thường được sử dụng như một phương pháp đánh giá chất lượng để phán đoán mức độ quan trọng của các đặc trưng tín hiệu khác nhau đối với con người.
 
-Phonation
-  The phsyiological process of producing a speech sound is referred to phonation. In some areas, phonation is limited to voiced sounds or just those sounds with some sort of oscillation. See also [Phonation / Wikipedia](https://en.wikipedia.org/wiki/Phonation).
+Phonation (Sự phát âm)
+  Quy trình sinh lý sản sinh ra âm thanh tiếng nói được gọi là sự phát âm. Trong một số lĩnh vực, sự phát âm được giới hạn cho các âm hữu thanh (voiced sounds) hoặc chỉ những âm có một dạng dao động nào đó của dây thanh. Xem thêm [Phonation / Wikipedia](https://en.wikipedia.org/wiki/Phonation).
 
-Phone
-  Phones are the elementary units of speech, associated with articulatory gestures responsible for producing them and with acoustic cues that make them distinct from other phones. See also [Phones](content:phones) and [Phone (phonetics) / Wikipedia](https://en.wikipedia.org/wiki/Phone_(phonetics)).
+Phone (Âm tố)
+  Âm tố là các đơn vị cơ bản của tiếng nói, gắn liền với các động tác cấu âm chịu trách nhiệm sản sinh ra chúng và các dấu hiệu âm học giúp phân biệt chúng với các âm tố khác. Xem thêm [Âm tố](content:phones) và [Phone (phonetics) / Wikipedia](https://en.wikipedia.org/wiki/Phone_(phonetics)).
   
-Phoneme
-  Phonemes are defined in terms of their meaning contrasting function: two different phones of a language are also different phonemes, if they can change the meaning of a word. See also [Phonemes](content:phonemes) and [Phoneme / Wikipedia](https://en.wikipedia.org/wiki/Phoneme).
+Phoneme (Âm vị)
+  Âm vị được định nghĩa dựa trên chức năng phân biệt nghĩa của chúng: hai âm tố khác nhau của một ngôn ngữ cũng là hai âm vị khác nhau nếu sự thay thế giữa chúng có thể làm thay đổi ý nghĩa của một từ. Xem thêm [Âm vị](content:phonemes) và [Phoneme / Wikipedia](https://en.wikipedia.org/wiki/Phoneme).
 
-Sampling rate
-  The frequency at which the time-domain signal is sampled (measured). See also [Waveform/Sampling rate](content:samplingrate).
+Sampling rate (Tần số lấy mẫu)
+  Tần số mà tại đó tín hiệu miền thời gian được lấy mẫu (đo lường). Xem thêm [Dạng sóng/Tần số lấy mẫu](content:samplingrate).
   
-Subjective test
-  An evaluation methodology where a human subject rates a characteristic of a system or signal. See also [Subjective quality evaluation](content:subjectiveevaluation)
+Subjective test (Kiểm thử chủ quan)
+  Phương pháp đánh giá trong đó đối tượng người tham gia đánh giá một đặc trưng của hệ thống hoặc tín hiệu. Xem thêm [Đánh giá chất lượng chủ quan](content:subjectiveevaluation)
 
-Turn-taking
-  Humans are generally able to follow only one speech message at a time. In a dialogue, it is therefore important that only one person is speaking at a time. The organization of a dialogue to agree on who 'has the turn' and is currently 'in turn' to speak, is known as turn-taking. See also [Turn taking / Wikipedia](https://en.wikipedia.org/wiki/Turn-taking).
+Turn-taking (Luân phiên lượt lời)
+  Con người nhìn chung chỉ có thể theo dõi một thông điệp tiếng nói tại một thời điểm. Do đó, trong một cuộc hội thoại, điều quan trọng là chỉ có một người nói tại một thời điểm. Việc tổ chức một cuộc hội thoại để thống nhất xem ai là người \"đến lượt\" và hiện đang \"trong lượt\" nói được gọi là luân phiên lượt lời. Xem thêm [Turn taking / Wikipedia](https://en.wikipedia.org/wiki/Turn-taking).
   
 ```

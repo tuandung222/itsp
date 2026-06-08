@@ -1,385 +1,88 @@
-# Paralinguistic speech processing
+# Xử lý tiếng nói cận ngôn ngữ (Paralinguistic speech processing)
 
-Paralinguistic speech processing (PSP) refers to analysis of speech 
-signals with the aim of extracting information beyond the linguistic
-content of speech (hence paralinguistic = alongside linguistic
-content; see also {cite:t}`schuller2013computational`). In other words, PSP does
-not focus on what is the literal transmitted message but on what
-additional information is conveyed by the signal. Speaker
-[diarization](Speaker_Diarization),
-[recognition](Speaker_Recognition_and_Verification), and
-[verification](Speaker_Recognition_and_Verification), even though
-focusing on non-linguistic aspects, are also traditionally considered as
-separate problems that do not fall within the scope of PSP. A classical
-example of PSP is speech emotion recognition, where the aim is to infer
-the emotional state of a speaker based on a sample of his or her speech.
-In a similar manner, information related to the health or age of a
-speaker could be inferred from the speech signal.
+Xử lý tiếng nói cận ngôn ngữ (Paralinguistic Speech Processing - PSP) đề cập đến việc phân tích các tín hiệu tiếng nói nhằm trích xuất thông tin nằm ngoài nội dung ngôn ngữ học thuần túy của lời nói (thuật ngữ *paralinguistic* có nghĩa là cận/ngoại ngôn ngữ, tức là đi song hành cùng nội dung ngôn ngữ; xem thêm {cite:t}`schuller2013computational`). Nói cách khác, PSP không tập trung vào thông điệp bằng chữ (literal message) được truyền tải trực tiếp, mà tập trung vào những thông tin bổ trợ khác được biểu hiện qua tín hiệu. Các tác vụ như phân đoạn và định danh người nói ([diarization](Speaker_Diarization)), nhận dạng người nói ([recognition](Speaker_Recognition_and_Verification)), và xác thực người nói ([verification](Speaker_Recognition_and_Verification)), mặc dù cũng tập trung vào các khía cạnh phi ngôn ngữ, nhưng theo truyền thống vẫn được xem là các bài toán độc lập nằm ngoài phạm vi của PSP. Một ví dụ kinh điển của PSP là nhận dạng cảm xúc qua tiếng nói (speech emotion recognition), trong đó mục tiêu là suy diễn trạng thái cảm xúc của người nói dựa trên một mẫu âm thanh tiếng nói của họ. Tương tự như vậy, các thông tin liên quan đến sức khỏe hoặc độ tuổi của người nói cũng có thể được suy diễn từ tín hiệu tiếng nói.
 
-### Coupling between speaker states and the speech signal
+### Sự liên kết giữa trạng thái người nói và tín hiệu tiếng nói
 
-The basic starting point for PSP systems is that the speech signal also
-reflects the underlying cognitive and neurophysiological state of a
-speaker. This is since speaking involves highly complicated cognitive
-processing in terms of real-time communicative, linguistic, and
-articulatory planning. In addition, execution of these plans requires
-highly-precise motor control of articulators paired with real-time
-monitoring of the resulting acoustic signal, and both of these tasks
-take place in parallel with further speech planning. The mental state of
-the speaker may also affect the manner that the speaker wishes to
-express himself or herself.  Finally, the overall physiological
-characteristics of the speech production apparatus also shape the
-resulting signal, and details of these characteristics may also change
-due to illnesses or habits. This means that many temporary or permanent
-perturbations in the cognitive and physical machinery of a talker may
-show up in the resulting speech.
+Điểm xuất phát cơ bản của các hệ thống PSP là tín hiệu tiếng nói phản ánh trạng thái nhận thức và thần kinh - sinh lý (neurophysiological) tiềm ẩn của người nói. Điều này là do việc nói năng đòi hỏi quá trình xử lý nhận thức cực kỳ phức tạp để lập kế hoạch giao tiếp, ngôn ngữ và cấu âm trong thời gian thực. Bên cạnh đó, việc thực thi các kế hoạch này đòi hỏi sự điều khiển vận động cực kỳ chính xác đối với các cơ quan cấu âm (articulators), kết hợp với việc giám sát tín hiệu âm học sinh ra trong thời gian thực; cả hai nhiệm vụ này đều diễn ra song song với việc tiếp tục lập kế hoạch cho các câu nói tiếp theo. Trạng thái tinh thần của người nói cũng có thể ảnh hưởng đến cách thức mà họ muốn tự biểu đạt. Cuối cùng, các đặc tính sinh lý tổng thể của bộ máy phát âm cũng định hình tín hiệu thu được, và các đặc tính chi tiết này có thể thay đổi do bệnh tật hoặc thói quen. Điều này có nghĩa là nhiều sự rối loạn (perturbations) tạm thời hoặc vĩnh viễn trong bộ máy nhận thức và thể chất của người nói có thể biểu hiện rõ nét qua tiếng nói đầu ra.
 
-To give some examples, substantial cognitive load (e.g., a concurrent
-attention-requiring task) or neurodegenerative diseases affecting memory
-(e.g., Alzheimer's disease) may impact speech planning due to
-compromised cognitive resources, resulting in speech output that differs
-from the typical speech from the same person in non-stressful or healthy
-conditons. In the same way, neurodegenerative diseases affecting the
-brain's motor system (e.g., Parkinson's disease) may impact fluidity and
-clarity of speech production, and the symptoms will become more
-pronounced as the disease progresses. As for articulatory changes,
-stress and emotional distress can cause increased tension in the muscles
-of the larynx, which can result in tightening of the vocal folds and
-therefore also causes increases in the fundamental frequency of speech.
-Changes in the physical characteristics of the vocal tract may result
-from, e.g., having a cold. In this case, mucus on tract surfaces may
-affect resonance and damping characteristics of the vocal tract. In
-addition, the mucus may prevent full closing of the velum, causing
-nasalized speech often associated with a severe cold. The speaker may
-also speak differently due to cognitive fatigue and throat soreness due
-to the cold. Aging will also change the characteristics of the speech
-production apparatus, not only in childhood but also in later years of
-life. These changes are driven by physiological changes in the glottis
-and in the vocal tract, where growth of the vocal tract length in early
-childhood has an especially pronounced effect. The voice change in
-puberty is also an example of quick growth of the larynx and vocal
-folds, but small changes in the vocal folds and their control may also
-take with later aging.
+Để đưa ra một vài ví dụ, áp lực nhận thức lớn (ví dụ: thực hiện song song một tác vụ đòi hỏi sự chú ý cao) hoặc các bệnh thoái hóa thần kinh ảnh hưởng đến trí nhớ (ví dụ: bệnh Alzheimer) có thể tác động đến việc lập kế hoạch phát ngôn do tài nguyên nhận thức bị suy giảm. Điều này dẫn đến tiếng nói đầu ra khác biệt so với tiếng nói bình thường của chính người đó trong điều kiện khỏe mạnh hoặc không bị căng thẳng. Tương tự, các bệnh thoái hóa thần kinh ảnh hưởng đến hệ vận động của não (ví dụ: bệnh Parkinson) có thể làm giảm tính lưu loát và độ rõ ràng của việc phát âm, và các triệu chứng này sẽ ngày càng rõ rệt hơn khi bệnh tiến triển. Về những thay đổi trong cấu âm, sự căng thẳng và tổn thương cảm xúc có thể làm tăng trương lực cơ thanh quản, dẫn đến việc dây thanh âm bị co thắt và từ đó làm tăng tần số cơ bản ($F_0$) của tiếng nói.
 
-In addition to information that is not directly related to intended
-communicative goals, speech also contains paralinguistic characteristics
-related to communication. This is because speech has co-evolved with the
-development of other social skills in humans over thousands of years.
-Speech (and gestures) can thefore play different types of social
-coordinative roles beyond the literal linguistic message transmitted.
-For instance, prosody, and speaking style in general, can reflect
-different social roles such as submissiveness, arrogance, or authority
-in different interactions. Attitudes and emotions showing up in speech
-can also be considered as communicative signals facilitating social
-interaction and cohesion, not just being speaker-internal states that
-inadvertently "leak out" for others to perceive. Demonstration of anger
-or happiness through voice can transmit important information regarding
-social dynamics even when visual contact between the interlocutors is
-not possible. As a concrete example, consider having a telephone
-conversation with someone close to you without access to anything else
-than the literal message (e.g., substituting the original speech with
-monotone but perfectly intelligible speech synthesis) while trying to
-communicate highly sensitive and important personal information.  
+Những thay đổi về đặc tính vật lý của đường dẫn tiếng (vocal tract) có thể xuất phát từ việc bị cảm lạnh. Trong trường hợp này, chất nhầy trên bề mặt đường dẫn tiếng có thể ảnh hưởng đến các đặc tính cộng hưởng (resonance) và triệt tiêu/suy hao dao động (damping) của đường dẫn tiếng. Ngoài ra, chất nhầy có thể ngăn cản sự đóng hoàn toàn của vòm mềm (velum), gây ra giọng mũi (nasalized speech) thường thấy khi cảm lạnh nặng. Người nói cũng có thể phát âm khác đi do mệt mỏi nhận thức và đau họng do cảm lạnh. Quá trình lão hóa cũng làm thay đổi các đặc tính của bộ máy phát âm, không chỉ trong thời thơ ấu mà cả trong những năm tháng tuổi già. Những thay đổi này được thúc đẩy bởi sự biến đổi sinh lý ở thanh môn (glottis) và đường dẫn tiếng, trong đó sự phát triển chiều dài đường dẫn tiếng ở thời thơ ấu có tác động đặc biệt rõ rệt. Hiện tượng vỡ giọng ở tuổi dậy thì là một ví dụ điển hình của việc thanh quản và dây thanh phát triển nhanh chóng, tuy nhiên các thay đổi nhỏ ở dây thanh và sự điều khiển chúng cũng tiếp tục diễn ra khi tuổi tác cao hơn.
 
-The basic aim of PSP is to use computational means to understand and
-characterize the ways that different paralinguistic factors shape the
-speech signal, and to build automatic systems for analyzing and
-detecting the paralinguistic factors from real speech captured in
-various settings.
+Bên cạnh các thông tin không liên quan trực tiếp đến mục tiêu giao tiếp dự kiến, tiếng nói cũng chứa đựng các đặc điểm cận ngôn ngữ phục vụ cho mục đích giao tiếp. Điều này là do tiếng nói đã đồng tiến hóa cùng với sự phát triển của các kỹ năng xã hội khác ở con người qua hàng ngàn năm. Do đó, tiếng nói (và các cử chỉ) có thể đóng nhiều vai trò phối hợp xã hội khác nhau vượt ra ngoài thông điệp ngôn ngữ thuần túy được truyền tải. Chẳng hạn, ngữ điệu (prosody) và phong cách nói chung có thể phản ánh các vai trò xã hội khác nhau như sự phục tùng, kiêu ngạo hoặc uy quyền trong các cuộc tương tác khác nhau. Thái độ và cảm xúc thể hiện trong tiếng nói cũng có thể được coi là các tín hiệu giao tiếp giúp thúc đẩy sự tương tác và gắn kết xã hội, chứ không chỉ đơn thuần là các trạng thái nội tâm của người nói vô tình 'rò rỉ' ra ngoài để người khác cảm nhận. Việc biểu hiện sự tức giận hay hạnh phúc qua giọng nói có thể truyền tải thông tin quan trọng về các động lực xã hội ngay cả khi không có tiếp xúc trực quan giữa những người đối thoại. Một ví dụ cụ thể, hãy tưởng tượng việc gọi điện thoại cho một người thân thiết mà bạn không tiếp cận được bất kỳ điều gì khác ngoài thông điệp bằng chữ thuần túy (chẳng hạn như thay thế tiếng nói gốc bằng giọng nói tổng hợp đơn điệu nhưng hoàn toàn dễ hiểu) khi đang cố gắng truyền đạt các thông tin cá nhân cực kỳ nhạy cảm và quan trọng.  
 
-Also note that the distinction between PSP systems and other established
-areas of speech processing is not always clear-cut. For instance,
-automated methods for speech [intelligibility
-assessment](content:objectiveevaluation) are also focusing on
-extralinguistic factors, and the task of speaker recognition was already
-mentioned at the beginning of this section. In addition, more flexible
-control of speaking style is an ongoing topic of research in [speech
-synthesis](content:synthesis), where the research focus is gradually
-changing from the production of high-quality to speech to creation of
-systems capable of richer vocalic expression. However, there is no need
-for a strict distinction of PSP from other types of processing tasks,
-but PSP can be viewed as an umbrella term for the increasingly many
-analysis tasks focused on the various non-literal aspects of spoken
-language, and where similar data-driven methodology is usually
-applicable across a broad range of PSP phenomena (see also {cite:t}`schuller2013computational`, for a discussion).
+Mục tiêu cơ bản của PSP là sử dụng các phương thức tính toán để hiểu và mô tả cách thức các yếu tố cận ngôn ngữ khác nhau định hình tín hiệu tiếng nói, từ đó xây dựng các hệ thống tự động để phân tích và phát hiện các yếu tố cận ngôn ngữ này từ tiếng nói thực tế được thu âm trong nhiều bối cảnh khác nhau.
 
-### Speaker traits and states
+Cũng cần lưu ý rằng ranh giới giữa các hệ thống PSP và các lĩnh vực xử lý tiếng nói đã định hình khác không phải lúc nào cũng rõ ràng. Ví dụ, các phương pháp tự động dùng để [đánh giá độ rõ của tiếng nói (speech intelligibility assessment)](content:objectiveevaluation) cũng tập trung vào các yếu tố ngoại ngôn ngữ (extralinguistic factors), và tác vụ nhận dạng người nói cũng đã được đề cập ở đầu phần này. Ngoài ra, việc điều khiển linh hoạt hơn phong cách nói là một chủ đề nghiên cứu đang tiếp diễn trong [tổng hợp tiếng nói (speech synthesis)](content:synthesis), nơi trọng tâm nghiên cứu đang dịch chuyển dần từ việc tạo ra tiếng nói chất lượng cao sang xây dựng các hệ thống có khả năng biểu đạt giọng nói phong phú hơn. Dù vậy, không nhất thiết phải phân định rạch ròi PSP với các tác vụ xử lý khác; thay vào đó, PSP có thể được coi là một thuật ngữ chung (umbrella term) cho số lượng ngày càng nhiều các tác vụ phân tích tập trung vào các khía cạnh phi chữ nghĩa (non-literal) của ngôn ngữ nói, nơi mà các phương pháp luận hướng dữ liệu (data-driven) tương tự thường có thể áp dụng được cho nhiều hiện tượng PSP đa dạng (xem thêm thảo luận tại {cite:t}`schuller2013computational`).
 
-{cite:t}`schuller2013computational`
-use a distinction into two types of speaker
-characteristics: traits and states. These are related to the temporal
-properties of the analyzed phenomena. Speaker traits are long-term and
-slowly-changing characteristics of the speaker, such as personality
-traits (e.g., Big Five classification), gender, age, or dialect. On the
-other hand, speaker states are short- to medium-term phenomena, such as
-speaker's emotional state, attitude in a conversation, (temporary)
-health conditions, fatigue, or stress level. When collecting data for
-PSP research and system development, it is important to consider the
-time-scale of the phenomenon to be analyzed and how this relates to
-practical needs of the analysis task (e.g., how much speech can be
-collected and analyzed before classification decision; does the system
-have to be real-time). For instance, quickly changing characteristics
-such as emotional state should be analyzed from relatively short speech
-recordings where the factor of interest can be assumed to be stable. For
-example, recognition of speaker's emotional state during a single
-utterance is a widely adopted approach in speech emotion recognition. In
-contrast, analysis of speaker health (e.g., COVID-19 symptoms) from just
-one utterance is likely to be inaccurate, but speaker-dependent data
-collection and analysis across longer stretches of speech will likely
-produce more reliable analysis outcomes. Moreover, longitudinal
-monitoring of a subject across longer periods of time is likely to be
-more accurate in detecting changes in the speaker's voice, as the system
-can be adapted to the acoustic and linguistic characteristics of that
-specific speaker. For instance, subject-specific monitoring of the
-progression of a neurodegenerative disease based on speech is likely to
-be more accurate than automatic classification of disease severity from
-a bag of utterances from a random collection of speakers.
+### Các đặc điểm và trạng thái người nói
 
-### Typical applications of PSP 
+{cite:t}`schuller2013computational` phân chia các đặc trưng của người nói thành hai loại: đặc điểm (traits - thuộc tính lâu dài) và trạng thái (states - hiện tượng nhất thời). Sự phân biệt này liên quan đến thuộc tính thời gian của các hiện tượng được phân tích. Các đặc điểm người nói (speaker traits) là những đặc trưng dài hạn và thay đổi chậm của người nói, chẳng hạn như các nét tính cách (ví dụ: mô hình tính cách Năm Yếu Tố - Big Five), giới tính, độ tuổi hoặc phương ngữ. Ngược lại, các trạng thái người nói (speaker states) là các hiện tượng ngắn đến trung hạn, chẳng hạn như trạng thái cảm xúc của người nói, thái độ trong một cuộc trò chuyện, tình trạng sức khỏe (tạm thời), sự mệt mỏi, hoặc mức độ căng thẳng. Khi thu thập dữ liệu phục vụ nghiên cứu và phát triển hệ thống PSP, điều quan trọng là phải xem xét quy mô thời gian (time-scale) của hiện tượng cần phân tích và mối liên hệ của nó với các nhu cầu thực tế của tác vụ phân tích (ví dụ: lượng tiếng nói có thể được thu thập và phân tích trước khi đưa ra quyết định phân loại; hệ thống có bắt buộc phải hoạt động trong thời gian thực hay không).
 
-Some possible applications of paralinguistic tasks include, but are not
-limited to:
+Chẳng hạn, các đặc điểm thay đổi nhanh chóng như trạng thái cảm xúc nên được phân tích từ các bản ghi âm tiếng nói tương đối ngắn, nơi mà yếu tố cần quan tâm có thể được coi là ổn định. Ví dụ, nhận dạng trạng thái cảm xúc của người nói trong một phát ngôn đơn lẻ (utterance) là hướng tiếp cận được áp dụng rộng rãi trong nhận dạng cảm xúc tiếng nói. Ngược lại, việc phân tích sức khỏe người nói (ví dụ: triệu chứng COVID-19) chỉ qua một phát ngôn đơn lẻ nhiều khả năng sẽ thiếu chính xác, nhưng việc thu thập dữ liệu cá nhân hóa (speaker-dependent) và phân tích trên các đoạn tiếng nói dài hơn sẽ mang lại kết quả đáng tin cậy hơn nhiều. Hơn nữa, việc giám sát dọc (longitudinal monitoring) một đối tượng trong khoảng thời gian dài có thể giúp phát hiện những thay đổi trong giọng nói của họ chính xác hơn, vì hệ thống có thể tự thích ứng với các đặc trưng âm học và ngôn ngữ học của riêng người đó. Ví dụ, việc theo dõi sự tiến triển của một bệnh thoái hóa thần kinh dựa trên tiếng nói của từng cá nhân cụ thể sẽ mang lại độ chính xác cao hơn so với việc phân loại tự động mức độ nghiêm trọng của bệnh từ một tập hợp các phát ngôn rời rạc của những người nói ngẫu nhiên.
 
--   Emotion classification
--   Personality classification (e.g., Big Five traits)
--   Sleepiness or intoxication detection
--   Analysis of cognitive or physical load
--   Health-related analyses (cold, snoring, neurodegenerative diseases
-    etc.)
--   Speech addressee analysis (e.g., adult- vs. infant-directed speech)
--   Age and gender recognition
--   Sincerity analysis
--   Attitude analysis
+### Các ứng dụng điển hình của PSP 
 
-### Basic problem formulation and standard solutions 
+Một số ứng dụng tiềm năng của các tác vụ xử lý tiếng nói cận ngôn ngữ bao gồm (nhưng không giới hạn ở):
 
-The basic goal of paralinguistic analysis is to extract paralinguistic
-information of interest while ignoring the signal variability introduced
-by other factors, such as linguistic content, speaker identity,
-background noise or transmission channel characteristics (aka. *nuisance
-factors*). However, for some tasks, it may also be useful to analyse the
-lexical and grammatical content of speech in order to infer information
-regarding the phenomena of interest.
+-   Phân loại cảm xúc (Emotion classification)
+-   Phân loại nét tính cách (Personality classification, ví dụ: năm đặc trưng tính cách Big Five)
+-   Phát hiện trạng thái buồn ngủ hoặc say xỉn (Sleepiness or intoxication detection)
+-   Phân tích áp lực nhận thức hoặc thể chất (Analysis of cognitive or physical load)
+-   Phân tích liên quan đến sức khỏe (cảm lạnh, ngáy, bệnh thoái hóa thần kinh, v.v.)
+-   Phân tích đối tượng hướng tới của lời nói (ví dụ: tiếng nói hướng tới người lớn so với tiếng nói hướng tới trẻ nhỏ)
+-   Nhận dạng độ tuổi và giới tính (Age and gender recognition)
+-   Phân tích độ chân thực (Sincerity analysis)
+-   Phân tích thái độ (Attitude analysis)
 
-Typical PSP systems follow the two classical tasks of machine learning:
-classification and regression. In classification, the goal is to build a
-system that can assign a speech sample (e.g., an utterance) into one of
-two or more categories (e.g., intoxicated or not intoxicated). In
-regression, the target is a continuous (or at least ordinal) measure
-(e.g., blood alcohol concentration percentage).
+### Phát biểu bài toán cơ bản và các giải pháp chuẩn 
 
-Fig. 1 illustrates a standard PSP system pipeline, which follows a
-typical supervised machine learning scenario. First, a number of
-features are extracted from the speech signal. These features, together
-with the corresponding class labels, are then used to train a classifier
-model for the training dataset. During testing and actual use of the
-system, the classifier is used to determine the most likely class of an
-input waveform. Depending on the classifier architecture, the
-classification result may or may not be associated with a confidence
-measure of the classification decision. In regression tasks, the process
-is otherwise the same, but the categorical class labels are replaced by
-continous-valued measures and the classifier is replaced by a regression
-model.
+Mục tiêu cơ bản của phân tích cận ngôn ngữ là trích xuất thông tin cận ngôn ngữ cần quan tâm, đồng thời loại bỏ sự biến thiên của tín hiệu gây ra bởi các yếu tố khác như nội dung ngôn ngữ học, danh tính người nói, tiếng ồn nền hoặc đặc tính của kênh truyền dẫn (còn gọi là *yếu tố gây nhiễu - nuisance factors*). Tuy nhiên, đối với một số tác vụ, việc phân tích nội dung từ vựng và ngữ pháp của lời nói cũng có thể hữu ích để suy diễn thông tin về hiện tượng cần quan tâm.
 
-A central characteristic of many PSP tasks is that the analyzed
-phenomenon (e.g., speaker emotion) is assumed to be fixed at a certain
-time-scale, such as across one utterance, and therefore classification
-decisions should also be made at time-scales longer than typical
-frame-level signal features. In this case, it would desirable to obtain
-a fixed-dimensional feature representation of the signal even if the
-duration of the input waveform varies from case to case. This can be
-achieved by a two-step process: **1)** first extracting regular
-frame-level features (e.g., spectral features such as FFT) with high
-temporal resolution (e.g., one frame every 10-ms), sometimes referred to
-as low-level descriptors (LLDs), and then **2)** calculating statistical
-parameters ("functionals") of each of the features across all the
-time-frames (illustrated in Fig. 2). Typical functionals of LLDs
-include, e.g., *min, max, mean, variance, skewness,* and *kurtosis*, but
-they can also be measures, such as centroids, percentiles, or different
-types of means. In order to acquire a more complete picture of the
-signal dynamics, first- and second-order time-derivatives of the
-frame-level features ("deltas" and "delta-deltas") are often included in
-the feature set before calculating the functionals. In neural networks,
-a varying-length signal can also be represented by a fixed-dimensional
-embedding extracted from the input waveform, such as taking the output
-of an LSTM-layer. Once the input signals are represented by
-fixed-dimensional feature vectors, standard machine learning classifiers
-can be applied to the data.
+Các hệ thống PSP điển hình tuân theo hai tác vụ kinh điển của học máy: phân loại (classification) và hồi quy (regression). Trong bài toán phân loại, mục tiêu là xây dựng một hệ thống có thể gán một mẫu tiếng nói (ví dụ: một phát ngôn) vào một trong hai hoặc nhiều danh mục (ví dụ: say xỉn hoặc không say xỉn). Trong bài toán hồi quy, mục tiêu hướng tới là một đại lượng đo lường liên tục (hoặc ít nhất là có thứ tự - ordinal) (ví dụ: tỷ lệ nồng độ cồn trong máu).
 
-  
+Hình 1 minh họa quy trình (pipeline) của một hệ thống PSP tiêu chuẩn, tuân theo kịch bản học máy có giám sát điển hình. Đầu tiên, một số đặc trưng được trích xuất từ tín hiệu tiếng nói. Các đặc trưng này, cùng với các nhãn lớp tương ứng, sau đó được sử dụng để huấn luyện một mô hình bộ phân loại (classifier) trên tập dữ liệu huấn luyện. Trong quá trình thử nghiệm và sử dụng thực tế hệ thống, bộ phân loại được dùng để xác định lớp có khả năng cao nhất của dạng sóng đầu vào. Tùy thuộc vào kiến trúc của bộ phân loại, kết quả phân loại có thể có hoặc không đi kèm với một độ đo độ tin cậy (confidence measure) của quyết định phân loại. Trong các tác vụ hồi quy, quy trình diễn ra tương tự, chỉ khác là các nhãn lớp rời rạc được thay thế bằng các giá trị đo lường liên tục và bộ phân loại được thay thế bằng một mô hình hồi quy (regression model).
+
+Một đặc điểm trung tâm của nhiều tác vụ PSP là hiện tượng được phân tích (ví dụ: cảm xúc người nói) được giả định là cố định ở một quy mô thời gian nhất định, chẳng hạn như trong phạm vi một phát ngôn, và do đó các quyết định phân loại cũng nên được thực hiện ở quy mô thời gian dài hơn các đặc trưng tín hiệu cấp khung (frame-level features) thông thường. Trong trường hợp này, mong muốn là có được một biểu diễn đặc trưng có số chiều cố định (fixed-dimensional representation) của tín hiệu, ngay cả khi thời lượng của dạng sóng đầu vào thay đổi theo từng trường hợp. Điều này có thể đạt được thông qua quy trình hai bước: **1)** đầu tiên, trích xuất các đặc trưng cấp khung thông thường (ví dụ: các đặc trưng phổ như FFT) với độ phân giải thời gian cao (ví dụ: một khung mỗi 10 miligiây), thường được gọi là các bộ mô tả mức thấp (Low-Level Descriptors - LLDs), và sau đó **2)** tính toán các tham số thống kê (gọi là các "hàm chức năng" - functionals) của từng đặc trưng trên toàn bộ các khung thời gian (minh họa ở Hình 2). Các hàm functionals điển hình của LLDs bao gồm: giá trị nhỏ nhất (*min*), lớn nhất (*max*), trung bình (*mean*), phương sai (*variance*), độ lệch (*skewness*), và độ nhọn (*kurtosis*), nhưng chúng cũng có thể là các phép đo khác như trọng tâm phổ (centroids), phân vị (percentiles) hoặc các loại trung bình khác nhau. Để có được bức tranh toàn diện hơn về động lực học của tín hiệu, các đạo hàm theo thời gian bậc một và bậc hai của các đặc trưng cấp khung ("deltas" và "delta-deltas") thường được đưa vào bộ đặc trưng trước khi tính toán các functionals. Trong các mạng nơ-ron, một tín hiệu có độ dài biến thiên cũng có thể được biểu diễn bằng một vector nhúng (embedding) có số chiều cố định được trích xuất từ dạng sóng đầu vào, chẳng hạn như lấy đầu ra của một lớp LSTM. Một khi các tín hiệu đầu vào đã được biểu diễn dưới dạng các vector đặc trưng có số chiều cố định, chúng ta có thể áp dụng các bộ phân loại học máy tiêu chuẩn cho dữ liệu.
 
 ![basic_PSP_pipeline.png](attachments/180298884.png)
 
-**Figure 1:** An example of a classical PSP processing pipeline with
-training (top) and usage (bottom). Speech features are first extracted
-from the original speech waveform, followed by a classifier that has
-been trained using supervised learning with labeled training samples.
-
-  
+**Hình 1:** Ví dụ về một quy trình xử lý PSP cổ điển gồm giai đoạn huấn luyện (trên) và sử dụng (dưới). Các đặc trưng tiếng nói đầu tiên được trích xuất từ dạng sóng tiếng nói gốc, sau đó đưa qua một bộ phân loại đã được huấn luyện bằng phương pháp học có giám sát với các mẫu huấn luyện được dán nhãn.
 
 ![PSP_feature_extraction.png](attachments/180298908.png)
 
-**Figure 2:** An example signal-level feature extraction process where
-variable-duration utterances become represented by fixed-dimensional
-feature vectors, consisting of statistical parameters ("functionals")
-calculated across frame-by-frame speech features (sometimes also
-referred to as low-level descriptors, or "LLDs").  
+**Hình 2:** Ví dụ về quy trình trích xuất đặc trưng cấp tín hiệu, trong đó các phát ngôn có thời lượng biến thiên được biểu diễn bằng các vector đặc trưng có số chiều cố định, bao gồm các tham số thống kê ("functionals") được tính toán dựa trên các đặc trưng tiếng nói theo từng khung (đôi khi còn được gọi là các bộ mô tả mức thấp - LLDs).  
 
-  
+Trong cả hai trường hợp phân loại và hồi quy, thách thức là xây dựng một hệ thống có thể phân biệt các đặc trưng chính của hiện tượng cần nghiên cứu mà không bị ảnh hưởng bởi các nguồn biến thiên tín hiệu khác. Các hệ thống hiệu suất cao và có khả năng tổng quát hóa tốt có thể được tiếp cận theo ba chiến lược cơ bản: *đặc trưng được thiết kế tốt (well-designed features)*, *bộ phân loại mạnh mẽ/bền vững (robust classifiers)*, hoặc *học đầu-cuối (end-to-end learning)* - nơi các biểu diễn tín hiệu ("đặc trưng") và bộ phân loại được học đồng thời từ dữ liệu. Việc lựa chọn phương pháp tiếp cận phụ thuộc vào hai yếu tố chính: tri thức miền (domain knowledge) và tính sẵn có của dữ liệu huấn luyện quy mô lớn mang tính đại diện (Hình 3).
 
-In the both cases of classification and regression, the challenge is to
-build a system that can discriminate the key features of the phenomenon
-without being affected by the other sources of signal variability.
-High-performance well-generalizing systems can be approached with three
-basic strategies: *well-designed features*, *robust classifiers*, or
-*end-to-end learning*, where signal representations ("features") and
-classifiers are jointly learned from the data. Selection of the approach
-depends on two primary factors:  domain knowledge and availability of
-representative large-scale training data (Fig. 3).
+Nguyên lý cơ bản là các đặc trưng được thiết kế tốt hoặc được lựa chọn phù hợp sẽ đòi hỏi ít dữ liệu huấn luyện hơn để suy diễn các tham số của mô hình học máy, nhưng điều này đòi hỏi chúng ta phải biết rõ các đặc tính âm học/ngôn ngữ học của hiện tượng được phân tích để thiết kế ra các đặc trưng nắm bắt được chúng.
 
-The basic principle is that well-designed or otherwise properly chosen
-features require less training data for inference of the machine
-learning model parameters, but this necessitates that the
-acoustic/linguistic characteristics of the analyzed phenomenon are known
-in order to design features that capture them. If there are only limited
-data and limited domain knowledge, it is still possible to calculate a
-large number of potentially relevant features and then use a classifier
-such as Support Vector Machines (SVMs; Boser et al., 1992) that can
-robustly handle high-dimensional features, including potentially
-task-irrelevant or otherwise noisy features. For instance, the baseline
-systems for annual Computational Paralinguistic Challenges (see also
-below) have traditionally used a combination of more than 6000
-signal-level features together with an SVM classifier, and often these
-systems have been highly competitive with other solutions.
-Alternatively, feature selection techniques may be applied in
-conjunction with data labeling to find a more compact feature set for
-the problem at hand (see, e.g., {cite:t}`pohjalainen2015feature`). 
+Nếu chỉ có dữ liệu hạn chế và tri thức miền ít ỏi, chúng ta vẫn có thể tính toán một số lượng lớn các đặc trưng có khả năng liên quan, sau đó sử dụng một bộ phân loại như Máy vector hỗ trợ (Support Vector Machines - SVMs; Boser và cộng sự, 1992) - thuật toán có thể xử lý tốt các đặc trưng số chiều lớn một cách bền vững, bao gồm cả các đặc trưng có thể không liên quan đến tác vụ hoặc bị nhiễu. Ví dụ, các hệ thống baseline cho cuộc thi Thử thách Cận ngôn ngữ Tính toán (Computational Paralinguistic Challenges - ComParE) thường niên (xem thêm bên dưới) theo truyền thống đã sử dụng sự kết hợp của hơn 6000 đặc trưng cấp tín hiệu cùng với bộ phân loại SVM, và các hệ thống này thường có tính cạnh tranh rất cao so với các giải pháp khác. Ngoài ra, các kỹ thuật lựa chọn đặc trưng (feature selection) có thể được áp dụng kết hợp với việc dán nhãn dữ liệu để tìm ra một tập đặc trưng gọn nhẹ hơn cho bài toán đang giải quyết (xem ví dụ {cite:t}`pohjalainen2015feature`).  
 
-If there are plenty of training data available, multilayer neural
-networks can be used to simultaneously learn useful signal
-representations and a classifier for the given problem. This type of
-representation learning can operate directly on the acoustic waveform or
-using some standard spectral representation with limited additional
-assumptions, such as FFT or log-Mel spectrum. The obvious advantage is
-that feature design is no longer needed, and the features and the
-classifier are seamlessly integrated and jointly optimized. In addition,
-even if domain knowledge would be available, the assumptions built into
-manually tailored features may lose some details of the modeled
-phenomenon, whereas end-to-end neural networks can potentially use all
-the information available in the input signal. Similarly to many other
-applications of machine learning, neural networks can therefore be
-expected to outperform the "more classical" approaches if sufficient
-training data are available for the task (see also sub-section below for
-data in PSP). However, besides the data requirement drawback, the
-standard problems and principles of neural network design and training
-apply, including the lack of access to the global optimum during the
-parameter optimization process.
+Nếu có sẵn nguồn dữ liệu huấn luyện dồi dào, các mạng nơ-ron nhiều lớp (multilayer neural networks) có thể được sử dụng để đồng thời học các biểu diễn tín hiệu hữu ích và bộ phân loại cho bài toán đã cho. Kiểu học biểu diễn (representation learning) này có thể hoạt động trực tiếp trên dạng sóng âm học hoặc sử dụng một số biểu diễn phổ tiêu chuẩn với rất ít giả định bổ sung, chẳng hạn như FFT hoặc phổ log-Mel. Lợi thế rõ ràng là việc thiết kế đặc trưng thủ công không còn cần thiết nữa, đồng thời các đặc trưng và bộ phân loại được tích hợp liền mạch và cùng nhau tối ưu hóa. Thêm vào đó, ngay cả khi có sẵn tri thức miền, các giả định được đưa vào các đặc trưng thiết kế thủ công có thể làm mất đi một số chi tiết tốt của hiện tượng được mô hình hóa, trong khi các mạng nơ-ron đầu-cuối (end-to-end) có khả năng tận dụng toàn bộ thông tin có sẵn trong tín hiệu đầu vào. Tương tự như nhiều ứng dụng khác của học máy, các mạng nơ-ron do đó được kỳ vọng sẽ vượt trội hơn so với các phương pháp tiếp cận 'cổ điển' nếu có đủ dữ liệu huấn luyện cho tác vụ (xem phần phụ bên dưới về dữ liệu trong PSP). Tuy nhiên, bên cạnh hạn chế về yêu cầu dữ liệu, các vấn đề và nguyên lý tiêu chuẩn của việc thiết kế và huấn luyện mạng nơ-ron vẫn được áp dụng, bao gồm cả việc không thể tiếp cận được tối ưu toàn cục (global optimum) trong quá trình tối ưu hóa tham số.
 
-If sufficient training data and domain knowledge are both available, one
-may also combine representation learning with good initial features or
-some type of model priors or constraints. This may speed-up the learning
-process or improve model convergence to a more effective solution due to
-a more favorable starting point for the optimization process. One
-particularly interesting new research direction is the use of
-differentiable computational graphs in feature extraction. In this case,
-prior task-related knowledge could be incorporated into digital signal
-processing (DSP) steps used to extract some initial features, but the
-feature extraction algorithm would be implemented together with the rest
-of the network as one differentiable computational graph (e.g., using a
-framework such as TensorFlow). This would allow error backpropagation
-through the entire pipeline from classification decisions to the feature
-extractor, thereby enabling task-optimized adaptation of the feature
-extraction or pre-processing steps. As an example, Discrete Fourier
-Transform is a differentiable function, allowing error gradients to pass
-through it, although by default it does not have any free parameters to
-optimize. However, similar signal transformations but with parametrized
-basis functions could be utilized and optimized jointly with the rest of
-the model.
-
-  
+Nếu đủ dữ liệu huấn luyện và tri thức miền đều sẵn có, người ta cũng có thể kết hợp học biểu diễn với các đặc trưng ban đầu tốt hoặc một số dạng tiền nghiệm (priors) hay ràng buộc của mô hình. Điều này có thể đẩy nhanh quá trình học hoặc cải thiện sự hội tụ của mô hình tới một giải pháp hiệu quả hơn nhờ có một điểm khởi đầu thuận lợi cho quá trình tối ưu hóa. Một hướng nghiên cứu mới đặc biệt thú vị là việc sử dụng các đồ thị tính toán khả vi (differentiable computational graphs) trong trích xuất đặc trưng. Trong trường hợp này, tri thức tiên nghiệm liên quan đến tác vụ có thể được đưa vào các bước xử lý tín hiệu số (DSP) dùng để trích xuất một số đặc trưng ban đầu, nhưng thuật toán trích xuất đặc trưng sẽ được triển khai cùng với phần còn lại của mạng dưới dạng một đồ thị tính toán khả vi duy nhất (ví dụ: sử dụng các framework như TensorFlow). Điều này cho phép lan truyền ngược sai số (error backpropagation) qua toàn bộ quy trình từ quyết định phân loại cho đến tận bộ trích xuất đặc trưng, qua đó cho phép tối ưu hóa việc trích xuất đặc trưng hoặc các bước tiền xử lý theo tác vụ cụ thể. Ví dụ, Biến đổi Fourier Rời rạc (DFT) là một hàm khả vi, cho phép các gradient sai số đi qua nó, mặc dù theo mặc định nó không có bất kỳ tham số tự do nào để tối ưu hóa. Tuy nhiên, các phép biến đổi tín hiệu tương tự nhưng với các hàm cơ sở được tham số hóa (parametrized basis functions) có thể được sử dụng và tối ưu hóa đồng thời cùng với phần còn lại của mô hình.
 
 ![feature_design_quadratic.png](attachments/180298840.png)
 
-**Figure 3:** Basic strategies for PSP system development given the two
-main considerations: availability of training data (x-axis) and domain
-knowledge (y-axis).
+**Hình 3:** Các chiến lược cơ bản để phát triển hệ thống PSP dựa trên hai yếu tố cân nhắc chính: tính sẵn có của dữ liệu huấn luyện (trục hoành) và tri thức miền (trục tung).
 
-  
+Tất nhiên, sự phân chia thành bốn nhóm như mô tả trong Hình 3 không hề mang tính tuyệt đối. Chẳng hạn, các phát triển gần đây trong học biểu diễn tự giám sát (self-supervised representation learning; van den Oord và cộng sự, 2018; Chung và cộng sự, 2019; Baevski và cộng sự, 2020) hoặc học đa tác vụ (multitask learning; ví dụ: Wu và cộng sự, 2015) vẫn còn rất ít được khai phá trong PSP. Những hướng tiếp cận này có thể cho phép khai thác hiệu quả lượng lớn dữ liệu tiếng nói không nhãn với số lượng ít các mẫu dán nhãn trong miền đích cần quan tâm.
 
-Naturally, the division into the four categories described in Fig. 3 is
-by no means definite. For instance, recent developments in
-self-supervised representation learning (van den Oord et al., 2018;
-Chung et al., 2019; Baevski et al., 2020) or multitask learning (e.g.,
-Wu et al., 2015) are still largely unexplored in PSP. Such approaches
-could enable effective utilization of large amounts of unlabeled speech
-data with fewer labeled examples in the target domain of interest.
+### Thu thập dữ liệu và sự khan hiếm dữ liệu
 
-### Data collection and data sparsity
+Vì PSP hiện đại phụ thuộc lớn vào học máy, dữ liệu huấn luyện mang tính đại diện là bắt buộc đối với hiện tượng cần nghiên cứu. Tuy nhiên, việc tiếp cận dữ liệu dán nhãn chất lượng cao thường bị hạn chế đối với nhiều tác vụ PSP. Trước hết, bản thân việc thu thập dữ liệu thường gặp nhiều thách thức và có thể đi kèm các vấn đề đạo đức quan trọng, chẳng hạn như thu thập dữ liệu từ người nói đang say xỉn hoặc các đối tượng mắc bệnh hiếm gặp, hoặc dữ liệu đòi hỏi các phép đo khách quan (sinh lý) về trạng thái cảm xúc phải được ghi lại đồng thời với âm thanh tiếng nói. Sự sẵn có của nhãn thực tế khách quan (ground-truth labels) đáng tin cậy cho dữ liệu tiếng nói cũng là một khó khăn lớn. Ví dụ, không có phương pháp đo trực tiếp nào đối với các trạng thái cảm xúc tiềm ẩn của người nói, trong khi tiếng nói biểu cảm mô phỏng do các diễn viên chuyên nghiệp thực hiện có thể không phản ánh đúng sự biến thiên của biểu cảm cảm xúc trong thế giới thực. Tương tự, việc đánh giá mức độ nghiêm trọng của nhiều căn bệnh chủ yếu dựa vào các phép đo gián tiếp khác nhau và thực hành chẩn đoán lâm sàng, chứ không phải dựa trên tri thức tuyệt đối (oracle knowledge) theo một thang đo chuẩn hóa chung. Mỗi khi con người được sử dụng để dán nhãn dữ liệu (ví dụ: đánh giá cảm xúc), luôn tồn tại một mức độ không nhất quán giữa các người gán nhãn (inter-annotator inconsistency) do khác biệt về quan điểm và sự biến thiên chung trong cách đánh giá của con người. Điều này xảy ra ngay cả khi các chuyên gia trong ngành được giao thực hiện tác vụ. Tất nhiên, tác vụ càng khó hoặc hiện tượng càng mơ hồ thì nhãn dán sẽ càng chứa nhiều nhiễu và sự nhập nhằng.  
 
-Since modern PSP largely relies on machine learning, representative
-training data will be required for the phenomenon of interest. However,
-access to high-quality labeled data is often be limited for many PSP
-tasks. First of all, the data collection itself is often challenging and
-may include important ethical considerations, such as collecting data
-from intoxicated speakers or subjects with rare diseases, or data where
-some type of objective (physiological) measurements of emotional state
-are captured simultaneously with the speech audio. Availability of
-reliable ground-truth labels for the speech data can also be difficult.
-For instance, there is no direct way to measure the underlying emotional
-states of speakers, whereas induced emotional speech by professional
-actors may not properly reflect the variability of real-world emotional
-expression. In a similar manner, assessment of severity of many diseases
-is based on various indirect measurements and clinical diagnostic
-practices, not on some type of oracle knowledge on a universally
-standardized scale. Every time humans are used for data labelling (e.g.,
-assessing emotions), there is a certain degree of inter-annotator
-inconsistency due to differing opinions and general variability in human
-performance. This is the case even when domain experts are used for the
-task. Naturally, the more difficult the task or more ambiguous the
-phenomenon, the more there will be noise and ambiguity in the labeling. 
+Một hạn chế khác cản trở sự tiến bộ của PSP là nhiều tập dữ liệu PSP không thể được phân phối tự do cho cộng đồng nghiên cứu do các vấn đề về quyền sở hữu dữ liệu và bảo vệ quyền riêng tư của người tham gia. Một ví dụ rõ ràng là tiếng nói đi kèm với siêu dữ liệu (metadata) liên quan đến các yếu tố như sức khỏe hoặc chỉ số IQ của người nói có tính chất cực kỳ nhạy cảm, và không phải người nói nào cũng đồng ý cho phép phân phối công khai giọng nói nhận dạng được của họ cùng với các dữ liệu cá nhân nhạy cảm như vậy. Các cân nhắc về quyền sở hữu dữ liệu vốn dĩ làm hạn chế việc gộp chung các kho ngữ liệu tiếng nói khác nhau nhằm xây dựng các cơ sở dữ liệu toàn diện hơn về tiếng nói liên quan đến các hiện tượng quan tâm, và nhìn chung làm chậm quá trình mở rộng khoa học có thể tái lập (replicable open science). Mặt khác, việc tôn trọng quyền riêng tư của những người tham gia trong nghiên cứu PSP (hoặc bất kỳ nghiên cứu nào khác) là vô cùng quan trọng - không chỉ vì lý do đạo đức, mà còn bởi vì toàn bộ lĩnh vực này phụ thuộc vào việc tiếp cận dữ liệu từ những người tham gia tự nguyện. Các lợi ích thương mại đối với quyền sở hữu dữ liệu cũng thường là điều không thể tránh khỏi.
 
-Another limitation hindering PSP progress is that many PSP datasets
-cannot be freely distributed to the research community due to data
-ownership and human participant privacy protection considerations. As a
-clear example, speech with metadata related to factors such as health or
-IQ of the speakers is highly sensitive in nature, and not all speakers
-consent to open distribution of their identifiable voice together with
-such private data of themselves. The data ownership considerations
-inherently limit the pooling of different speech corpora in order to
-build more comprehensive databases of speech related to different
-phenomena of interest, and generally slow down replicable open science.
-On the other hand, it is of utmost importance to respect the privacy of
-human participants in PSP (or any other) research—not only due to
-ethical considerations, but also since the entire field depends on
-access to data from voluntary human participants. Commercial interests
-to data ownership are also often unavoidable.
+Tựu trung lại, điều này có nghĩa là dữ liệu thường là yếu tố giới hạn hiệu suất của hệ thống, và do đó các mạng nơ-ron sâu vẫn chưa thể trở thành giải pháp may đo sẵn (off-the-shelf) duy nhất cho nhiều bài toán PSP. Do vậy, các nỗ lực chia sẻ và gộp chung dữ liệu một cách linh hoạt hơn (nhưng vẫn đảm bảo đạo đức) là một thách thức quan trọng cho các nghiên cứu trong tương lai. Các giải pháp kỹ thuật mạnh mẽ hơn và hiểu biết sâu sắc hơn về các hiện tượng PSP có thể đạt được bằng cách kết hợp dữ liệu (và siêu dữ liệu) phong phú từ nhiều nguồn khác nhau, bao gồm các ngôn ngữ khác nhau, môi trường văn hóa khác nhau và điều kiện thu âm khác nhau.  
 
-In total, this means that data is often a limiting factor in system
-performance, and therefore deep neural networks have still not become
-the only off-the-shelf-solution for many PSP problems. Efforts for more
-flexible (but ethical) data sharing and pooling is therefore an
-important challenge for future research. More powerful technical
-solutions and deeper understanding of the PSP phenomena could be
-acquired by combining rich data (and metadata) from various sources,
-including different languages, cultural environments, and recording
-conditions. 
+### Thử thách Cận ngôn ngữ Tính toán (Computational Paralinguistic Challenge)
 
-### Computational Paralinguistic Challenge 
+Nghiên cứu về PSP đã được thúc đẩy mạnh mẽ nhờ cuộc thi thường niên Thử thách Cận ngôn ngữ Tính toán (Computational Paralinguistic Challenge - ComParE) được tổ chức trong khuôn khổ các hội nghị ISCA Interspeech (xem <http://www.compare.openaudio.eu/>). Mỗi năm kể từ năm 2009, ComParE đều đưa ra một số tác vụ phân tích cận ngôn ngữ kèm theo các tập dữ liệu được xác định trước để các đội thi tranh tài. Các hệ thống baseline có tính cạnh tranh cao, quy trình đánh giá (evaluation protocols) và kết quả đối chứng luôn được cung cấp sẵn cho người tham gia làm điểm khởi đầu, giúp giảm thiểu rào cản tiếp cận thế giới PSP cho các nhà nghiên cứu thuộc nhiều lĩnh vực nền tảng khác nhau. Bên cạnh đó, các tác vụ và tập dữ liệu mới có thể được đề xuất lên ban tổ chức cuộc thi, tạo ra một kênh hữu ích cho các chủ sở hữu dữ liệu và nhà nghiên cứu để tìm kiếm các giải pháp tối ưu cho bài toán phân tích của họ.
 
-Research in PSP has been strongly advanced by an annual Computational
-Paralinguistic Challenge (ComParE) held in the context of ISCA
-Interspeech conferences (see <http://www.compare.openaudio.eu/>). Every
-year since 2009, ComParE has included a number of paralinguistic
-analysis tasks with pre-defined datasets in which participants can
-compete with each other. Competitive baseline systems, evaluation
-protocols and results are always provided to the participants as a
-starting point, enabling low-barrier access to the world of PSP for
-researchers with various backgrounds. In addition, new tasks and
-datasets can be proposed to challenge organizers, providing a useful
-channel for data owners and researchers to obtain competitive solutions
-to their analysis problems.
-
-## Further reading and materials on PSP 
+## Tài liệu đọc thêm và tài nguyên về PSP 
 
 {cite:empty}`eyben2010opensmile,baevski2020wav2vec,chung2019unsupervised,boser1992training,wu2015deep`
 
@@ -388,10 +91,4 @@ to their analysis problems.
 :filter: docname in docnames
 ```
 
-Schuller, B. et al.: Computational Paralinguistic Challenge. WWW-site:
-<http://www.compare.openaudio.eu/>, last accessed 11th October 2020.
-
-
-
-
-
+Schuller, B. và cộng sự: Computational Paralinguistic Challenge. Trang web: <http://www.compare.openaudio.eu/>, truy cập lần cuối ngày 11 tháng 10 năm 2020.

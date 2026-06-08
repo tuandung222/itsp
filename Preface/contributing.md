@@ -1,19 +1,19 @@
-## Contributing
+## Đóng góp
 
-We welcome all types of useful contributions! See also our [code of conduct](content:codeofconduct).
+Chúng tôi hoan nghênh mọi đóng góp hữu ích! Xem thêm [Quy tắc ứng xử](content:codeofconduct) của chúng tôi.
 
-Content contributors will, unless author requests to remain anonymous, be automatically included on the [list of authors](content:authors) and for bugfixers we will create an "also featuring" list. 
-The best way of contributing however depends on type of contribution:
+Người đóng góp nội dung, trừ khi tác giả yêu cầu ẩn danh, sẽ tự động được đưa vào [danh sách tác giả](content:authors); đối với người sửa lỗi, chúng tôi sẽ tạo danh sách "cùng đóng góp". 
+Cách đóng góp tốt nhất tùy thuộc vào loại đóng góp:
 
-- For small bugfixes
-   - Post an [issue on github.com](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/issues), or    
-   - Modify the code directly and push a [pull request](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/pulls).
-- For clearly missing or incomplete content
-   - Create the content and push a [pull request](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/pulls). 
-- Extensions of topic area
-   - Discuss it first with the other authors by posting an [issue on github.com](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/issues).
+- Đối với sửa lỗi nhỏ
+   - Tạo [issue trên github.com](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/issues), hoặc    
+   - Sửa mã trực tiếp và gửi [pull request](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/pulls).
+- Đối với nội dung rõ ràng bị thiếu hoặc chưa hoàn chỉnh
+   - Tạo nội dung và gửi [pull request](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/pulls). 
+- Mở rộng phạm vi chủ đề
+   - Thảo luận trước với các tác giả khác bằng cách tạo [issue trên github.com](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp/issues).
 
-The source material is stored at [https://github.com/Speech-Interaction-Technology-Aalto-U/itsp](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp). 
+Mã nguồn được lưu tại [https://github.com/Speech-Interaction-Technology-Aalto-U/itsp](https://github.com/Speech-Interaction-Technology-Aalto-U/itsp). 
 
-See also [Instructions for developers](content:developers).
+Xem thêm [Hướng dẫn cho Nhà phát triển](content:developers).
 

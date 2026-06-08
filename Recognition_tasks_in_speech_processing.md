@@ -1,44 +1,13 @@
 (content:recotasks)=
-# Recognition tasks in speech processing
+# Các tác vụ nhận dạng trong xử lý tiếng nói
 
-Typical tasks in speech processing, where machine learning is often
-applied include:
+Các tác vụ điển hình trong xử lý tiếng nói thường được áp dụng học máy bao gồm:
 
--   [*Speech recognition*](Recognition/Speech_Recognition.md), which refers to converting an acoustic
-    waveform of spoken speech to the corresponding text
-    (speech-to-text). See also [Speech and Language Processing](https://web.stanford.edu/~jurafsky/slp3/), by Dan Jurafsky and James H. Martin, (accessed 15.6.2022). {cite}`jurafsky2021`
--   [*Speaker recognition* and *speaker verification,*](Recognition/Speaker_Recognition_and_Verification.md) which refer to,
-    respectively, identifying the speaker (who is speaking?) and
-    verifying whether the speaker is who he claims to be (is it really
-    you?).
--   [*Speech synthesis*](Speech_Synthesis.md), which entails the creation of a natural sounding
-    speech signal from text input (text-to-speech).
--   *[Speech enhancement](Speech_enhancement)*, refers to improving a
-    recorded speech signal, for example with the objective of removing
-    background noise (noise attenuation) or the effect of room
-    acoustics.
--   [*Wake-word* and *keyword detection*](Recognition/Wake-word_and_keyword_spotting), refers to the task
-    where the purpose is to find single characterizing words from
-    continuous speech. The idea is that by using a light-weight
-    algorithm, we can extract useful information without a
-    computationally complex speech recognizer. Specifically, wake-word
-    detection refers to the waiting for the activation command, that is,
-    the device sleeps until the wake-word is heard. Keyword detection
-    can refer to similar task, or for example, the task of recognizing
-    the topic of a conversation.
--   [*Voice activity detection* (VAD)](Recognition/Voice_activity_detection.ipynb),
-    refers to the task of determining whether a signal contains speech
-    or not (is someone speaking?). Many of the above tasks are
-    resource-intensive operations, such that we would like to, for
-    example, use speech recognition only when speech is present. We can
-    therefore first use a simple VAD to determine whether a signal is
-    speech or not, and only start the speech recognizer when speech is
-    present.
--   [*Speech
-    diarisation*](https://en.wikipedia.org/wiki/Speaker_diarisation) is
-    the process of segmenting a multi-speaker conversation into
-    continuous single-speaker segments.
--   [*Paralinguistic analysis tasks*](Recognition/Paralinguistic_speech_processing),
-    refers generally to the extraction of non-linguistic and non-speaker
-    identity related information from speech signals, such as speaker
-    emotions, health, attitude, sleepiness etc.
+-   [**Nhận dạng tiếng nói (Speech recognition)**](Recognition/Speech_Recognition.md), liên quan đến việc chuyển đổi dạng sóng âm thanh của tiếng nói thành văn bản tương ứng (speech-to-text). Xem thêm cuốn sách [Speech and Language Processing](https://web.stanford.edu/~jurafsky/slp3/) của Dan Jurafsky và James H. Martin. {cite}`jurafsky2021`
+-   [**Nhận dạng người nói (Speaker recognition)** và **Xác thực người nói (Speaker verification)**](Recognition/Speaker_Recognition_and_Verification.md), tương ứng là xác định danh tính của người nói (Ai đang nói?) và xác minh xem người nói có phải là người mà họ tự nhận hay không (Có thực sự là bạn không?).
+-   [**Tổng hợp tiếng nói (Speech synthesis)**](Speech_Synthesis.md), bao gồm việc tạo ra tín hiệu tiếng nói có âm thanh tự nhiên từ đầu vào văn bản (text-to-speech).
+-   [**Nâng cao chất lượng tiếng nói (Speech enhancement)**](Speech_enhancement), liên quan đến việc cải thiện tín hiệu tiếng nói đã ghi âm, ví dụ như với mục tiêu loại bỏ nhiễu nền (lọc nhiễu - noise attenuation) hoặc ảnh hưởng của đặc tính âm học phòng.
+-   [**Phát hiện từ đánh thức (Wake-word)** và **Phát hiện từ khóa (Keyword spotting)**](Recognition/Wake-word_and_keyword_spotting.md), đề cập đến tác vụ tìm kiếm các từ đặc trưng đơn lẻ từ tiếng nói liên tục. Ý tưởng là bằng cách sử dụng một thuật toán nhẹ, chúng ta có thể trích xuất thông tin hữu ích mà không cần một bộ nhận dạng tiếng nói phức tạp về mặt tính toán. Cụ thể, phát hiện từ đánh thức liên quan đến việc chờ lệnh kích hoạt, tức là thiết bị sẽ ngủ cho đến khi nghe thấy từ đánh thức. Phát hiện từ khóa có thể đề cập đến tác vụ tương tự, hoặc ví dụ như tác vụ nhận dạng chủ đề của một cuộc hội thoại.
+-   [**Phát hiện hoạt động tiếng nói (Voice activity detection - VAD)**](Recognition/Voice_activity_detection.ipynb), đề cập đến tác vụ xác định xem một tín hiệu có chứa tiếng nói hay không (Có ai đang nói không?). Nhiều tác vụ ở trên là các thao tác tốn tài nguyên tính toán, do đó chúng ta muốn, ví dụ, chỉ sử dụng nhận dạng tiếng nói khi có sự xuất hiện của tiếng nói. Vì vậy, trước tiên chúng ta có thể sử dụng một VAD đơn giản để xác định xem tín hiệu có phải là tiếng nói hay không, và chỉ khởi chạy bộ nhận dạng tiếng nói khi có tiếng nói xuất hiện.
+-   [**Phân đoạn và định danh người nói (Speech diarisation)**](https://en.wikipedia.org/wiki/Speaker_diarisation) là quá trình phân đoạn một cuộc hội thoại nhiều người nói thành các đoạn liên tục của từng người nói riêng lẻ (Ai nói lúc nào?).
+-   [**Các tác vụ phân tích phi ngôn ngữ (Paralinguistic analysis tasks)**](Recognition/Paralinguistic_speech_processing.md), nói chung đề cập đến việc trích xuất các thông tin phi ngôn ngữ và không liên quan đến danh tính người nói từ tín hiệu tiếng nói, chẳng hạn như cảm xúc, tình trạng sức khỏe, thái độ, sự buồn ngủ v.v. của người nói.

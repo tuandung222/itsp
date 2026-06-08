@@ -1,7 +1,7 @@
 (content:authors)=
-# List of authors
+# Danh sách tác giả
 
-<!-- remember to update also the files _config.yml and index.md -->
+<!-- nhớ cập nhật cả các file _config.yml và index.md -->
 
 - [Tom Bäckström](https://research.aalto.fi/en/persons/tom-b%C3%A4ckstr%C3%B6m)
 - [Okko Räsänen](https://researchportal.tuni.fi/en/persons/okko-r%C3%A4s%C3%A4nen)

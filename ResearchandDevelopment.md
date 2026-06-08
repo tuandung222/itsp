@@ -1,6 +1,4 @@
-# Research and Development
+# Nghiên cứu và Phát triển (Research and Development)
 
-- [Design of Experiments and Projects in Speech Technology](content:design)
-- [Speech data and experiment design](content:data)
-
-  
+- [Thiết kế các thử nghiệm và dự án trong công nghệ tiếng nói](content:design)
+- [Dữ liệu tiếng nói và thiết kế thử nghiệm](content:data)

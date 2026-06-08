@@ -1,54 +1,49 @@
-# Applications and systems structures
+# Ứng dụng và cấu trúc hệ thống
 
-## Applications
+## Ứng dụng
 
-Speech processing is used in, for example;
+Xử lý tiếng nói được sử dụng trong nhiều lĩnh vực, ví dụ:
 
--   Telecommunication  
-    -   Phones and mobile phones
-    -   Teleconferencing systems
-    -   Voice-over-IP, like
+-   Viễn thông  
+    -   Điện thoại và điện thoại di động
+    -   Hệ thống hội nghị truyền hình
+    -   Voice-over-IP, như
         [Skype](https://en.wikipedia.org/wiki/Skype), [Google
         Hangouts](https://en.wikipedia.org/wiki/Google_Hangouts),
         [Facetime](https://en.wikipedia.org/wiki/FaceTime),
         [Zoom](https://en.wikipedia.org/wiki/Zoom_Video_Communications)
-    -   Podcasts, digital radio and TV
-    -   Virtual reality and gaming applications
--   Speech-operated virtual assistants, like
+    -   Podcast, radio và TV số
+    -   Thực tế ảo và ứng dụng trò chơi
+-   Trợ lý ảo điều khiển bằng giọng nói, như
     [Siri](https://en.wikipedia.org/wiki/Siri),
     [Alexa](https://en.wikipedia.org/wiki/Amazon_Alexa), [Google
     Assistant](https://en.wikipedia.org/wiki/Google_Assistant),
     [Mycroft](https://en.wikipedia.org/wiki/Mycroft_(software)),
-    [Cortana](https://en.wikipedia.org/wiki/Cortana_%28software%29) etc.
-    -   Also speech interfaces of robots
--   Navigators with speech feedback, like
-    [TomTom](https://en.wikipedia.org/wiki/TomTom) and
+    [Cortana](https://en.wikipedia.org/wiki/Cortana_%28software%29) v.v.
+    -   Cả giao diện tiếng nói của robot
+-   Hệ thống dẫn đường có phản hồi bằng giọng nói, như
+    [TomTom](https://en.wikipedia.org/wiki/TomTom) và
     [Garmin](https://en.wikipedia.org/wiki/Garmin)
--   Automated telephone services (like the helpdesk of an airline)
--   Automated transcription
-    -   Youtube subtitles
-    -   Recorded notes from doctors
--   Microphones and microphone systems
-    -   Headsets, with or without noise attenuation, with or without
-        active noise canceling
-    -   Stage microphones (related to audio processing)
--   Studio recording systems (related to audio processing)  
+-   Dịch vụ điện thoại tự động (ví dụ: tổng đài của hãng hàng không)
+-   Chuyển đổi tự động
+    -   Phụ đề Youtube
+    -   Ghi chú bác sĩ đã ghi âm
+-   Microphone và hệ thống microphone
+    -   Tai nghe, có hoặc không có giảm nhiễu, có hoặc không có chống ồn chủ động
+    -   Microphone sân khấu (liên quan đến xử lý âm thanh)
+-   Hệ thống ghi âm phòng thu (liên quan đến xử lý âm thanh)  
     -   [Autotune](https://en.wikipedia.org/wiki/Auto-Tune)
-    -   Noise attenuation/reduction
--   Dubbing movies e.g. for translation of audio
-    -   Also on-line translation
--   Speech synthesis services
-    -   Automated e-book readers
-    -   User-interfaces for the blind and the handicapped
--   Less common applications  
-    -   Access control and fraud detection with speaker identification
-        and verification
-    -   Anonymization and obfuscation (e.g. witness protection) of
-        speech signals
-    -   Speech synthesizers for disabled people (e.g. Stephen Hawking)
-    -   Medical analysis of speech signals (e.g.
-        [Alzheimer](https://en.wikipedia.org/wiki/Alzheimer%27s_disease)
-        detection)
+    -   Giảm/triệt nhiễu
+-   Lồng tiếng phim, ví dụ: dịch âm thanh
+    -   Cả dịch trực tuyến
+-   Dịch vụ tổng hợp tiếng nói
+    -   Trình đọc sách điện tử tự động
+    -   Giao diện cho người khiếm thị và người khuyết tật
+-   Ứng dụng ít phổ biến hơn  
+    -   Kiểm soát truy cập và phát hiện gian lận bằng nhận dạng và xác minh người nói
+    -   Ẩn danh và làm mờ (ví dụ: bảo vệ nhân chứng) tín hiệu tiếng nói
+    -   Bộ tổng hợp tiếng nói cho người khuyết tật (ví dụ: Stephen Hawking)
+    -   Phân tích y khoa tín hiệu tiếng nói (ví dụ: phát hiện [Alzheimer](https://en.wikipedia.org/wiki/Alzheimer%27s_disease))
 
 ![app1](attachments/165138615.jpeg)
 ![app2](attachments/165138616.png)
@@ -57,186 +52,92 @@ Speech processing is used in, for example;
 ![app3](attachments/165138684.png)
 
 
-Such applications can be categorized according to functionality, roughly
-as:
+Các ứng dụng này có thể được phân loại theo chức năng, đại khái như sau:
 
--   Transmission and storage of speech
-    -   Enable communication with a far-away person
--   Speech operated user-interfaces
-    -   Enable spoken interaction with a machine
--   Information extraction from a speech signal
-    -   Like automated transcription to generate subtitles for movies
--   Speech synthesis, i.e. automated generation of speech
--   "Improvement" of a speech signal, such as  
-    -   Such as noise reduction, translation
+-   Truyền dẫn và lưu trữ tiếng nói
+    -   Cho phép giao tiếp với người ở xa
+-   Giao diện người dùng điều khiển bằng tiếng nói
+    -   Cho phép tương tác bằng giọng nói với máy
+-   Trích xuất thông tin từ tín hiệu tiếng nói
+    -   Như chuyển đổi tự động để tạo phụ đề cho phim
+-   Tổng hợp tiếng nói, tức tạo tiếng nói tự động
+-   "Cải thiện" tín hiệu tiếng nói, như  
+    -   Giảm nhiễu, dịch thuật
 
-Note that these categories are in many senses overlapping; for example,
-noise reduction can be a part of any speech processing system and
-information extraction is practically a mandatory part of speech
-operated user-interfaces.
+Lưu ý rằng các nhóm này chồng lấp nhau ở nhiều khía cạnh; ví dụ, giảm nhiễu có thể là một phần của bất kỳ hệ thống xử lý tiếng nói nào, và trích xuất thông tin gần như bắt buộc trong giao diện người dùng điều khiển bằng giọng nói.
 
 
-## Systems structures
+## Cấu trúc hệ thống
 
-### Transmission and storage
+### Truyền dẫn và lưu trữ
 
-The objective of speech transmission systems is to compress the signal
-to as few bits as possible, while keeping the sound quality at the
-output as good as possible. This requires that the degradations that we
-introduce are chosen such that their perceptual influence is as small as
-possible. In other words, we would not like the listener to notice (or
-to notice as little as possible) that the signal has been degraded. In
-the illustration on the right, at the encoder on the sender side, we
-therefore have a model of perceptual importance, which determines how
-the signal is quantized. The quantized signal is then compressed to as
-few bits as possible. For such compression, we use statistical
-information about speech signals.
+Mục tiêu của hệ thống truyền dẫn tiếng nói là nén tín hiệu thành càng ít bit càng tốt, đồng thời giữ chất lượng âm thanh ở đầu ra càng tốt. Điều này đòi hỏi rằng những suy giảm mà ta đưa vào phải được chọn sao cho ảnh hưởng cảm quan (perceptual) của chúng là nhỏ nhất. Nói cách khác, ta không muốn người nghe nhận ra (hoặc nhận ra càng ít càng tốt) rằng tín hiệu đã bị suy giảm. Trong hình minh họa bên phải, tại bộ mã hóa (encoder) phía gửi, ta có một mô hình về tầm quan trọng cảm quan, xác định cách tín hiệu được lượng tử hóa. Tín hiệu đã lượng tử hóa sau đó được nén thành càng ít bit càng tốt. Để nén như vậy, ta sử dụng thông tin thống kê về tín hiệu tiếng nói.
 
-The decoder at the receiving side, reverses the steps by decompression
-and dequantization.
+Bộ giải mã (decoder) phía nhận sẽ đảo ngược các bước bằng giải nén và giải lượng tử hóa.
 
-Pre-processing operations would typically include noise attenuation and
-voice activity detection (see below).
+Các thao tác tiền xử lý thường bao gồm giảm nhiễu và phát hiện hoạt động tiếng nói (xem dưới).
 
 ![struct1](attachments/165138696.png)
 
   
 
-### Information extraction
+### Trích xuất thông tin
 
-We can extract many types of information from a speech signal, like
-[text content](content:asr) and [speaker
-identity](content:sid). Many such forms of
-information can be categorized by *labels*, that is, we give a label to
-a particular speech signal. That label can be, for example, the word which
-was pronounced or the speaker identity. Alternatively, such extracted
-information can be continuous-valued, such as the age of the speaker or
-mood (how glad/angry are you?), but we can treat both types of
-information as labels.
+Ta có thể trích xuất nhiều loại thông tin từ tín hiệu tiếng nói, như [nội dung văn bản](content:asr) và [danh tính người nói](content:sid). Nhiều dạng thông tin như vậy có thể được phân loại bằng *nhãn*, tức là ta gán một nhãn cho một tín hiệu tiếng nói cụ thể. Nhãn đó có thể là từ đã được phát âm hoặc danh tính người nói. Ngoài ra, thông tin trích xuất cũng có thể có giá trị liên tục, như tuổi hoặc tâm trạng của người nói (bạn vui/buồn thế nào?), nhưng ta có thể xem cả hai loại thông tin đều là nhãn.
 
-Such information extraction methods are today predominantly machine
-learning methods. A typical configuration is illustrated on the right,
-where the systems is trained off-line with a database of speech and
-corresponding labels. Once the system has been trained, it "knows" how
-to derive labels from speech input, such that in the actual use
-(application) of the model, it can classify input speech to give an
-estimate of the label.
+Các phương pháp trích xuất thông tin ngày nay chủ yếu là phương pháp học máy. Một cấu hình điển hình được minh họa bên phải, trong đó hệ thống được huấn luyện ngoại tuyến (off-line) với cơ sở dữ liệu tiếng nói và nhãn tương ứng. Sau khi huấn luyện, hệ thống "biết" cách suy ra nhãn từ đầu vào tiếng nói, sao cho khi sử dụng thực tế, nó có thể phân loại tiếng nói đầu vào để đưa ra ước lượng nhãn.
 
-In many cases, information extraction can also be implemented as a
-signal processing task, where we use prior knowledge of the signal to
-device our algorithm. For example, for estimating the [fundamental
-frequency](content:f0) (pitch) of a speech signal, we can
-readily use our knowledge to device efficient algorithms. Such
-algorithms are usually an order of magnitude simpler than machine
-learning methods, but if the task is complicated, then the accuracy of the
-output is reduced correspondingly.
+Trong nhiều trường hợp, trích xuất thông tin cũng có thể được thực hiện như một bài toán xử lý tín hiệu, trong đó ta sử dụng kiến thức tiên nghiệm về tín hiệu để thiết kế thuật toán. Ví dụ, để ước lượng [tần số cơ bản](content:f0) (pitch) của tín hiệu tiếng nói, ta có thể sử dụng kiến thức để thiết kế các thuật toán hiệu quả. Những thuật toán này thường đơn giản hơn học máy khoảng một bậc, nhưng nếu bài toán phức tạp, độ chính xác của đầu ra sẽ giảm tương ứng.
 
 ![struct2](attachments/165138741.png)
 
-## Speech synthesis
+## Tổng hợp tiếng nói
 
-When we want to make a computer speak, we need a speech synthesiser,
-which takes text as input and outputs speech. It is thus the reverse of
-the information extraction -task, in that the roles of speech and labels
-(text) have been switched (see figure on the right). As in information
-extraction, here we can also use simpler methods when applicable.
-The classical method is concatenative synthesis, where segments of
-speech, from a database, are fused together to form continuous
-sentences. Such methods are common for example in public announcement
-systems (e.g. train stations), where the range of possible announcements
-is known in advance.
+Khi muốn máy tính nói, ta cần bộ tổng hợp tiếng nói (speech synthesiser), nhận văn bản làm đầu vào và xuất ra tiếng nói. Đây là bài toán ngược của trích xuất thông tin, trong đó vai trò của tiếng nói và nhãn (văn bản) được hoán đổi (xem hình bên phải). Cũng như trong trích xuất thông tin, ở đây ta có thể sử dụng phương pháp đơn giản hơn khi phù hợp. Phương pháp cổ điển là tổng hợp nối (concatenative synthesis), trong đó các đoạn tiếng nói từ cơ sở dữ liệu được ghép lại thành câu liên tục. Phương pháp này phổ biến trong các hệ thống thông báo công cộng (ví dụ: nhà ga), nơi phạm vi thông báo có thể biết trước.
 
 ![struct3](attachments/165139247.png)
 
 
-## User-interfaces
+## Giao diện người dùng
 
-User interfaces can employ speech to accept speech commands and/or
-respond with speech. For example,
+Giao diện người dùng có thể sử dụng tiếng nói để nhận lệnh giọng nói và/hoặc phản hồi bằng giọng nói. Ví dụ:
 
--   A car navigator can give instructions with speech, while accepting
-    commands only through the touch (tactile) interface.
--   An automatic door can accept speech commands ("Door, open") but give
-    no audible feedback.
--   Fully speech operated interfaces, like smart speakers, both accept
-    speech commands and give spoken feedback.
+-   Hệ thống dẫn đường ô tô có thể đưa ra hướng dẫn bằng giọng nói, nhưng chỉ nhận lệnh qua giao diện cảm ứng.
+-   Cửa tự động có thể nhận lệnh giọng nói ("Cửa, mở") nhưng không phản hồi bằng âm thanh.
+-   Giao diện điều khiển hoàn toàn bằng giọng nói, như loa thông minh, vừa nhận lệnh vừa phản hồi bằng giọng nói.
 
-The unidirectional systems with only speech recognition or only speech
-generation are thus subsets of "full" speech operated systems. The stack
-of modules of such a complete speech operated system is illustrated on
-the right. Here the acoustic front-end (can) contain such pre-processing
-methods described in the following section. Natural language
-understanding assigns meaning to a sequence of words, dialogue
-management maps that to a specific action, implemented by the
-actuator(s), and natural language generation refers to the generation of
-an answer, in text form.
+Các hệ thống đơn hướng chỉ có nhận dạng tiếng nói hoặc chỉ tạo tiếng nói là tập con của hệ thống "đầy đủ" điều khiển bằng giọng nói. Ngăn xếp các module của một hệ thống hoàn chỉnh được minh họa bên phải. Ở đây, phần trước âm thanh (acoustic front-end) có thể chứa các phương pháp tiền xử lý được mô tả trong phần tiếp theo. Hiểu ngôn ngữ tự nhiên gán ý nghĩa cho chuỗi từ, quản lý đối thoại ánh xạ ý nghĩa đó thành hành động cụ thể, được thực thi bởi (các) bộ truyền động, và sinh ngôn ngữ tự nhiên tạo câu trả lời dưới dạng văn bản.
 
 ![struct4](attachments/165139542.png)
 
-## Processing and preprocessing
+## Xử lý và tiền xử lý
 
-Irrespective of the application, most systems that operate with speech
-signals suffer from similar types of problems:
+Bất kể ứng dụng nào, hầu hết các hệ thống hoạt động với tín hiệu tiếng nói đều gặp những vấn đề tương tự:
 
--   The main application is expensive to run, so it would be useful to
-    have a pre-processing unit which detects when it makes sense to
-    trigger the main application. For example, when nobody is speaking,
-    it does not make sense to run a speech recognizer.
--   Devices are used in real-world environments, where background noises
-    and room echo are common. It would therefore be useful to clean up
-    the signal prior to feeding to the main application.
+-   Ứng dụng chính tốn kém khi chạy, nên sẽ hữu ích nếu có bộ phận tiền xử lý phát hiện khi nào nên kích hoạt ứng dụng chính. Ví dụ, khi không ai nói, việc chạy bộ nhận dạng tiếng nói là vô nghĩa.
+-   Thiết bị được sử dụng trong môi trường thực, nơi tiếng ồn nền và tiếng vang phòng phổ biến. Do đó, việc làm sạch tín hiệu trước khi đưa vào ứng dụng chính là hữu ích.
 
-Such functions typically constitute the acoustic front-end.
+Những chức năng này thường tạo thành phần trước âm thanh (acoustic front-end).
 
-### Voice activity detection
+### Phát hiện hoạt động tiếng nói
 
-When there is no speech, most speech processing operations are
-meaningless. [Voice activity detection](content:vad)
-refers to the classification of signal segments according to whether
-they contain speech or not.
+Khi không có tiếng nói, hầu hết các thao tác xử lý tiếng nói đều vô nghĩa. [Phát hiện hoạt động tiếng nói](content:vad) (voice activity detection) là việc phân loại các đoạn tín hiệu theo tiêu chí có chứa tiếng nói hay không.
 
-### Keyword spotting or Wake-word detection
+### Phát hiện từ khóa hoặc Wake-word
 
-In most practical situations where voice operated devices are present,
-we want to be able to talk with people and not only the device. In other
-words, we need to know when the user is speaking to the device and when
-not. The device then doesn't have to try make sense of speech which is
-directed to someone else. Wake-word detection (or spotting) refers to a
-process which is just waiting for a specific word, which triggers the
-main application. For example, smart speakers of the Amazon Alexa brand
-wait for the user to say the wake-word "Alexa", and only after
-identifying that word, it starts the main process.
+Trong hầu hết các tình huống thực tế có thiết bị điều khiển bằng giọng nói, ta muốn nói chuyện với người khác chứ không chỉ với thiết bị. Nói cách khác, ta cần biết khi nào người dùng đang nói với thiết bị và khi nào không. Thiết bị khi đó không cần cố hiểu tiếng nói hướng đến người khác. Phát hiện wake-word (hoặc spotting) là quá trình chỉ chờ một từ cụ thể để kích hoạt ứng dụng chính. Ví dụ, loa thông minh Amazon Alexa chờ người dùng nói wake-word "Alexa", và chỉ sau khi nhận diện từ đó, nó mới bắt đầu quá trình chính.
 
-### Speech enhancement
+### Nâng cao chất tiếng nói
 
-We can try to remove the detrimental effect of background noises and
-room echoes with speech enhancement methods. Imagine for example how
-difficult it is to understand someone on the phone, when the remote
-speaker is standing on a busy street loud cars driving by. With noise
-attenuation we can reduce such noises to make speech more pleasant to
-listen at the receiving end. Also any other processing becomes simpler
-if the speech signal is more clean. Thus a voice user-interface can
-feature noise attenuation as pre-processing. Note however that also
-other processes such as voice activity detection and wake-word detection
-become easier on the clean signal (see alternative 1 in the figure on
-the right). However, since noise attenuation can be a computationally
-expensive process, it might be better to apply when we already know that
-the signal is a speech command (see alternative 2 in the figure on the
-right), though this will reduce the accuracy of voice activity and
-wake-word detection.
+Ta có thể cố gắng loại bỏ tác động bất lợi của tiếng ồn nền và tiếng vang phòng bằng các phương pháp nâng cao chất tiếng nói. Hãy tưởng tượng việc hiểu ai đó qua điện thoại khó đến mức nào khi người ở đầu dây bên kia đang đứng trên đường phố đông đúc với xe cộ qua lại. Bằng giảm nhiễu, ta có thể giảm những tiếng ồn đó để tiếng nói dễ nghe hơn ở đầu nhận. Bất kỳ quá trình xử lý nào khác cũng trở nên đơn giản hơn nếu tín hiệu tiếng nói sạch hơn. Do đó, giao diện người dùng giọng nói có thể sử dụng giảm nhiễu như tiền xử lý. Tuy nhiên, lưu ý rằng các quá trình khác như phát hiện hoạt động tiếng nói và phát hiện wake-word cũng trở nên dễ dàng hơn trên tín hiệu sạch (xem phương án 1 trong hình bên phải). Tuy nhiên, vì giảm nhiễu có thể tốn tài nguyên tính toán, tốt hơn nên áp dụng khi ta đã biết tín hiệu là lệnh giọng nói (xem phương án 2 trong hình bên phải), mặc dù điều này sẽ giảm độ chính xác của phát hiện hoạt động và wake-word.
 
-### Other signal processing
+### Xử lý tín hiệu khác
 
-Speech signals can be processed further by an array of different
-algorithms as desired. For example:
+Tín hiệu tiếng nói có thể được xử lý thêm bằng một loạt các thuật toán khác nhau tùy theo nhu cầu. Ví dụ:
 
--   Signals can be modified for artistic purposes with tools such as
-    auto-tune, where the pitch of a singing voice is modified to match a
-    desired pitch.
--   Speech signals can be translated to some other language.
--   The identity of a speaker can be hidden (or spoofed) for security
-    purposes like witness-protection, or for illegal activities like
-    fraud.
+-   Tín hiệu có thể được chỉnh sửa cho mục đích nghệ thuật bằng các công cụ như auto-tune, trong đó pitch của giọng hát được điều chỉnh để khớp với pitch mong muốn.
+-   Tín hiệu tiếng nói có thể được dịch sang ngôn ngữ khác.
+-   Danh tính người nói có thể được ẩn (hoặc giả mạo) cho mục đích bảo mật như bảo vệ nhân chứng, hoặc cho hoạt động phi pháp như gian lận.
 
  
 ![struct5](attachments/165139583.png)

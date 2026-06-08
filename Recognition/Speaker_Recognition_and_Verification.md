@@ -1,508 +1,197 @@
 (content:sid)=
-# Speaker Recognition and Verification
+# Nhận dạng và Xác thực người nói (Speaker Recognition and Verification)
 
-## Introduction to Speaker Recognition
+## Giới thiệu về nhận dạng người nói
 
-Speaker recognition is the task of identifying a speaker using their
-voice. Speaker recognition is classified into two parts: speaker
-identification and speaker verification. While speaker identification is
-the process of determining which voice in a group of known voices best
-matches the speaker’, speaker verification is the task of accepting or
-rejecting the identity claim of a speaker by analyzing their acoustic
-samples. Speaker verification systems are computationally less complex
-than speaker identification systems since they require a comparison
-between only one or two models, whereas speaker identification requires
-comparison of one model to N speaker models.
+Nhận dạng người nói (speaker recognition) là tác vụ xác định danh tính của một người nói bằng cách sử dụng giọng nói của họ. Nhận dạng người nói được chia thành hai bài toán: định danh người nói (speaker identification) và xác thực người nói (speaker verification). Trong khi định danh người nói là quá trình xác định xem giọng nói nào trong một nhóm các giọng nói đã biết khớp nhất với giọng của người nói hiện tại, thì xác thực người nói là tác vụ chấp nhận hoặc từ chối tuyên bố danh tính của một người nói bằng cách phân tích các mẫu âm học của họ. Các hệ thống xác thực người nói có độ phức tạp tính toán thấp hơn so với các hệ thống định danh người nói vì chúng chỉ yêu cầu so sánh giữa một hoặc hai mô hình, trong khi định danh người nói yêu cầu so sánh một mô hình đầu vào với $N$ mô hình người nói trong cơ sở dữ liệu.
 
-Speaker verification methods are divided into text-dependent and
-text-independent methods. In text-dependent methods, the speaker
-verification system has prior knowledge about the text to be spoken and
-the user is expected to speak this text. However, in a text-independent
-system, the system has no prior knowledge about the text to be spoken
-and the user is not expected to be cooperative. Text-dependent systems
-achieve high speaker verification performance from relatively short
-utterances, while text-independent systems require long utterances to
-train reliable models and achieve good performance.
+Các phương pháp xác thực người nói được chia thành các phương pháp phụ thuộc văn bản (text-dependent) và độc lập văn bản (text-independent). Trong các phương pháp phụ thuộc văn bản, hệ thống xác thực người nói đã biết trước văn bản sẽ được nói và người dùng được yêu cầu phát âm chính xác văn bản này. Ngược lại, trong hệ thống độc lập văn bản, hệ thống không có kiến thức trước về văn bản sẽ được nói và người dùng không cần phải hợp tác phát âm theo một kịch bản định sẵn. Các hệ thống phụ thuộc văn bản đạt được hiệu suất xác thực người nói cao với các phát ngôn tương đối ngắn, trong khi các hệ thống độc lập văn bản yêu cầu các phát ngôn dài để huấn luyện các mô hình đáng tin cậy và đạt được hiệu suất tốt.
 
 ![](attachments/SV_Architecture.png)
-Block diagram of a basic speaker verification system
+**Hình 1:** Sơ đồ khối của một hệ thống xác thực người nói cơ bản
 
-As it is shown in the above block diagram of a basic speaker
-verification system, a speaker verification system involves two main
-phases: the training phase in which the target speakers are enrolled and
-the testing phase in which a decision about the identity of the speaker
-is taken. From a training point of view, speaker models can be
-classified into generative and discriminative. Generative models such as
-Gaussian Mixture Model (GMM) estimate the feature distribution within
-each speaker. Discriminative models such as Support Vector Machine and
-Deep Neural Network (DNN), in contrast, model the boundary between
-speakers.
+Như được thể hiện trong sơ đồ khối ở trên, một hệ thống xác thực người nói bao gồm hai giai đoạn chính: giai đoạn đăng ký (training/enrolment phase) trong đó người nói mục tiêu được đăng ký thông tin giọng nói vào hệ thống, và giai đoạn kiểm thử (testing phase) trong đó quyết định về danh tính của người nói được đưa ra. Từ góc độ huấn luyện, các mô hình người nói có thể được phân loại thành mô hình sinh (generative) và mô hình phân biệt (discriminative). Các mô hình sinh như Mô hình hỗn hợp Gauss (GMM) ước lượng phân phối đặc trưng của từng người nói. Ngược lại, các mô hình phân biệt như Máy vectơ hỗ trợ (SVM) và Mạng nơ-ron sâu (DNN) mô hình hóa ranh giới quyết định giữa các người nói.
 
-The performance of speaker verification systems is degraded by the
-variability in channels and sessions between enrolment and verification
-speech signals. Factors which affect channel/session variability
-include:
+Hiệu suất của các hệ thống xác thực người nói bị suy giảm bởi sự biến thiên của kênh truyền và phiên ghi âm (channel and session variability) giữa tín hiệu tiếng nói lúc đăng ký và lúc xác thực. Các yếu tố ảnh hưởng đến sự biến thiên của kênh/phiên ghi âm bao gồm:
 
-1.  Channel mismatch between enrolment and verification speech signals
-    such as using different microphones in enrolment and verification
-    speech signals. 
+1.  Sự không khớp kênh (channel mismatch) giữa tín hiệu tiếng nói đăng ký và xác thực, chẳng hạn như sử dụng các microphone khác nhau trong hai giai đoạn này.
+2.  Tiếng ồn môi trường và điều kiện vang âm (reverberation).
+3.  Sự thay đổi trong giọng nói của chính người nói như sự già hóa, tình trạng sức khỏe, phong cách nói và trạng thái cảm xúc.
+4.  Kênh truyền dẫn như điện thoại cố định, điện thoại di động, microphone và giao thức truyền giọng nói qua Internet (VoIP).
 
-2.  Environmental noise and reverberation conditions. 
+## Xử lý tiền tuyến (Front-end Processing)
 
-3.  The differences in speaker voice such as ageing, health, speaking
-    style and emotional state.
+Nhiều kỹ thuật xử lý tiền tuyến (front-end processing) được áp dụng để xử lý tín hiệu tiếng nói và trích xuất các đặc trưng sử dụng trong hệ thống xác thực người nói. Quá trình xử lý tiền tuyến này chủ yếu bao gồm phát hiện hoạt động tiếng nói (VAD), trích xuất đặc trưng và các kỹ thuật bù kênh:
 
-4.  Transmission channel such as landline, mobile phone, microphone and
-    voice over Internet protocol (VoIP).
+1.  [**Phát hiện hoạt động tiếng nói (VAD)**](Voice_activity_detection.ipynb): Mục tiêu chính của phát hiện hoạt động tiếng nói là xác định phân đoạn nào của tín hiệu là tiếng nói và phân đoạn nào là phi tiếng nói. Một thuật toán VAD mạnh mẽ có thể cải thiện hiệu suất của hệ thống xác thực người nói bằng cách đảm bảo rằng danh tính người nói chỉ được tính toán từ các vùng có tiếng nói. Do đó, việc xem xét thuật toán VAD là cần thiết để khắc phục các vấn đề trong thiết kế một hệ thống xác thực người nói mạnh mẽ. Ba kỹ thuật được sử dụng rộng rãi cho VAD là: dựa trên năng lượng, dựa trên mô hình và các phương pháp lai (hybrid).
+2.  **Kỹ thuật trích xuất đặc trưng** được sử dụng để chuyển đổi tín hiệu tiếng nói thành các vectơ đặc trưng âm học. Các đặc trưng âm học được trích xuất cần mang các đặc tính thiết yếu của tín hiệu tiếng nói giúp nhận diện danh tính người nói qua giọng nói của họ. Mục tiêu của trích xuất đặc trưng là giảm số chiều của các vectơ đặc trưng âm học bằng cách loại bỏ thông tin không mong muốn và nhấn mạnh thông tin đặc trưng của người nói. Các hệ số MFCC thường được sử dụng làm kỹ thuật trích xuất đặc trưng cho các hệ thống xác thực người nói hiện đại.
+3.  **Kỹ thuật bù kênh (channel compensation)** được sử dụng để giảm thiểu ảnh hưởng của sự không khớp kênh và nhiễu môi trường. Bù kênh có thể được áp dụng ở các giai đoạn khác nhau của hệ thống xác thực người nói, chẳng hạn như miền đặc trưng và miền mô hình. Các kỹ thuật bù kênh khác nhau như phép trừ kỳ vọng cepstrum (Cepstral Mean Subtraction - CMS), uốn cong đặc trưng (feature warping), chuẩn hóa phương sai kỳ vọng cepstrum (Cepstral Mean Variance Normalization - CMVN) và xử lý phổ tương đối (RASTA) đã được sử dụng để giảm ảnh hưởng của không khớp kênh trong giai đoạn trích xuất đặc trưng. Trong miền mô hình, Phân tích nhân tố đồng thời (Joint Factor Analysis - JFA) và các vectơ i-vector được sử dụng để chống lại sự không khớp giữa lúc đăng ký và lúc xác thực.
 
-## Front-end Processing
+## Các kỹ thuật mô hình hóa người nói
 
-Many front-end processing are often used to process the speech signals
-and to extract the features which are used in the speaker verification
-system. The front-end processing consists of mainly voice activity
-detection (VAD), feature extraction and channel compensation techniques;
+Một trong những vấn đề cốt lõi trong phân đoạn và định danh người nói (speaker diarization) là các kỹ thuật được sử dụng để mô hình hóa người nói. Một số kỹ thuật mô hình hóa đã được sử dụng trong các tác vụ nhận dạng và phân đoạn định danh người nói. Các kỹ thuật mô hình hóa người nói tiên tiến nhất bao gồm:
 
-1.  [Voice activity detection (VAD)](Voice_activity_detection.ipynb);
-    The main goal of voice activity detection is to determine which
-    segments of a signal are speech and non-speech. A robust VAD
-    algorithm can improve the performance of a speaker verification
-    system by making sure that speaker identity is calculated only from
-    speech regions. Therefore, it is necessary to review the VAD
-    algorithm to overcome the problems in designing a robust speaker
-    verification system. The three widely used techniques for VAD are
-    the following: energy based, model based and hybrid approaches.
-2.  Feature extraction techniques are used to transform the speech
-    signals into acoustic feature vectors. Thus, the extracted acoustic
-    features should carry the essential characteristics of the speech
-    signal which recognizes the identity of the speaker by their voice.
-    The aim of feature extraction is to reduce the dimension of acoustic
-    feature vectors by removing unwanted information and emphasizing the
-    speaker-specific information. The MFCCs are commonly used as the
-    feature extraction technique for the modern speaker verification.
-3.  Channel compensation techniques are used to reduce the effect of
-    channel mismatch and environmental noise. Channel compensation can
-    be used in different stages of speaker verification such as feature
-    and model domains. Various channel compensation techniques such as
-    cepstral mean subtraction (CMS) , feature warping, cepstral mean
-    variance normalization (CMVN)  and relative spectral (RASTA)
-    processing have been used to reduce the effect of channel mismatch
-    during the feature extraction phase. In the model domain, Joint
-    Factor Analysis (JFA) and i-vectors are used to combat enrolment and
-    verification mismatch.
+### Mô hình hỗn hợp Gauss (GMM) - Phương pháp mô hình nền phổ quát (UBM)
 
-## Speaker Modeling Techniques
+Mô hình hỗn hợp Gauss (GMM) là một hàm mật độ xác suất tham số được biểu diễn dưới dạng tổng có trọng số của các mật độ thành phần Gauss. GMM đã được sử dụng thành công để mô hình hóa các đặc trưng tiếng nói trong các ứng dụng xử lý tiếng nói khác nhau. Một mô hình hỗn hợp Gauss là tổng có trọng số của $M$ mật độ thành phần Gauss. Mỗi thành phần là một hàm Gauss đa biến. Một GMM được đại diện bởi các vectơ kỳ vọng (mean vectors), ma trận hiệp phương sai (covariance matrices) và các trọng số hỗn hợp (mixture weights):
 
-One of the crucial issues in speaker diarization is the techniques
-employed for speaker modeling. Several modeling techniques have been
-used in speaker recognition and speaker diarization tasks. The
-state-of-the-art speaker modeling techniques in speaker diarization are
-the following:
+$$ \lambda = \{w_i, \mu_i, \Sigma_i\}, \quad i= 1, \dots, C $$
 
-### Gaussian Mixture Modeling (GMM) - Universal Background Model (UBM) Approach
+Các ma trận hiệp phương sai của một GMM, $\Sigma_i$, có thể là ma trận đầy đủ (full rank) hoặc bị ràng buộc là ma trận chéo (diagonal). Các tham số của một GMM cũng có thể được chia sẻ hoặc liên kết (tied) giữa các thành phần Gauss. Số lượng thành phần GMM và loại ma trận hiệp phương sai thường được xác định dựa trên lượng dữ liệu sẵn có để ước lượng các tham số GMM.
 
-  
+Trong nhận dạng người nói, một người nói có thể được mô hình hóa bằng một GMM từ dữ liệu huấn luyện trực tiếp hoặc sử dụng phương pháp thích ứng cực đại hậu nghiệm (Maximum A Posteriori - MAP). Trong khi mô hình người nói được xây dựng bằng cách sử dụng các phát ngôn huấn luyện của một người nói cụ thể trong quá trình huấn luyện GMM thông thường, mô hình này cũng thường được thích ứng từ một mô hình chung của số lượng lớn người nói, được gọi là Mô hình nền phổ quát (Universal Background Model - UBM) trong phương pháp thích ứng MAP.
 
-A Gaussian Mixture Model (GMM) is a parametric probability density
-function represented as a weighted sum of Gaussian component densities.
-GMMs have been successfully used to model the speech features in
-different speech processing applications. A Gaussian mixture model is a
-weighted sum of M component Gaussian densities. Each of the components
-is a multi-variant Gaussian function. A GMM is represented by mean
-vectors, covariance matrices and mixture weights.
+Cho trước một tập hợp các vectơ huấn luyện và một cấu hình GMM, có một số kỹ thuật sẵn có để ước lượng các tham số của GMM. Phương pháp phổ biến và được sử dụng nhiều nhất là ước lượng khả tích cực đại (Maximum Likelihood - ML).
 
-$$ \lambda = \{w_i, \mu_i, \Sigma_i\}, \quad i=
-1,.......,C $$
+Ước lượng ML tìm kiếm các tham số mô hình nhằm tối đa hóa khả tích của GMM cho trước một tập hợp dữ liệu. Giả định tính độc lập giữa các vectơ huấn luyện $X = \{x_i, \dots, x_N\}$, khả tích GMM thường được mô tả là:
 
-The covariance matrices of a GMM,  $ \Sigma_i $ , can be full rank
-or constrained to be diagonal. The parameters of a GMM can also be
-shared, or tied, among the Gaussian components. The number of GMM
-components and type of covariance matrices are often determined based on
-the amount of data available for estimating GMM parameters.
+$$ p(X|\lambda) = \prod_{t=1}^{N} p(x_t|\lambda) \quad (1) $$
 
-In speaker recognition, a speaker can be modeled by a GMM from training
-data or using Maximum A Posteriori (MAP) adaptation. While the speaker
-model is built using the training utterances of a specific speaker in
-the GMM training, the model is also usually adapted from a large number
-of speakers called Universal Background Model in MAP adaptation.
-
-Given a set of training vectors and a GMM configuration, there are
-several techniques available for estimating the parameters of a GMM .
-The most popular and used method is the maximum likelihood (ML)
-estimation.
-
-The ML estimation finds the model parameters that maximize the
-likelihood of the GMM given a set of data. Assuming an independence
-between the training vectors $ X = \{x_i,\dots,x_N\} $ , the GMM
-likelihood is typically described as:
-
-$$ p(X|\lambda) = \prod_{t=1}^{N} p(x_t|\lambda) (1) $$
-
-Since direct maximization is not possible on equation on equation 1, the
-ML parameters are obtained iteratively using expectation-maximization
-(EM) algorithm.  The EM iteratively estimate new model parameters  
-$\bar{\lambda} $  based on a given model $\lambda$ such that $p(X|\bar{\lambda}) \ge p(X|\lambda) $ . 
+Vì việc tối đa hóa trực tiếp là không thể thực hiện được trên phương trình 1, các tham số ML được thu thập một cách lặp đi lặp lại bằng cách sử dụng thuật toán cực đại hóa kỳ vọng (Expectation-Maximization - EM). Thuật toán EM ước lượng lặp để tìm các tham số mô hình mới $\bar{\lambda}$ dựa trên một mô hình $\lambda$ cho trước sao cho $p(X|\bar{\lambda}) \ge p(X|\lambda)$.
 
 ![image2020-1-20_15-34-38.png](attachments/165126354.png)
-Example of
-speaker model adaptation
+**Hình 2:** Ví dụ về thích ứng mô hình người nói
 
-The parameters of a GMM can also be estimated using Maximum A Posteriori
-(MAP) estimation, in addition to the EM algorithm. The MAP estimation
-technique derives a speaker model by adapting from a universal
-background model (UBM). The “Expectation” step of EM and MAP are the
-same. MAP adapts the new sufficient statistics by combining them with
-old statistics from the prior mixture parameters.
+Bên cạnh thuật toán EM, các tham số của một GMM cũng có thể được ước lượng bằng phương pháp ước lượng cực đại hậu nghiệm (MAP). Kỹ thuật ước lượng MAP xây dựng một mô hình người nói bằng cách thích ứng từ một mô hình nền phổ quát (UBM). Bước "Kỳ vọng" (Expectation) của EM và MAP là giống nhau. MAP thích ứng các số liệu thống kê đầy đủ (sufficient statistics) mới bằng cách kết hợp chúng với các số liệu thống kê cũ từ các tham số hỗn hợp tiên nghiệm.
 
-Given a prior model and training vectors from the desired class, $ X =
-{x_1 . . . , x_T } $ , we first determine the probabilistic alignment
-of the training vectors into the prior mixture components. For mixture 
-$ i $ in the prior model  $ Pr(i|x_t,\lambda_{UBM}) $ is
-computed as the percentage of the mixture component  $ i $ to the
-total likelihood,
+Cho trước một mô hình tiên nghiệm và các vectơ huấn luyện từ lớp mong muốn, $X = \{x_1, \dots, x_T\}$, trước tiên chúng ta xác định sự căn chỉnh xác suất của các vectơ huấn luyện vào các thành phần hỗn hợp tiên nghiệm. Đối với thành phần hỗn hợp $i$ trong mô hình tiên nghiệm, xác suất hậu nghiệm $Pr(i|x_t,\lambda_{UBM})$ được tính bằng tỷ lệ của thành phần hỗn hợp $i$ trên tổng khả tích:
 
-$$ Pr(i|x_t,\lambda_{UBM})= \frac {w_i\,g(x_t|\mu_i,\Sigma_i)}
-{\sum_{i=1}^{M} w_i\,g(x_t|\mu_i,\Sigma_i)} $$
+$$ Pr(i|x_t,\lambda_{UBM})= \frac {w_i\,g(x_t|\mu_i,\Sigma_i)} {\sum_{i=1}^{M} w_i\,g(x_t|\mu_i,\Sigma_i)} $$
 
-Then, the sufficient statistics for the weight, mean and variance
-parameters is computed as follows:
+Sau đó, các số liệu thống kê đầy đủ cho các tham số trọng số, kỳ vọng và phương sai được tính toán như sau:
 
-$$ n_i=\sum_{t=1}^{T}Pr(i|x_t,\lambda_{prior}) \, weight $$
-$$ E_i(x)=\frac{1}{n_i}\sum_{t=1}^{T}Pr(i|x_t,\lambda_{prior})x_t
-\;\; mean $$ 
-$$ E_i(x^2)=\frac{1}{n_i}\sum_{t=1}^{T}Pr(i|x_t,\lambda_{prior})x_t^2
-\;\; variance $$
+$$ n_i=\sum_{t=1}^{T}Pr(i|x_t,\lambda_{prior}) \quad \text{(trọng số)} $$
+$$ E_i(x)=\frac{1}{n_i}\sum_{t=1}^{T}Pr(i|x_t,\lambda_{prior})x_t \quad \text{(kỳ vọng)} $$ 
+$$ E_i(x^2)=\frac{1}{n_i}\sum_{t=1}^{T}Pr(i|x_t,\lambda_{prior})x_t^2 \quad \text{(phương sai)} $$
 
-  
-
-Finally, the new sufficient statistics from the training data are used
-to update the prior sufficient statistics for mixture  $ i $ to
-create the adapted mixture weight, mean and variance for mixture
-$i$ as follows:
+Cuối cùng, các số liệu thống kê đầy đủ mới từ dữ liệu huấn luyện được sử dụng để cập nhật các số liệu thống kê đầy đủ tiên nghiệm cho thành phần hỗn hợp $i$ nhằm tạo ra trọng số, kỳ vọng và phương sai thích ứng cho thành phần $i$ như sau:
 
 $$ w_i=[\alpha^w_in_i/T + (1-\alpha^w_i)w_i]\gamma $$ 
 $$ \mu_i=\alpha^m_iE_i(x) + (1-\alpha^m_i)\mu_i $$ 
-$$ \mu^2_i=\alpha^v_iE_i(x^2) + (1-\alpha^v_i)(\sigma^2_i+\mu^2_i)-\mu^2_i $$
+$$ \sigma^2_i=\alpha^v_iE_i(x^2) + (1-\alpha^v_i)(\sigma^2_i+\mu^2_i)-\mu^2_i $$
 
-  
+Các hệ số thích ứng kiểm soát sự cân bằng giữa các ước lượng cũ và mới là $\{\alpha^w_i, \alpha^m_i, \alpha^v_i\}$ tương ứng cho trọng số, kỳ vọng và phương sai. Hệ số tỷ lệ $\gamma$ được tính trên tất cả các trọng số hỗn hợp đã thích ứng để đảm bảo tổng của chúng bằng 1.
 
-The adaptation coefficients controlling the balance between old and new
-estimates are  $ \{\alpha^w_i, \alpha^m_i, \alpha^v_i\} $ for
-the weights, means and variances, respectively. The scale factor, $
-\gamma $ , is computed over all adapted mixture weights to ensure
-they sum to unity.
+### Các vectơ i-Vector (i-Vectors)
 
-### i-Vectors
+Nhiều hướng tiếp cận khác nhau đã được phát triển gần đây để cải thiện hiệu suất của các hệ thống nhận dạng người nói. Các phương pháp phổ biến nhất dựa trên GMM-UBM. Phương pháp Phân tích nhân tố đồng thời (Joint Factor Analysis - JFA) được xây dựng dựa trên sự thành công của phương pháp GMM-UBM. Mô hình hóa JFA định nghĩa hai không gian riêng biệt: không gian người nói được định nghĩa bởi ma trận eigenvoice và không gian kênh được biểu diễn bởi ma trận eigenchannel. Các nhân tố kênh được ước lượng bằng JFA, vốn được cho là chỉ mô hình hóa các ảnh hưởng của kênh, thực tế vẫn chứa thông tin về người nói. Một hệ thống xác thực người nói mới đã được đề xuất sử dụng phân tích nhân tố như một bộ trích xuất đặc trưng định nghĩa chỉ một không gian duy nhất, thay vì hai không gian riêng biệt. Trong không gian mới này, một bản ghi tiếng nói cho trước được biểu diễn bằng một vectơ mới, gọi là nhân tố tổng thể (total factors) vì nó chứa đồng thời cả sự biến thiên của người nói và của kênh truyền. Nhận dạng người nói dựa trên khung i-vector hiện đang là một kỹ thuật nền tảng quan trọng trong lĩnh vực này.
 
-Different approaches have been developed recently to improve the
-performance of speaker recognition systems. The most popular ones were
-based on GMM-UBM. The Joint Factor Analysis (JFA) is then built on the
-success of the GMM-UBM approach. JFA modeling defines two distinct
-spaces: the speaker space defined by the eigenvoice matrix and the
-channel space represented by the eigen-channel matrix. The channel
-factors estimated using JFA, which are supposed to model only channel
-effects, also contain information about speakers. A new speaker
-verification system has been proposed using factor analysis as a feature
-extractor that defines only a single space, instead of two separate
-spaces. In this new space, a given speech recording is represented by a
-new vector, called total factors as it contains the speaker and channel
-variabilities simultaneously. Speaker recognition based on the i-vector
-framework is currently the state-of-the-art in the field. 
-
-Given an utterance, the speaker and channel dependent GMM supervector is
-defined as follows:
+Cho trước một phát ngôn, siêu vectơ GMM phụ thuộc vào người nói và kênh truyền được định nghĩa như sau:
 
 $$ M=m+Tw $$
 
-where  $ m $ is a speaker and channel independent supervector,  $
-T $ is a rectangular matrix of low rank and  $ w $ is a random
-vector having a standard normal distribution $ N(0,1) $ . The
-components of the vector  $ w $ are the total factors. These new
-vectors are called i-vectors.  $ M $ is assumed to be normally
-distributed with mean vector and covariance matrix $ TT^t $ .
+ở đây $m$ là siêu vectơ độc lập với người nói và kênh truyền, $T$ là một ma trận chữ nhật có hạng thấp (low rank) và $w$ là một vectơ ngẫu nhiên có phân phối chuẩn tiêu chuẩn $N(0,I)$. Các thành phần của vectơ $w$ là các nhân tố tổng thể. Các vectơ mới này được gọi là i-vector. Siêu vectơ $M$ được giả định là có phân phối chuẩn với vectơ kỳ vọng $m$ và ma trận hiệp phương sai $TT^t$.
 
-The total factor is a hidden variable, which can be defined by its
-posterior distribution conditioned to the Baum–Welch statistics for a
-given utterance. This posterior distribution is a Gaussian distribution
-and the mean of this distribution corresponds exactly to i-vector. The
-Baum–Welch statistics are extracted using the UBM.
+Nhân tố tổng thể là một biến ẩn, có thể được định nghĩa bằng phân phối hậu nghiệm của nó có điều kiện theo các số liệu thống kê Baum-Welch cho một phát ngôn cho trước. Phân phối hậu nghiệm này là một phân phối Gauss và kỳ vọng của phân phối này tương ứng chính xác với i-vector. Các số liệu thống kê Baum-Welch được trích xuất bằng cách sử dụng UBM.
 
-Given a sequence of L frames  $ \{y_1,y_2,......,y_n\} $ and a
-UBM  $ \Omega $ composed of $ C $ mixture components defined in
-some feature space of dimension $ F $ , the Baum–Welch statistics
-needed to estimate the i-vector mixturefor a given speech utterance  $ u $
-is given by :
+Cho trước một chuỗi gồm $L$ khung hình $\{y_1, y_2, \dots, y_L\}$ và một UBM $\Omega$ bao gồm $C$ thành phần hỗn hợp được định nghĩa trong không gian đặc trưng có số chiều $F$, các số liệu thống kê Baum-Welch cần thiết để ước lượng hỗn hợp i-vector cho một phát ngôn tiếng nói $u$ cho trước là:
 
 $$ N_c=\sum_{t=1}^{L}P(c|y_t,\Omega) $$ 
 $$ F_c=\sum_{t=1}^{L}P(c|y_t,\Omega)y_t $$
 
-where  $ m_c $ is the mean of UBM mixture component $ c $ .
-The i-vector for a given utterance can be obtained using the following
-equation:
+ở đây $m_c$ là kỳ vọng của thành phần hỗn hợp UBM $c$. i-vector cho một phát ngôn cho trước có thể thu được bằng phương trình sau:
 
-$$ w=(I + T^t \Sigma^{-1} N(u)T)^{-1}. \,T^t\Sigma^{-1}\hat{F}(u)
-$$
+$$ w=(I + T^t \Sigma^{-1} N(u)T)^{-1} T^t\Sigma^{-1}\hat{F}(u) $$
 
-where  $ N_u $ is a diagonal matrix of dimension  $ CF \times CF
-$ whose diagonal blocks are $ N_cI(c=1,......, C) $ . The
-supervector obtained by concatenating all first-order Baum–Welch
-statistics $ F_c $ for a given utterance  $ u $ is represented
-by  $ \hat{F}(u) $ which has  $ CF \times 1 $ dimension. The
-diagonal covariance matrix,  $ \Sigma $ , with dimension $ CF
-\times CF $ estimated during factor analysis training models the
-residual variability not captured by the total variability matrix $ T
-$ .
+ở đây $N(u)$ là một ma trận chéo có số chiều $CF \times CF$ có các khối đường chéo là $N_cI$ (với $c=1,\dots, C$). Siêu vectơ thu được bằng cách liên kết tất cả các số liệu thống kê Baum-Welch cấp một $F_c$ cho một phát ngôn $u$ cho trước được biểu diễn bởi $\hat{F}(u)$ có kích thước $CF \times 1$. Ma trận hiệp phương sai chéo, $\Sigma$, với số chiều $CF \times CF$ được ước lượng trong quá trình huấn luyện phân tích nhân tố để mô hình hóa sự biến thiên dư thừa không được nắm bắt bởi ma trận biến thiên tổng thể $T$.
 
 ![image2020-1-20_20-26-53.png](attachments/165126497.png)
-Process of
-i-Vector extraction
+**Hình 3:** Quy trình trích xuất i-Vector
 
-One of the most widely used feature normalization techniques of
-i-vectors is length normalization. Length normalization ensures that the
-distribution of i-vectors matches the Gaussian normal distribution and
-makes the distributions of i-vector more similar. Performing whitening
-before length normalization improves the performance of speaker
-verification systems.  i-vector normalization improves the gaussianity
-of the i-vectors and reduces the gap between the underlying assumptions
-of the data and real distributions. It also reduces the dataset shift
-between development and test i-vectors.
+Một trong những kỹ thuật chuẩn hóa đặc trưng được sử dụng rộng rãi nhất cho i-vector là chuẩn hóa độ dài (length normalization). Chuẩn hóa độ dài đảm bảo rằng phân phối của các i-vector khớp với phân phối chuẩn Gauss và làm cho phân phối của các i-vector tương đồng hơn. Thực hiện làm trắng dữ liệu (whitening) trước khi chuẩn hóa độ dài giúp cải thiện hiệu suất của hệ thống xác thực người nói. Chuẩn hóa i-vector cải thiện tính Gauss của các i-vector và giảm khoảng cách giữa các giả định của dữ liệu và phân phối thực tế. Nó cũng giảm sự dịch chuyển tập dữ liệu (dataset shift) giữa các i-vector huấn luyện và kiểm thử.
 
-$$ w\leftarrow
-\frac{\Sigma^{-\frac{1}{2}}(w-\mu)}{\|\Sigma^{-\frac{1}{2}}(w-\mu)\|}
-$$
+$$ w\leftarrow \frac{\Sigma^{-\frac{1}{2}}(w-\mu)}{\|\Sigma^{-\frac{1}{2}}(w-\mu)\|} $$
 
-  
-where  $ \mu $ and  $ \Sigma $ are the mean and the covariance
-matrix of a training corpus, respectively. The data is standardized
-according to  covariance matrix  $ \Sigma $ and length-normalized
-(i.e., the i-vectors are confined to the hypersphere of unit radius.
+ở đây $\mu$ và $\Sigma$ tương ứng là kỳ vọng và ma trận hiệp phương sai của một tập dữ liệu huấn luyện. Dữ liệu được chuẩn hóa theo ma trận hiệp phương sai $\Sigma$ và chuẩn hóa độ dài (tức là các i-vector được giới hạn trong một mặt cầu đơn vị).
 
-The two most widely and common intersession compensation techniques of
-i-vectors are Within-Class Covariance Normalization (WCCN) and Linear
-Discriminant Analysis (LDA). WCCN uses the within-class covariance
-matrix to normalize the cosine kernel functions in order to compensate
-for intersession variability. LDA attempts to define a reduced special
-axes that minimize the within-speaker variability caused by channel
-effects, and maximize between-speaker variability.
+Hai kỹ thuật bù trừ phiên ghi âm (intersession compensation) phổ biến nhất cho i-vector là Chuẩn hóa hiệp phương sai trong lớp (Within-Class Covariance Normalization - WCCN) và Phân tích định vị tuyến tính (Linear Discriminant Analysis - LDA). WCCN sử dụng ma trận hiệp phương sai trong lớp để chuẩn hóa các hàm nhân cosine nhằm bù trừ cho biến thiên giữa các phiên ghi âm. LDA cố gắng xác định các trục đặc biệt được thu gọn nhằm tối thiểu hóa sự biến thiên trong cùng một người nói gây ra bởi ảnh hưởng của kênh truyền, và tối đa hóa sự biến thiên giữa các người nói khác nhau.
 
-  
+#### Khoảng cách Cosine (Cosine Distance)
 
-#### Cosine Distance
+Một khi các i-vector được trích xuất từ các cụm tiếng nói đầu ra, phép tính điểm khoảng cách cosine sẽ kiểm tra giả thuyết xem hai i-vector thuộc về cùng một người nói hay hai người nói khác nhau. Cho trước hai i-vector, khoảng cách cosine giữa chúng được tính toán như sau:
 
-Once the i-vectors are extracted from the outputs of speech clusters,
-cosine distance scoring tests the hypothesis if two i-vectors belong to
-the same speaker or different speakers. Given two i-vectors, the cosine
-distance among them is calculated as follows:
+$$ cos(w_i,w_j)=\frac{w_i\cdot w_j}{\|w_i\|\cdot\|w_j\|}\gtreqless \theta $$
 
-$$ cos(w_i,w_j)=\frac{w_i\cdot w_j}{\|w_i\|\cdot\|w_j\|}\gtreqless
-\theta $$
+ở đây $\theta$ là giá trị ngưỡng, và $cos(w_i,w_j)$ là điểm khoảng cách cosine giữa cụm $i$ và $j$. Các i-vector tương ứng được trích xuất cho cụm $i$ và $j$ được đại diện tương ứng bởi $w_i$ và $w_j$.
 
-where  $ \theta $ is the threshold value, and  $ cos(w_i,w_j) $
-is the cosine distance score between clusters  $ i $ and $ j $ .
-The corresponding i-vectors extracted for clusters  $ i $ and  $ j
-$ are represented by  $ w_i $ and $ w_j $ , respectively.
+Tính điểm khoảng cách cosine chỉ xem xét góc giữa hai i-vector chứ không xem xét độ lớn của chúng. Vì thông tin phi người nói như sự biến thiên của phiên ghi âm và kênh truyền ảnh hưởng đến độ lớn của i-vector, việc loại bỏ độ lớn có thể tăng tính mạnh mẽ của các hệ thống i-vector.
 
-The cosine distance scoring considers only the angle between two
-i-vectors, not their magnitude. Since the non-speaker information such
-as session and channel variabilities affect the i-vector magnitude,
-removing the magnitudes can increase the robustness of i-vector systems.
+### Phân tích định vị tuyến tính xác suất (Probabilistic Linear Discriminant Analysis - PLDA)
 
-### Probabilistic Linear Discriminant Analysis 
-
-The i-vector representation followed by probabilistic linear
-discriminant analysis (PLDA) modeling technique is the state-of-the-art
-in speaker verification systems. PLDA has been successfully applied in
-speaker recognition experiments. It is also applied to handle speaker
-and session variability in speaker verification task. It has also been
-successfully applied in speaker clustering since it can separate speaker
-and noise specific parts of an audio signal which is essential for
-speaker diarization.
-
-  
+Biểu diễn i-vector kết hợp với kỹ thuật mô hình hóa phân tích định vị tuyến tính xác suất (PLDA) là công nghệ tiên tiến nhất trong các hệ thống xác thực người nói. PLDA đã được áp dụng thành công trong các thử nghiệm nhận dạng người nói. Nó cũng được áp dụng để xử lý biến thiên người nói và phiên ghi âm trong tác vụ xác thực người nói. Ngoài ra, nó cũng được áp dụng thành công trong phân cụm người nói vì nó có thể phân tách các phần đặc trưng cho người nói và đặc trưng cho nhiễu của một tín hiệu âm thanh, đây là điều cần thiết cho phân đoạn và định danh người nói (speaker diarization).
 
 ![image2020-1-20_21-46-46.png](attachments/165126539.png)
-Example of PLDA model
+**Hình 4:** Ví dụ về mô hình PLDA
 
-In PLDA, assuming that the training data consists of $J$
-i-vectors where each of these i-vectors belong to speaker $I$,
-the $j$’th i-vector of the $I$th speaker is denoted by:
+Trong PLDA, giả định rằng dữ liệu huấn luyện bao gồm $J$ i-vector, trong đó mỗi i-vector này thuộc về người nói $I$, i-vector thứ $j$ của người nói thứ $I$ được ký hiệu bởi:
 
 $$ w_{ij}=\mu + Fh_i + Gy_{ij} + \Sigma_{ij} $$
 
-  
-where  $ \mu $  is the overall speaker and segment independent mean
-of the i-vectors in the training dataset, columns of the matrix F define
-the between-speaker variability and columns of the matrix G define the
-basis for the within-speaker variability subspace.  $ \Sigma_{ij}
-$ represents any unexplained data variation. The components of the
-vector  $ h_i $ are the eigenvoice factor loadings and components of
-the vector  $ y_{ij} $ are the eigen-channel factor loadings. The
-term  $ Fh_i $ depends only on the identity of the speaker, not on
-the particular segment.
+ở đây $\mu$ là kỳ vọng chung độc lập với người nói và phân đoạn của các i-vector trong tập dữ liệu huấn luyện, các cột của ma trận F xác định sự biến thiên giữa các người nói (between-speaker variability) và các cột của ma trận G xác định cơ sở cho không gian con biến thiên trong cùng một người nói (within-speaker variability subspace). $\Sigma_{ij}$ biểu thị bất kỳ biến thiên dữ liệu nào chưa được giải thích. Các thành phần của vectơ $h_i$ là các hệ số nhân tố eigenvoice và các thành phần của vectơ $y_{ij}$ là các hệ số nhân tố eigenchannel. Thành phần $Fh_i$ chỉ phụ thuộc vào danh tính của người nói, không phụ thuộc vào phân đoạn cụ thể.
 
-Although the PLDA model assumes Gaussian behavior, there is empirical
-evidence that channel and speaker effects result in i-vectors that are
-non-Gaussian.  It is reported in that the use of Student’s
-t-distribution, on the assumed Gaussian PLDA model, improves the
-performance. Since this normalization technique is complicated, a
-non-linear transformation of i-vectors called radial Gaussianization has
-been proposed. It whitens the i-vectors and performs length
-normalization. This restores the Gaussian assumptions of the PLDA model.
+Mặc dù mô hình PLDA giả định hành vi Gauss, có bằng chứng thực nghiệm cho thấy ảnh hưởng của kênh truyền và người nói dẫn đến các i-vector có phân phối phi Gauss. Người ta đã báo cáo rằng việc sử dụng phân phối t-Student trên mô hình PLDA Gauss giả định giúp cải thiện hiệu suất. Vì kỹ thuật chuẩn hóa này phức tạp, một phép biến đổi phi tuyến của các i-vector gọi là Gauss hóa hướng tâm (radial Gaussianization) đã được đề xuất. Nó làm trắng các i-vector và thực hiện chuẩn hóa độ dài. Điều này khôi phục các giả định Gauss của mô hình PLDA.
 
-A variant of PLDA model called Gaussian PLDA (GPLDA) is shown to provide
-better results.  Because of its low computational requirements, and its
-performance, it is the most widely used PLDA modeling. In GPLDA model,
-the within-speaker variability is modeled by a full covariance residual
-term  which allows us to omit the channel subspace. The generative PLDA
-model for the i-vector is  represented by 
+Một biến thể của mô hình PLDA được gọi là PLDA Gauss (GPLDA) được chứng minh là cung cấp kết quả tốt hơn. Do yêu cầu tính toán thấp và hiệu suất tốt, nó là mô hình PLDA được sử dụng rộng rãi nhất. Trong mô hình GPLDA, sự biến thiên trong cùng một người nói được mô hình hóa bằng một số dư hiệp phương sai đầy đủ (full covariance residual term), cho phép chúng ta bỏ qua không gian con của kênh. Mô hình sinh PLDA cho i-vector được biểu diễn bởi:
 
 $$ w_{ij}=\mu + Fh_i + \Sigma_{ij} $$
 
-The residual term  $ \Sigma $ representing the within-speaker
-variability is assumed to have a normal distribution with full
-covariance matrix $ \Sigma $ .
+Số dư $\Sigma$ biểu thị sự biến thiên trong cùng một người nói được giả định là có phân phối chuẩn với ma trận hiệp phương sai đầy đủ $\Sigma$.
 
-Given two i-vectors  $ w_1 $ and $ w_1 $ , the PLDA computes the
-likelihood ratio of the two i-vectors as follows:
+Cho trước hai i-vector $w_1$ and $w_2$, PLDA tính toán tỷ số khả tích của hai i-vector như sau:
 
-$$ Score(w_1,w_2)= \frac{p(w_1,w_2|H_1)}{p(w_1|H_2) p(w_2|H_2)}
-$$
+$$ Score(w_1,w_2)= \frac{p(w_1,w_2|H_1)}{p(w_1|H_2) p(w_2|H_2)} $$
 
-where the hypothesis  $ H_1 $ indicates that both i-vectors belong
-to the same speaker and  $ H_0 $ indicates they belong to two
-different speakers.
+ở đây giả thuyết $H_1$ chỉ ra rằng cả hai i-vector đều thuộc về cùng một người nói và giả thuyết $H_2$ chỉ ra rằng chúng thuộc về hai người nói khác nhau.
 
-###  Deep Learning (DL)
+### Học sâu (Deep Learning - DL)
 
-  
+Những tiến bộ gần đây trong phần cứng tính toán, các kiến trúc DL mới và phương pháp huấn luyện, cùng khả năng tiếp cận lượng dữ liệu huấn luyện lớn đã truyền cảm hứng cho cộng đồng nghiên cứu áp dụng công nghệ DL vào các hệ thống nhận dạng người nói. Các kỹ thuật DL có thể được sử dụng ở phần frontend và/hoặc backend của một hệ thống nhận dạng người nói. Toàn bộ quy trình nhận dạng đầu-cuối thậm chí có thể được thực hiện bởi một kiến trúc DL duy nhất.
 
-The recent advances in computing hardware, new DL architectures and
-training methods, and access to large amount of training data has
-inspired the research community to make use of DL technology again as in
-speaker recognition systems.  DL techniques can be used in the frontend
-or/and backend of a speaker recognition system. The whole end-to-end
-recognition process can even be performed by a DL architecture.
+**Deep Learning Frontends:** Hướng tiếp cận i-vector truyền thống chủ yếu bao gồm ba giai đoạn: thu thập số liệu thống kê Baum-Welch, trích xuất i-vector và phân loại backend PLDA. Gần đây, người ta đã chỉ ra rằng nếu các số liệu thống kê Baum-Welch được tính toán dựa trên một mạng DNN thay vì GMM, hoặc nếu các đặc trưng nghẽn (bottleneck features) được sử dụng cùng với các đặc trưng phổ truyền thống, hiệu suất hệ thống sẽ được cải thiện đáng kể. Một ứng dụng khả thi khác của DL ở phần frontend là biểu diễn các đặc trưng người nói của một tín hiệu tiếng nói bằng một vectơ số chiều thấp duy nhất sử dụng một kiến trúc DL, thay vì thuật toán i-vector truyền thống. Các vectơ này thường được gọi là các vectơ nhúng người nói (speaker embeddings). Thông thường, đầu vào của mạng nơ-ron là một chuỗi các vectơ đặc trưng và đầu ra là các lớp người nói.
 
-**Deep Learning Frontends:** The traditional i-vector approach consists
-of mainly three stages: Baum-Welch statistics collection, i-vector
-extraction, and PLDA backend. Recently, it is shown that if the
-Baum-Welch statistics are computed with respect to a DNN rather than a
-GMM or if bottleneck features are used in addition to conventional
-spectral features, a substantial improvement can be achieved. Another
-possible use of DL in the frontend is to represent the speaker
-characteristics of a speech signal with a single low dimensional vector
-using a DL architecture, rather than the traditional i-vector algorithm.
-These vectors are often referred to as speaker embeddings. Typically,
-the inputs of the neural network are a sequence of feature vectors and
-the outputs are speaker classes.
+**Deep Learning Backends:** Một trong những kỹ thuật backend hiệu quả nhất cho i-vector là PLDA, thực hiện tính điểm cùng với việc bù trừ biến thiên phiên ghi âm. Thông thường, một số lượng lớn các người nói khác nhau với nhiều mẫu tiếng nói cho mỗi người là cần thiết để PLDA hoạt động hiệu quả. Việc tiếp cận dữ liệu được gán nhãn người nói là tốn kém và trong một số trường hợp là không thể. Hơn nữa, mức độ tăng hiệu suất (về độ chính xác) đối với các phát ngôn ngắn không nhiều như đối với các phát ngôn dài. Những thực tế này đã thúc đẩy cộng đồng nghiên cứu tìm kiếm các giải pháp backend thay thế dựa trên DL. Một vài kỹ thuật đã được đề xuất. Hầu hết các phương pháp này sử dụng nhãn người nói của dữ liệu nền để huấn luyện giống như trong PLDA, và phần lớn không mang lại hiệu suất vượt trội đáng kể so với PLDA.
 
-**Deep Learning Backends:** One of the most effective backend techniques
-for i-vectors is PLDA which performs the scoring along with the session
-variability compensation. Usually, a large number of different speakers
-with several speech samples each are necessary for PLDA to work
-efficiently. Access to the speaker labeled data is costly and in some
-cases almost impossible. Moreover, the amount of the performance gain,
-in terms of accuracy, for short utterances is not as much as that for
-long utterances. These facts motivated the research community to
-look for DL based alternative backends. Several techniques have been
-proposed. Most of these approaches use the speaker labels of the
-background data for training, as in PLDA, and mostly with no significant
-gain compared to PLDA. 
+**Deep Learning End-to-Ends:** Việc huấn luyện một hệ thống nhận dạng đầu-cuối có khả năng thực hiện nhiều giai đoạn xử lý tín hiệu với một kiến trúc DL thống nhất cũng rất được quan tâm. Mạng nơ-ron sẽ chịu trách nhiệm cho toàn bộ quy trình từ trích xuất đặc trưng đến các điểm số tương đồng cuối cùng. Tuy nhiên, việc xử lý trực tiếp trên các tín hiệu âm thanh trong miền thời gian vẫn còn quá tốn kém về mặt tính toán, và do đó, các hệ thống DL đầu-cuối hiện nay chủ yếu nhận đầu vào là các vectơ đặc trưng được thiết kế thủ công, ví dụ như MFCC. Gần đây, đã có nhiều nỗ lực xây dựng hệ thống nhận dạng người nói đầu-cuối sử dụng DL, mặc dù hầu hết chúng tập trung vào nhận dạng người nói phụ thuộc văn bản.
 
-**Deep Learning End-to-Ends:** It is also interesting to train an
-end-to-end recognition system capable of doing multiple stages of signal
-processing with a unified DL architecture. The neural network will be
-responsible for the whole process from the feature extraction to the
-final similarity scores. However, working directly on the audio signals
-in the time domain is still computationally too expensive and,
-therefore, the current end-to-end DL systems take mainly the handcrafted
-feature vectors, e.g., MFCCs, as inputs. Recently, there have been
-several attempts to build an end-to-end speaker recognition system using
-DL though most of them focus on text-dependent speaker recognition.
+## Các ứng dụng của nhận dạng người nói
 
-## Applications of Speaker Recognition
+-   **Xác thực giao dịch (Transaction authentication):** Ngăn ngừa gian lận cước viễn thông, mua hàng bằng thẻ tín dụng qua điện thoại, môi giới qua điện thoại (ví dụ: giao dịch chứng khoán).
+-   **Kiểm soát truy cập (Access control):** Các cơ sở vật lý, máy tính và mạng dữ liệu.
+-   **Giám sát (Monitoring):** Điểm danh và ghi nhận thời gian làm việc từ xa, xác minh cải tạo tại nhà, giám sát sử dụng điện thoại trong tù.
+-   **Truy xuất thông tin (Information retrieval):** Thông tin khách hàng cho các tổng đài chăm sóc khách hàng, lập chỉ mục âm thanh (thiết bị lướt nhanh tiếng nói), phân đoạn và định danh người nói.
+-   **Pháp y (Forensics):** So sánh và khớp mẫu giọng nói nghi vấn với nghi phạm.
 
--   Transaction authentication – Toll fraud prevention, telephone credit
-    card purchases, telephone brokerage (e.g., stock trading) 
+## Đánh giá hiệu suất
 
--   Access control – Physical facilities, computers and data networks 
+Hiệu suất của hệ thống xác thực người nói được đo lường dựa trên các lỗi (sai số). Các loại lỗi và tiêu chí đánh giá thường được sử dụng trong các hệ thống xác thực người nói bao gồm:
 
--   Monitoring – Remote time and attendance logging, home parole
-    verification, prison telephone usage 
+## Các loại lỗi
 
--   Information retrieval – Customer information for call centers, audio
-    indexing (speech skimming device), speaker diarization 
+**Chấp nhận sai (False acceptance):** Một lỗi chấp nhận sai xảy ra khi hệ thống chấp nhận sai một tín hiệu từ một người nói giả mạo (imposter) là người nói mục tiêu (target).
 
--   Forensics – Voice sample matching
+$$ \text{Tỷ lệ Chấp nhận sai (FAR)} = \frac{\text{Tổng số lỗi chấp nhận sai}} {\text{Tổng số lượt cố gắng truy cập của người giả mạo}} $$
 
-## Performance Evaluations
+**Từ chối sai (False rejection):** Một lỗi từ chối sai xảy ra khi người nói mục tiêu bị hệ thống xác thực từ chối.
 
-The performance of the speaker verification is measured in terms of
-errors. The types of error and evaluation metrics commonly used in
-speaker verification systems are the following.
+$$ \text{Tỷ lệ Từ chối sai (FRR)} = \frac{\text{Tổng số lỗi từ chối sai}} {\text{Tổng số lượt cố gắng truy cập của người nói mục tiêu đã đăng ký}} $$
 
-## Types of errors
+## Các chỉ số hiệu suất
 
-False acceptance: A false acceptance occurs when the speech segments
-from an imposter speaker are falsely accepted as a target speaker by the
-system. 
+Các chỉ số hiệu suất của hệ thống xác thực người nói có thể được đo lường bằng tỷ lệ lỗi bằng nhau (Equal Error Rate - EER) và hàm chi phí quyết định tối thiểu (minimum Decision Cost Function - mDCF). Các thước đo này đại diện cho các đặc tính hiệu suất khác nhau của hệ thống, mặc dù độ chính xác của các phép đo phụ thuộc vào số lượng thử nghiệm được đánh giá để tính toán các số liệu thống kê liên quan một cách đáng tin cậy. Hiệu suất xác thực người nói cũng có thể được biểu diễn dưới dạng đồ thị bằng cách sử dụng đồ thị trao đổi lỗi phát hiện (Detection Error Trade-off - DET).
 
-$$ False\; Acceptance = \frac{Total \; number \;of\; false\;
-acceptance\; errors} {Total\; number\; of\; imposter\; speaker\;
-attempts} $$
+EER đạt được khi tỷ lệ chấp nhận sai và tỷ lệ từ chối sai có giá trị bằng nhau. Hiệu suất của hệ thống được cải thiện khi giá trị EER thấp hơn vì tổng lỗi của chấp nhận sai và từ chối sai tại điểm EER giảm đi.
 
-  
+Hàm chi phí quyết định (Decision Cost Function - DCF) được định nghĩa bằng cách gán một chi phí cho mỗi loại lỗi và tính đến xác suất tiên nghiệm của các thử nghiệm mục tiêu và giả mạo. Hàm chi phí quyết định được định nghĩa như sau:
 
+$$ DCF = C_{miss}P_{miss}P_{target} + C_{fa}P_{fa}P_{impostor} $$
 
-**False rejection:** A false rejection occurs when the target speaker is
-rejected by the verification systems. 
+ở đây $C_{miss}$ và $C_{fa}$ tương ứng là các hàm chi phí của việc bỏ sót phát hiện (missed detection) và báo động giả (false alarm). Xác suất tiên nghiệm của thử nghiệm mục tiêu và giả mạo được cho tương ứng bởi $P_{target}$ và $P_{impostor}$. Tỷ lệ phần trăm các thử nghiệm mục tiêu bị bỏ sót và thử nghiệm giả mạo bị chấp nhận sai được biểu diễn tương ứng bởi $P_{miss}$ và $P_{fa}$.
 
-$$ False\;rejection = \frac{Total \;number\; of\; false\;
-rejection\; errors} {Total\; number\; of\; enrolled\; speaker\;
-attempts} $$
+mDCF được sử dụng để đánh giá xác thực người nói bằng cách chọn giá trị nhỏ nhất của DCF được ước lượng bằng cách thay đổi giá trị ngưỡng.
 
-  
+$$ mDCF = min[C_{miss}P_{miss}P_{target} + C_{fa}P_{fa}P_{impostor}] $$
 
-## Performance metrics
+ở đây $P_{miss}$ và $P_{fa}$ là tỷ lệ bỏ sót và tỷ lệ báo động giả ghi nhận được từ các thử nghiệm, và các tham số khác được điều chỉnh để phù hợp với việc đánh giá các yêu cầu cụ thể của ứng dụng.
 
-  
-
-The performance metrics of speaker verification systems can be measured
-using the equal error rate (EER) and minimum decision cost function
-(mDCF). These measures represent different performance characteristics
-of system though the accuracy of the measurements is based on the number
-of trials evaluated in order to robustly compute the relevant
-statistics. Speaker verification performance can also be represented
-graphically by using the detection error trade-off (DET) plot. The EER
-is obtained when the false acceptance rate and false rejection rate have
-the same value. The performance of the system improves if the value of
-ERR is lower because the sum of total error of the false acceptance and
-false rejection at the point of ERR decreases. The decision cost
-function (DCF) is defined by assigning a cost of each error and taking
-into account the prior probability of target and impostor trails. The
-decision cost function is defined as: 
-
-$$ DCF = C_{miss}P_{miss}P_{target} + C_{fa}P_{fa}P_{impostor}
-$$
-
-where  $ C_{miss} $ and  $ C_{fa} $ are the cost functions of
-a missed detection and false alarm, respectively. The prior
-probabilities of target and impostor trails are given by  $
-P_{target} $ and   $ P_{impostor} $ , respectively. The
-percentages of the missed target and falsely accepted impostors’ trails
-are represented by  $ P_{miss} $ and $ P_{fa} $ ,
-respectively. The mDCF is used to evaluate speaker verification by
-selecting the minimum value of DCF estimated by changing the threshold
-value. The mDCF can be used to evaluate speaker verification by
-selecting the minimum value of DCF estimated by changing the threshold
-value.
-
-$$ mDCF = min[C_{miss}P_{miss}P_{target} +
-C_{fa}P_{fa}P_{impostor}] $$
-
-  where  $ P_{miss} $ and  $ P_{fa} $ are the miss and false
-alarm rates recorded from the trials, and the other parameters are
-adjusted to suit the evaluation of application-specific requirements.
-
-
-## See also
+## Xem thêm
 - [](forensic-analysis)

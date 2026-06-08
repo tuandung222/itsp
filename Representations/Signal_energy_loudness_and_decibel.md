@@ -1,107 +1,51 @@
-# Signal energy, loudness and decibel
+# Năng lượng tín hiệu, độ to và decibel
 
-## Signal energy
+## Năng lượng tín hiệu
 
-By signal energy, we usually mean the variance of the signal, which is
-the average squared deviation from the mean $
-Energy(x)=var(x)=E[(x-\mu)^2], $ where $ \mu=E[x] $ is the
-average of the signal *x*. The variance is a measure of energy if we
-interpret *x* as the displacement of a pendulum.
+Khi nói đến năng lượng tín hiệu, ta thường đề cập đến phương sai (variance) của tín hiệu, tức là độ lệch bình phương trung bình so với giá trị trung bình $
+Energy(x)=var(x)=E[(x-\mu)^2], $ trong đó $ \mu=E[x] $ là giá trị trung bình của tín hiệu *x*. Phương sai là một đại lượng đo năng lượng nếu ta diễn giải *x* như độ dịch chuyển của một con lắc.
 
 
 
-Since the amplitude of an oscillating signal varies through the period
-of the oscillation, it does not usually make sense to estimate the
-instantaneous energy, but only averaged over some [window](Windowing).
-Observe however that the windowing function reduces the average energy
-(it multiplies the signal by a quantity smaller than unity), which
-introduces a bias that should be corrected if an estimate of the
-absolute energy is required. Usually, however, the bias is consistent
-throughout a dataset and can be ignored.
+Vì biên độ của tín hiệu dao động thay đổi theo chu kỳ dao động, việc ước lượng năng lượng tức thời thường không có ý nghĩa, mà chỉ nên tính trung bình trên một [cửa sổ](Windowing) nào đó. Tuy nhiên, cần lưu ý rằng hàm cửa sổ làm giảm năng lượng trung bình (nó nhân tín hiệu với một đại lượng nhỏ hơn 1), điều này gây ra độ chệch (bias) cần được hiệu chỉnh nếu cần ước lượng năng lượng tuyệt đối. Tuy nhiên, thông thường độ chệch này nhất quán trong toàn bộ tập dữ liệu và có thể bỏ qua.
 
-Typical alternative energy estimates:
+Các phương pháp ước lượng năng lượng thay thế điển hình:
 
--   Energy can be calculated over *spectral bands*, often called energy
-    bands, that is, a range of frequencies of a [time-frequency
-    transform](Spectrogram_and_the_STFT), such as 0 to 1000 Hz, 1000 Hz
-    to 2000 Hz and so one for 1 kHz bands. Observe that the bands should
-    be wide enough that they have a "large" number  of frequency
-    components within them such that the variance can be estimated. Such
-    a representation is equivalent with an spectral envelope model of
-    the signal.
--   In a time-frequency representation, the energy of a single frequency
-    component can be estimated over time. That is, we can take the
-    average energy of a frequency component over several subsequent
-    frames or windows.
+-   Năng lượng có thể được tính trên các *băng tần phổ* (spectral bands), thường gọi là băng năng lượng, tức là một dải tần số trong [biến đổi thời gian-tần số](Spectrogram_and_the_STFT), chẳng hạn 0 đến 1000 Hz, 1000 Hz đến 2000 Hz, v.v. cho các băng 1 kHz. Lưu ý rằng các băng phải đủ rộng để chứa "nhiều" thành phần tần số bên trong sao cho phương sai có thể được ước lượng. Cách biểu diễn này tương đương với một mô hình bao phổ (spectral envelope) của tín hiệu.
+-   Trong biểu diễn thời gian-tần số, năng lượng của một thành phần tần số đơn lẻ có thể được ước lượng theo thời gian. Nghĩa là, ta có thể lấy năng lượng trung bình của một thành phần tần số qua nhiều khung (frame) hoặc cửa sổ liên tiếp.
 
-Observe that since both of these representations are calculated from
-windowed signals, they will be similarly biased as the window itself.
+Lưu ý rằng vì cả hai phương pháp biểu diễn này đều được tính từ tín hiệu đã qua cửa sổ, chúng cũng bị chệch tương tự như bản thân cửa sổ.
 
 
 
 ## Decibel
 
-A commonly used unit for signal energy is
-[decibel](https://en.wikipedia.org/wiki/Decibel) (dB). The formula to
-convert a signal energy value $ \sigma^2 $ to decibels is
+Đơn vị thường dùng cho năng lượng tín hiệu là [decibel](https://en.wikipedia.org/wiki/Decibel) (dB). Công thức chuyển đổi giá trị năng lượng tín hiệu $ \sigma^2 $ sang decibel là
 
 $$ 10\,\log_{10}\sigma^2. $$
 
-Decibel is thus a logarithmic measure of energy. Trivially, we can
-convert this formula also to $ 20\,\log_{10}\sigma $ such that
-it relates signal *magnitude* (the standard deviation) $ \sigma $
-to the decibel scale.
+Decibel do đó là một đại lượng đo năng lượng theo thang logarit. Một cách hiển nhiên, ta cũng có thể chuyển đổi công thức này thành $ 20\,\log_{10}\sigma $ để liên hệ *biên độ* tín hiệu (độ lệch chuẩn) $ \sigma $ với thang decibel.
 
-The benefit of using decibels is that signal energies have often a very
-large range. By taking the logarithm, we obtain a representation where
-for example visualizations are much easier to handle (see illustration
-on the right). Moreover, decibels are also closer to human perception of
-acoustic energy.
+Lợi ích của việc sử dụng decibel là năng lượng tín hiệu thường có dải giá trị rất rộng. Bằng cách lấy logarit, ta thu được một biểu diễn mà việc trực quan hóa trở nên dễ dàng hơn nhiều (xem hình minh họa bên phải). Hơn nữa, decibel cũng gần hơn với cảm nhận của con người về năng lượng âm thanh.
 
-### Energy normalisation, loudness, dBFS and dBov
+### Chuẩn hóa năng lượng, độ to, dBFS và dBov
 
-In practically all uses of acoustic data, we need to normalize the
-sounds such that they have approximately the same volume or at least a
-known volume. For example, consider a television program and
-advertisements. Most would feel that it is very annoying if the
-advertisements are much louder than the main program (see also [loudness
-wars](https://en.wikipedia.org/wiki/Loudness_war)). We thus need to
-normalize the advertisement to match volume of the main program.
-Normalizing the average energy of the advertisement to match that of the
-main program is one crude way of doing that. Observe however that
-perception of energy is different across frequency ranges such that
-energy and the perceived loudness are not the same thing. To measure
-loudness we therefore need to model subjective perception. This is an
-involved subject and not discussed further here. Practical applications
-however still need some normalization to avoid fundamental problems such
-as clipping.
+Trong hầu hết các ứng dụng dữ liệu âm thanh, ta cần chuẩn hóa âm thanh sao cho chúng có cùng âm lượng xấp xỉ hoặc ít nhất là âm lượng đã biết. Ví dụ, hãy xem xét một chương trình truyền hình và các quảng cáo. Hầu hết mọi người sẽ cảm thấy rất khó chịu nếu quảng cáo to hơn nhiều so với chương trình chính (xem thêm [loudness wars](https://en.wikipedia.org/wiki/Loudness_war)). Do đó, ta cần chuẩn hóa quảng cáo cho phù hợp với âm lượng của chương trình chính. Chuẩn hóa năng lượng trung bình của quảng cáo cho khớp với chương trình chính là một cách thô sơ để làm điều đó. Tuy nhiên, cần lưu ý rằng cảm nhận năng lượng khác nhau ở các dải tần số khác nhau, nên năng lượng và độ to cảm nhận không phải là cùng một thứ. Để đo độ to, ta cần mô hình hóa cảm nhận chủ quan. Đây là một chủ đề phức tạp và không được thảo luận thêm ở đây. Tuy nhiên, các ứng dụng thực tế vẫn cần một số chuẩn hóa để tránh các vấn đề cơ bản như cắt xén (clipping).
 
-The energy measures decibel to overload, *dBov* and decibel to
-full-scale, *dBFS,* are related to the dynamic range of a signal storage
-or transmission format. Suppose for example that the maximum amplitude
-that a digital representation in which a signal is represented is
-$x_{ov}$. If we would try to represent a larger amplitude than
-that, then the signal would be clipped (distorted). dBov is a measure of
-how much below the maximum amplitude (how much below clipping) a signal
-is. Suppose $P_{0}$ is the energy of the maximum-amplitude
-square wave. Then the dBov of a signal with energy $P$ is defined as
+Các đại lượng năng lượng decibel-to-overload (*dBov*) và decibel-to-full-scale (*dBFS*) liên quan đến dải động (dynamic range) của định dạng lưu trữ hoặc truyền dẫn tín hiệu. Giả sử biên độ cực đại mà một biểu diễn số có thể thể hiện là $x_{ov}$. Nếu ta cố biểu diễn một biên độ lớn hơn, tín hiệu sẽ bị cắt xén (méo). dBov đo lượng tín hiệu nằm dưới biên độ cực đại (cách bao xa so với cắt xén). Giả sử $P_{0}$ là năng lượng của sóng vuông biên độ cực đại. Khi đó, dBov của một tín hiệu có năng lượng $P$ được định nghĩa là
 
 $$ L_{\text{ov}}=10\,\log _{10}\left({\frac
 {P}{P_{0}}}\right). $$
 
-Since the energy of a sinusoid with maximum amplitude is $\sqrt{\frac12}$ of the maximum-amplitude square wave, then its dBov
-is $-3.01$. Observe that dBov values are always negative. dBFS is a
-similar measure.
+Vì năng lượng của một sóng sin có biên độ cực đại bằng $\sqrt{\frac12}$ so với sóng vuông biên độ cực đại, nên dBov của nó là $-3.01$. Lưu ý rằng giá trị dBov luôn âm. dBFS là một đại lượng tương tự.
 
-In typical cases, input speech signals are normalized to $-26$ dBov such
-that moderate processing of the signal is unlikely to cause clipping.
+Trong các trường hợp điển hình, tín hiệu tiếng nói đầu vào được chuẩn hóa về $-26$ dBov để việc xử lý tín hiệu ở mức vừa phải ít có khả năng gây ra cắt xén.
 
   
 ![spectrum](attachments/149885445.png)
 ![db spectrum](attachments/149885446.png)
 
-The energy (power) of a speech signal spectrum (above) and its logarithm
-on the decibel scale (lower).
+Năng lượng (công suất) của phổ tín hiệu tiếng nói (hình trên) và logarit của nó trên thang decibel (hình dưới).
 
 
 

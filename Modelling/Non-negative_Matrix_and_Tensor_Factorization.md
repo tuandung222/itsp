@@ -1,84 +1,38 @@
-# Non-negative Matrix and Tensor Factorization
+# Phân tích ma trận và tensor không âm
 
-## Introduction
+## Giới thiệu
 
-Many of the most descriptive features of speech are described by energy;
-for example, formants are peaks and the fundamental frequency is visible
-as a comb-structure in the power spectrum. A basic property of such
-features is that they are positive-valued. Negative values in energy are
-not physically realizable. However, most signal processing methods are
-applicable only for real-valued variables and inclusion of a
-non-negative constraints is cumbersome.
+Nhiều đặc trưng mô tả nhất của tiếng nói được biểu diễn qua năng lượng; ví dụ, các formant là các đỉnh và tần số cơ bản hiện diện dưới dạng cấu trúc lược trong phổ công suất. Một tính chất cơ bản của các đặc trưng này là chúng có giá trị dương. Giá trị âm trong năng lượng không khả thi về mặt vật lý. Tuy nhiên, hầu hết các phương pháp xử lý tín hiệu chỉ áp dụng được cho biến giá trị thực và việc đưa vào ràng buộc không âm khá phức tạp.
 
-*Non-negative matrix factorization* (NMF or NNMF) and its tensor-valued
-counterparts is a family of methods which explicitly assumes that the
-input variables are *non-negative*, that is, they are by definition
-applicable to energy-signals. In some sense, NMF methods are an
-extension of [prinicipal component analsys
-(PCA)](https://en.wikipedia.org/wiki/Principal_component_analysis) -type
-and other [subspace methods](Sub-space_models.md) to positive-valued
-signals.
+*Phân tích ma trận không âm* (NMF hoặc NNMF) và các phương pháp tương ứng cho tensor là một họ các phương pháp giả định rõ ràng rằng các biến đầu vào là *không âm*, nghĩa là chúng mặc nhiên áp dụng được cho tín hiệu năng lượng. Theo một nghĩa nào đó, các phương pháp NMF là mở rộng của [phân tích thành phần chính (PCA)](https://en.wikipedia.org/wiki/Principal_component_analysis) và các [phương pháp không gian con](Sub-space_models.md) khác sang tín hiệu giá trị dương.
 
 
-## Model definition
+## Định nghĩa mô hình
 
-Specifically, suppose that the power (or magnitude) spectrum of one
-window of a speech signal is represented as a $Nx1$ vector
-$v_k$, and furthermore we arrange the $K$ windows into an
-$NxK$ matrix $V$. The signal model we use is then
+Cụ thể, giả sử phổ công suất (hoặc biên độ) của một cửa sổ tín hiệu tiếng nói được biểu diễn dưới dạng vector $Nx1$ $v_k$, và hơn nữa ta sắp xếp $K$ cửa sổ thành ma trận $NxK$ $V$. Mô hình tín hiệu ta sử dụng là
 
 $$ V \approx WH, $$
 
-where $W$ is the $N\times M$ weight matrix, $H$ is the $M\times K$ model matrix and
-the scalar $M$ is the model order.
+trong đó $W$ là ma trận trọng số $N\times M$, $H$ là ma trận mô hình $M\times K$ và vô hướng $M$ là bậc mô hình.
 
-The idea is that $H$ is a fixed matrix corresponding to our model of the
-signal, viz. the source model. It describes typical types features of
-the data. With the weights $W$, we interpolate between the columns
-of $H$. In some sense, this is then a generalization of a codebook (see
-[vector quantization](content:vq)), but such that we
-interpolate between codevectors. In addition, we require that all
-elements of $W$ and $H$ are non-negative, such that we ensure that $V$
-is also non-negative.
+Ý tưởng là $H$ là một ma trận cố định tương ứng với mô hình tín hiệu của ta, tức mô hình nguồn. Nó mô tả các loại đặc trưng điển hình của dữ liệu. Với các trọng số $W$, ta nội suy giữa các cột của $H$. Theo một nghĩa nào đó, đây là sự tổng quát hóa của một bảng mã (codebook) (xem [lượng tử hóa vector](content:vq)), nhưng sao cho ta nội suy giữa các vector mã. Ngoài ra, ta yêu cầu tất cả các phần tử của $W$ và $H$ đều không âm, để đảm bảo rằng $V$ cũng không âm.
 
-Since the model order $K$ is chosen to be smaller than either $N$
-or $K$, this mapping is generally an approximation. The model thus tries
-to catch *the relevant features of the input signal with a low number of
-parameters*.
+Vì bậc mô hình $K$ được chọn nhỏ hơn cả $N$ hoặc $K$, phép ánh xạ này nói chung là một phép xấp xỉ. Mô hình do đó cố gắng nắm bắt *các đặc trưng liên quan của tín hiệu đầu vào với số lượng tham số thấp*.
 
-The model is generally optimized by
+Mô hình thường được tối ưu hóa bằng
 
-$$ \min_{W,H} \| V - WH \|_F\qquad\text{such that}\qquad
+$$ \min_{W,H} \| V - WH \|_F\qquad\text{với điều kiện}\qquad
 W,H\geq 0. $$
 
-Here the norm refers to the [Frobenius
-norm](https://en.wikipedia.org/wiki/Matrix_norm#Frobenius_norm), which
-is defined as the square root sum of squared elements. We do not have
-analytic solutions to the above optimization problem, but we can solve
-it by numerical methods, which are included in typical software
-libraries.
+Ở đây chuẩn đề cập đến [chuẩn Frobenius](https://en.wikipedia.org/wiki/Matrix_norm#Frobenius_norm), được định nghĩa là căn bậc hai của tổng bình phương các phần tử. Ta không có nghiệm giải tích cho bài toán tối ưu trên, nhưng có thể giải bằng các phương pháp số, vốn được tích hợp trong các thư viện phần mềm thông dụng.
 
 
-## Application
+## Ứng dụng
 
-A typical use of NMF type algorithms is source separation, where we find
-the solution of the above optimization problem and then identify those
-dimensions of $H$ which corresponds to the different sources. By
-retaining only those dimensions of $W$ which correspond to the desired
-source, we can thus extract the desired source signal from their mixture
-with the interfering other sources. For example, we might want to
-extract a speech signal corrupted by noise by extracting the dimensions
-corresponding to speech and removing those dimensions which correspond
-to noise.
+Một ứng dụng điển hình của các thuật toán kiểu NMF là tách nguồn, trong đó ta tìm nghiệm của bài toán tối ưu trên và sau đó xác định các chiều của $H$ tương ứng với các nguồn khác nhau. Bằng cách chỉ giữ lại các chiều của $W$ tương ứng với nguồn mong muốn, ta có thể trích xuất tín hiệu nguồn mong muốn từ hỗn hợp với các nguồn gây nhiễu khác. Ví dụ, ta có thể muốn trích xuất tín hiệu tiếng nói bị ảnh hưởng bởi nhiễu bằng cách trích xuất các chiều tương ứng với tiếng nói và loại bỏ các chiều tương ứng với nhiễu.
 
-Note however that NMF-type methods extract only the power (or magnitude)
-spectrum of the desired signal. In contrast, usually the input signal is
-a time-frequency representation which has also a phase-component. After
-application of NMF-estimation, we therefore need also an estimate of the
-phase-component of the signal. Such methods will be discussed in the
-[speech enhancement](../Speech_enhancement.md) chapter of this document.
+Tuy nhiên, cần lưu ý rằng các phương pháp kiểu NMF chỉ trích xuất phổ công suất (hoặc biên độ) của tín hiệu mong muốn. Ngược lại, thông thường tín hiệu đầu vào là một biểu diễn thời gian-tần số cũng có thành phần pha. Sau khi áp dụng ước lượng NMF, ta do đó cũng cần một ước lượng thành phần pha của tín hiệu. Các phương pháp như vậy sẽ được thảo luận trong chương [nâng cao chất lượng tiếng nói](../Speech_enhancement.md) của tài liệu này.
 
 
-For more information, see the Wikipedia article: [Non-negative matrix
-factorization](https://en.wikipedia.org/wiki/Non-negative_matrix_factorization).
+Để biết thêm thông tin, xem bài viết Wikipedia: [Phân tích ma trận không âm](https://en.wikipedia.org/wiki/Non-negative_matrix_factorization).
 

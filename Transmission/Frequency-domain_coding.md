@@ -1,54 +1,12 @@
-# Frequency-domain coding
+# Mã hóa miền tần số (Frequency-domain coding)
 
 
-In audio coding, the classical approach is based on coding in the
-frequency domain, which means that we are coding a [time-frequency
-representation](stft) of the signal. Such coding
-methods are especially suitable for signals which have prolonged
-stationary parts, such as many instrument-sounds, which are often
-stationary for the duration of a note, more or less. Frequency-domain
-codecs are based on [entropy coding](Entropy_coding) where the
-quantization accuracy is chosen with a [perceptual
-model](Perceptual_modelling_in_speech_and_audio_coding).
+Trong mã hóa âm thanh, hướng tiếp cận cổ điển dựa trên việc mã hóa trong miền tần số, nghĩa là chúng ta đang tiến hành mã hóa một [biểu diễn thời gian - tần số (time-frequency representation)](stft) của tín hiệu. Các phương pháp mã hóa này đặc biệt thích hợp cho các tín hiệu có các đoạn dừng (stationary) kéo dài, chẳng hạn như âm thanh của nhiều loại nhạc cụ vốn thường dừng trong suốt khoảng thời gian của một nốt nhạc. Các bộ codec miền tần số hoạt động dựa trên [mã hóa entropy (entropy coding)](Entropy_coding), trong đó độ chính xác lượng tử hóa được lựa chọn dựa trên một [mô hình cảm giác (perceptual model)](Perceptual_modelling_in_speech_and_audio_coding).
 
-Classical speech coding is however based on [code-excited linear
-prediction (CELP)](Code-excited_linear_prediction_CELP), which is a
-fundamentally different paradigm. In modern (mobile) applications, these
-two modalities, speech and audio are often intertwined and we would like
-to be able to encode all types of sounds. For example, a movie can have
-music, speech, speech with music in the background, music with spoken
-and sung parts, and there are frequent and seamless transitions between
-such modalities. For a unified codec, which can encode both speech,
-music, generic audio and their mixtures, we therefore needs codecs which
-support also frequency-domain coding. Besides, stationary parts of
-speech such as fricatives can sometimes be more efficiently encoded with
-frequency-domain coding anyway.
+Tuy nhiên, mã hóa tiếng nói cổ điển lại dựa trên [dự báo tuyến tính kích thích bằng mã (CELP)](Code-excited_linear_prediction_CELP), đây là một mô hình (paradigm) hoàn toàn khác biệt. Trong các ứng dụng di động hiện đại, hai loại tín hiệu này (tiếng nói và âm thanh thông thường) thường đan xen với nhau và chúng ta muốn có khả năng mã hóa mọi loại âm thanh. Ví dụ, một bộ phim có thể chứa âm nhạc, tiếng nói, tiếng nói trên nền nhạc, âm nhạc đi kèm phần thoại và phần hát, và liên tục có sự chuyển đổi mượt mà giữa các chế độ này. Đối với một bộ codec hợp nhất (unified codec) có khả năng mã hóa cả tiếng nói, âm nhạc, âm thanh nói chung và hỗn hợp của chúng, chúng ta cần các bộ codec hỗ trợ cả mã hóa miền tần số. Ngoài ra, các đoạn dừng của tiếng nói như các âm xát (fricatives) đôi khi có thể được mã hóa hiệu quả hơn bằng phương pháp mã hóa miền tần số.
 
-Such codecs, which encode both speech, music and generic audio are often
-collectively called *speech and audio codecs*. Most recent codecs such
-as [MPEG
-USAC](https://en.wikipedia.org/wiki/Unified_Speech_and_Audio_Coding),
-[3GPP EVS](https://en.wikipedia.org/wiki/Enhanced_Voice_Services) and
-[Opus](https://en.wikipedia.org/wiki/Opus_%28audio_format%29) are speech
-and audio codecs. Internally, they contain elements of both CELP and
-frequency-domain coding and they switch between these modes depending on
-the content.
+Các bộ codec mã hóa đồng thời cả tiếng nói, âm nhạc và âm thanh nói chung thường được gọi chung là **các bộ codec âm thanh và tiếng nói** (speech and audio codecs). Hầu hết các bộ codec gần đây như [MPEG USAC](https://en.wikipedia.org/wiki/Unified_Speech_and_Audio_Coding), [3GPP EVS](https://en.wikipedia.org/wiki/Enhanced_Voice_Services) và [Opus](https://en.wikipedia.org/wiki/Opus_%28audio_format%29) đều thuộc loại này. Về cấu trúc bên trong, chúng chứa các thành phần của cả CELP và mã hóa miền tần số, đồng thời tự động chuyển đổi giữa các chế độ này tùy thuộc vào nội dung tín hiệu đầu vào.
 
-More specifically, frequency-domain codecs are based on a time-frequency
-transform such as the [MDCT](Modified_discrete_cosine_transform_MDCT.md),
-[perceptual modelling](Perceptual_modelling_in_speech_and_audio_coding)
-to choose the quantization accuracy, and [entropy
-coding](Entropy_coding) to transmit the quantized signal with the least
-amount of bits. At the decoder, the process is reversed (as is obvious).
-In many designs, the bitrate is variable, such that with the perceptual
-model we choose the desired perceptual accuracy, and entropy coder
-compresses that as much as possible. Then we always have approximately
-the desired quality, but we however do not in advance know how many bits
-we will use. In other designs, we strive for fixed bitrate, such that we
-should reach the highest quality as long as the bit-consumption remains
-under a chosen limit. With most entropy codecs this means that we have
-to implement a *rate-loop*, where we iteratively search for the best
-quantization accuracy which remains within the chosen limit on
-bit-consumption.
+Cụ thể hơn, các bộ codec miền tần số hoạt động dựa trên một phép biến đổi thời gian - tần số như [MDCT](Modified_discrete_cosine_transform_MDCT.md), kết hợp [mô hình hóa cảm giác](Perceptual_modelling_in_speech_and_audio_coding) để lựa chọn độ chính xác lượng tử hóa, và [mã hóa entropy](Entropy_coding) để truyền tải tín hiệu lượng tử hóa với lượng bit tối thiểu. Ở bộ giải mã, quy trình này được thực hiện ngược lại. Trong nhiều thiết kế, tốc độ bit là biến thiên (variable bitrate - VBR), theo đó chúng ta lựa chọn độ chính xác cảm nhận mong muốn thông qua mô hình cảm giác, và bộ mã hóa entropy sẽ nén tín hiệu đó nhiều nhất có thể. Khi đó, chất lượng thu được luôn xấp xỉ mức mong muốn, tuy nhiên chúng ta không biết trước mình sẽ tiêu tốn bao nhiêu bit. Trong các thiết kế khác, chúng ta hướng tới tốc độ bit cố định (constant bitrate - CBR), theo đó hệ thống cần đạt chất lượng cao nhất có thể miễn là lượng bit tiêu thụ không vượt quá giới hạn đã chọn. Với hầu hết các bộ codec entropy, điều này đồng nghĩa với việc chúng ta phải triển khai một **vòng lặp điều khiển tốc độ** (rate-loop), trong đó ta tìm kiếm lặp đi lặp lại độ chính xác lượng tử hóa tốt nhất sao cho lượng bit tiêu thụ vẫn nằm trong giới hạn cho phép.
 
 ![audiocoding.png](attachments/175513474.png) 

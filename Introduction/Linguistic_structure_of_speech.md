@@ -1,502 +1,114 @@
 (linguistics)=
-# Linguistic structure of speech
+# Cấu trúc ngôn ngữ học của lời nói
 
-## Overview
+## Tổng quan
 
-Besides their acoustic characteristics, speech signals can be
-characterized in terms of their *linguistic structure*. Linguistic
-structure refers to the recurring regularities in spoken language as
-described by linguistic theories, such as what are the basic building
-blocks of speech and how they organized. Linguistic descriptions provide
-a means for systematic interpretation, conceptualization, and
-communication of speech-related phenomena.
+Bên cạnh các đặc trưng âm học, tín hiệu lời nói còn có thể được mô tả thông qua *cấu trúc ngôn ngữ học* (linguistic structure). Cấu trúc ngôn ngữ học đề cập đến những quy luật lặp đi lặp lại trong ngôn ngữ nói, như được mô tả bởi các lý thuyết ngôn ngữ học — chẳng hạn như các đơn vị cơ bản cấu thành lời nói là gì và chúng được tổ chức ra sao. Các mô tả ngôn ngữ học cung cấp một phương tiện để diễn giải, khái niệm hóa và truyền đạt các hiện tượng liên quan đến lời nói một cách có hệ thống.
 
-Many linguistic properties of speech, such as syllables and words, also
-have their analogs in written language. However, it is important to
-distinguish the two from each other: While written language consists of
-discrete categorical elements (sequences of letters, whitespaces, and
-punctuation marks), speech signals are always continous and
-non-categorical. This is due to the motor behavior in speech production,
-which operates in real-time and finite speed under physical and
-neurophysiological constraints. Therefore, the resulting speech signal
-also flows in continuous time and frequency. In addition, where speech
-carries extra information in terms of *how* things are said and what are
-the *characteristics of the speaker*, written language is impoverished
-of these aspects. In contrast, written language uses lexical and
-syntactic means and special characters (and more recently, emoticons) to
-differentiate more fine-grained meanings, such as conveying emotional
-content or differentiating questions from statements. Finally, only few
-languages have clear one-to-one relationship between how words are
-pronounced and how they are written. Therefore, a separate system is
-needed to describe structure of spoken language, and one should not
-equate units of written language to that of a spoken one by default.
-Naturally, the two have a systematic relationship in order to enable
-reading and writing. However, this relationship also varies from
-language to another.  
+Nhiều thuộc tính ngôn ngữ học của lời nói, chẳng hạn như âm tiết và từ, cũng có các đơn vị tương ứng trong ngôn ngữ viết. Tuy nhiên, điều quan trọng là cần phân biệt rõ hai hệ thống này: Trong khi ngôn ngữ viết bao gồm các phần tử rời rạc và mang tính phân loại (các chuỗi ký tự, khoảng trắng và dấu câu), tín hiệu lời nói luôn liên tục và không mang tính phân loại rạch ròi. Nguyên nhân nằm ở hành vi vận động trong quá trình sản sinh lời nói, vốn diễn ra theo thời gian thực với tốc độ hữu hạn dưới các ràng buộc vật lý và sinh lý thần kinh. Do đó, tín hiệu lời nói thu được cũng trôi chảy liên tục theo thời gian và tần số. Ngoài ra, trong khi lời nói mang thêm thông tin về *cách* phát ngôn và *đặc điểm của người nói*, thì ngôn ngữ viết lại thiếu vắng những khía cạnh này. Ngược lại, ngôn ngữ viết sử dụng các phương tiện từ vựng và cú pháp cùng các ký tự đặc biệt (và gần đây hơn là biểu tượng cảm xúc — emoticon) để phân biệt các sắc thái ý nghĩa tinh tế hơn, chẳng hạn như truyền tải nội dung cảm xúc hoặc phân biệt câu hỏi với câu trần thuật. Cuối cùng, chỉ có rất ít ngôn ngữ có mối quan hệ một-một rõ ràng giữa cách phát âm và cách viết của từ. Do đó, cần có một hệ thống riêng để mô tả cấu trúc của ngôn ngữ nói, và không nên mặc nhiên đồng nhất các đơn vị của ngôn ngữ viết với ngôn ngữ nói. Đương nhiên, hai hệ thống này có mối quan hệ hệ thống nhất định để hỗ trợ việc đọc và viết. Tuy nhiên, mối quan hệ này cũng thay đổi tùy theo từng ngôn ngữ.
 
-Within the broad field of linguistics, *phonetics* is its branch that
-focuses on understanding the physical basis of speech production, speech
-signals, and speech perception. In contrast, *phonology* is a branch of
-linguistics that studies sound systems of languages (both spoken and
-signed). While both attempt to describe how spoken language is
-organized, phonetic description attempts to be faithful to the acoustic,
-articulatory and auditory aspects of the speech signal. Phonetics are
-therefore strongly grounded to the measurable phenomena in the physical
-world. In contrast, phonological description consists of abstract speech
-units that allow more convenient study of how sounds of a language
-combine to create meaningful messages. For this, phonological
-description usually gets rid of signal variation that does not impact
-meaning of the speech. To give an example, different speakers of the
-same language may use different pronunciations of the same word, still
-resulting in the same phonological form. In contrast, accurate phonetic
-description would reflect the pronunciation-dependent differences,
-allowing documentation and study of such differences. Since speech
-processing is primarily concerned with physical (digitized) speech
-signals and how to deal with them, we will use phonetics as the primary
-language of description. However, the basic relationship between
-phonetic and phonological units is also briefly discussed below.
+Trong lĩnh vực rộng lớn của ngôn ngữ học, *ngữ âm học* (phonetics) là phân ngành tập trung vào việc tìm hiểu cơ sở vật lý của quá trình sản sinh lời nói, tín hiệu lời nói và quá trình tri nhận lời nói. Trong khi đó, *âm vị học* (phonology) là phân ngành nghiên cứu hệ thống âm thanh của các ngôn ngữ (cả ngôn ngữ nói lẫn ngôn ngữ ký hiệu). Mặc dù cả hai đều cố gắng mô tả cách ngôn ngữ nói được tổ chức, mô tả ngữ âm học cố gắng trung thành với các khía cạnh âm học, cấu âm và thính giác của tín hiệu lời nói. Do đó, ngữ âm học gắn bó mật thiết với các hiện tượng có thể đo lường được trong thế giới vật lý. Ngược lại, mô tả âm vị học bao gồm các đơn vị lời nói trừu tượng, cho phép nghiên cứu thuận tiện hơn về cách các âm thanh của một ngôn ngữ kết hợp với nhau để tạo ra thông điệp có nghĩa. Vì mục đích này, mô tả âm vị học thường loại bỏ những biến đổi tín hiệu không ảnh hưởng đến ý nghĩa của lời nói. Ví dụ, những người nói khác nhau của cùng một ngôn ngữ có thể sử dụng các cách phát âm khác nhau cho cùng một từ, nhưng vẫn cho ra cùng một hình thức âm vị học. Trong khi đó, mô tả ngữ âm học chính xác sẽ phản ánh những khác biệt phụ thuộc vào cách phát âm, cho phép ghi nhận và nghiên cứu những khác biệt đó. Vì xử lý lời nói chủ yếu quan tâm đến tín hiệu lời nói vật lý (đã được số hóa) và cách xử lý chúng, chúng tôi sẽ sử dụng ngữ âm học làm ngôn ngữ mô tả chính. Tuy nhiên, mối quan hệ cơ bản giữa đơn vị ngữ âm và đơn vị âm vị cũng sẽ được thảo luận ngắn gọn dưới đây.
 
-## Elementary units of spoken language
+## Các đơn vị cơ bản của ngôn ngữ nói
 
-In terms of basic phonetic organization, speech can be seen as a
-hierarchical organization of elementary units of increasing time-scale
-(Fig. 1). At the lowest level of hierarchy, there are *phones*, which
-are considered as physical realizations of more abstract *phonemes*.
-Sequences of phones are organized into *syllables*, and syllables make
-up *words* (where each word consists of one or more syllables). One or
-more words then make up utterances. Phones are sometimes referred to as
-*segmental units*, and speech phenomena, such as intonation, taking
-place at time-scales larger than individual phones are called as
-*suprasegmental phenomena*. In addition, speech is sometimes said to
-have so-called *double articulation* (aka. *duality of patterning*).
-This refers to the fact that meaningful units of speech (words,
-utterances) consist of non-meaningful units (phones/phonemes) that still
-signify distinctions in meaning. At all levels, units and their relative
-organization are language-dependent, such as which phones, syllables,
-and words are employed and how they are allowed to follow each other.
-However, there are also certain common tendencies (aka. [linguistic
-universals](https://en.wikipedia.org/wiki/Linguistic_universal)) that
-result from restrictions in the speech production and perception
-apparati or due to other shared characteristics of [natural
-languages](https://en.wikipedia.org/wiki/Natural_language).
+Xét về tổ chức ngữ âm cơ bản, lời nói có thể được xem như một cấu trúc phân cấp của các đơn vị cơ bản theo thang thời gian tăng dần (Hình 1). Ở cấp thấp nhất của hệ thống phân cấp là các *âm tố* (phones), được coi là hiện thực hóa vật lý của các *âm vị* (phonemes) trừu tượng hơn. Các chuỗi âm tố được tổ chức thành *âm tiết* (syllables), và các âm tiết tạo nên *từ* (words) (trong đó mỗi từ gồm một hoặc nhiều âm tiết). Một hoặc nhiều từ sau đó tạo thành các *phát ngôn* (utterances). Âm tố đôi khi được gọi là *đơn vị đoạn tính* (segmental units), và các hiện tượng lời nói, chẳng hạn như ngữ điệu, diễn ra ở thang thời gian lớn hơn từng âm tố riêng lẻ được gọi là *hiện tượng siêu đoạn* (suprasegmental phenomena). Ngoài ra, lời nói đôi khi được cho là có tính chất gọi là *phân đoạn kép* (double articulation, hay còn gọi là *tính nhị phân của mẫu hình* — duality of patterning). Điều này đề cập đến thực tế là các đơn vị có nghĩa của lời nói (từ, phát ngôn) bao gồm các đơn vị không mang nghĩa (âm tố/âm vị), nhưng vẫn tạo ra sự phân biệt về nghĩa. Ở tất cả các cấp độ, đơn vị và cách tổ chức tương đối của chúng đều phụ thuộc vào từng ngôn ngữ, chẳng hạn như những âm tố, âm tiết và từ nào được sử dụng và chúng được phép kế tiếp nhau ra sao. Tuy nhiên, cũng tồn tại một số khuynh hướng chung (hay còn gọi là [vạn vật ngôn ngữ](https://en.wikipedia.org/wiki/Linguistic_universal)) xuất phát từ những hạn chế trong bộ máy sản sinh và tri nhận lời nói, hoặc từ các đặc điểm chung khác của [ngôn ngữ tự nhiên](https://en.wikipedia.org/wiki/Natural_language).
 
 ![hierarcy](attachments/197424504.png)
-**Fig. 1:**
-**An example of the hierarchical organization of speech in terms of
-phones, syllables, and words for an Estonian speech sample. Two
-suprasegmental features, namely F0 and intensity, are also shown on top.
-In this example, syllables are denoted in terms of their phonetic
-constituents while words are represented orthographically.** **Example
-annotations taken from Phonetic Corpus of Estonian Spontaneous Speech
-(reproduced with permission) and represented in graphical form using
-Praat.**
+**Hình 1:**
+**Một ví dụ về tổ chức phân cấp của lời nói theo âm tố (phones), âm tiết (syllables) và từ (words) trong một mẫu lời nói tiếng Estonia. Hai đặc trưng siêu đoạn, cụ thể là F0 và cường độ, cũng được thể hiện ở phía trên. Trong ví dụ này, âm tiết được ký hiệu theo các thành phần ngữ âm cấu thành, trong khi từ được biểu diễn dưới dạng chính tả.** **Chú thích mẫu lấy từ Kho ngữ liệu Ngữ âm Lời nói Tự phát tiếng Estonia (được tái bản với sự cho phép) và được biểu diễn dưới dạng đồ họa bằng Praat.**
 
   
 
-When discussing units of speech, it is often useful to distinguish *unit
-types* from *unit tokens.* Type refers to a unique unit category, such
-all \[r\] sounds belong to the same phone type. Token refers to an
-individual realization of a type. For instance, word "roar" has two
-\[r\] tokens in it.
+Khi thảo luận về các đơn vị của lời nói, thường cần phân biệt giữa *loại đơn vị* (unit type) và *thể hiện đơn vị* (unit token). Loại (type) đề cập đến một phạm trù đơn vị duy nhất, chẳng hạn tất cả các âm [r] đều thuộc cùng một loại âm tố. Thể hiện (token) đề cập đến một hiện thực hóa cụ thể của một loại. Ví dụ, từ "roar" có hai thể hiện (token) của âm [r].
 
 (content:phones)=
-### Phones
+### Âm tố (Phones)
 
-[Phones](https://en.wikipedia.org/wiki/Phone_(phonetics)) are the
-elementary units of speech, associated with *articulatory gestures*
-responsible for producing them and with *acoustic cues* that make them
-distinct from other phones. Phonetic *transcription* is the process of
-marking down phones of speech with symbols (denoted with brackets \[
-\]). Phonetic transcription often makes use of the [International
-Phonetic
-Alphabet](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet)
-(IPA). On a high level, phones can be divided into *vowels*
-(e.g., \[a\], \[i\], and \[u\])  and *consonants* (e.g.*,* \[p\], \[b\],
-\[s\]). While all vowels are voiced sounds (see [speech
-production](Speech_production_and_acoustic_properties)), consonants can
-be voiced or unvoiced.
+[Âm tố (Phones)](https://en.wikipedia.org/wiki/Phone_(phonetics)) là các đơn vị cơ bản của lời nói, gắn liền với các *cử động cấu âm* (articulatory gestures) tạo ra chúng và với các *dấu hiệu âm học* (acoustic cues) giúp phân biệt chúng với các âm tố khác. *Chuyển ngữ* ngữ âm (transcription) là quá trình ghi lại các âm tố của lời nói bằng các ký hiệu (ký hiệu trong ngoặc vuông [ ]). Chuyển ngữ ngữ âm thường sử dụng [Bảng ký hiệu Ngữ âm Quốc tế](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet) (IPA). Ở mức độ tổng quát, âm tố có thể được chia thành *nguyên âm* (vowels) (ví dụ: [a], [i], [u]) và *phụ âm* (consonants) (ví dụ: [p], [b], [s]). Trong khi tất cả nguyên âm đều là âm hữu thanh (xem [sản sinh lời nói](Speech_production_and_acoustic_properties)), phụ âm có thể là hữu thanh hoặc vô thanh.
 
-The primary determiner of vowel identity is position of the narrowest
-gap in the vocal tract (Fig. 2), as primarily controlled by tongue
-position in the mouth. Vowels can be categorized in terms of
-their *openness/closeness* (how wide is the narrowest part of the vocal
-tract between tongue and top of the mouth), and *frontness/backness*
-(how front/back is the tongue in the mouth). In additon, vowels with the
-same place of articulation can change depending on *lip rounding* (e.g.,
-\[o\] versus \[u\]). Protrusion of lips during the rounding increases
-the effective length of the vocal tract, hence altering the resonance
-frequencies of the tract. A special vowel called "schwa" (\[ə\])
-corresponds to an articulatory configuration, where jaw, lips, and
-tongue are completely relaxed, hence corresponding a central mid vowel.
+Yếu tố quyết định chính đến bản sắc của nguyên âm là vị trí hẹp nhất trong đường dẫn thanh (vocal tract) (Hình 2), chủ yếu được điều khiển bởi vị trí của lưỡi trong khoang miệng. Nguyên âm có thể được phân loại theo *độ mở/độ khép* (openness/closeness — độ rộng tại phần hẹp nhất của đường dẫn thanh giữa lưỡi và vòm miệng trên), và *độ trước/sau* (frontness/backness — lưỡi nằm ở phía trước hay phía sau trong khoang miệng). Ngoài ra, các nguyên âm có cùng vị trí cấu âm có thể thay đổi tùy theo *độ tròn môi* (lip rounding) (ví dụ: [o] so với [u]). Sự nhô ra của môi khi tròn môi làm tăng chiều dài hiệu dụng của đường dẫn thanh, từ đó thay đổi các tần số cộng hưởng của đường dẫn thanh. Một nguyên âm đặc biệt gọi là "schwa" ([ə]) tương ứng với một cấu hình cấu âm trong đó hàm, môi và lưỡi hoàn toàn thả lỏng, do đó tương ứng với nguyên âm giữa trung tính.
 
 ![IPA_vowels](attachments/IPA_vowels.png)
-**Fig. 2: IPA chart for vowels (reproduced by CC BY-SA 3.0)**
+**Hình 2: Bảng IPA cho nguyên âm (tái bản theo giấy phép CC BY-SA 3.0)**
 
-Consonants can be categorized in terms of their *manner and place of
-articulation.* Figure 3 shows IPA chart for consonants organized in
-terms of place of articulation (columns)and manner of articulation
-(rows).
+Phụ âm có thể được phân loại theo *phương thức và vị trí cấu âm.* Hình 3 thể hiện bảng IPA cho phụ âm được tổ chức theo vị trí cấu âm (các cột) và phương thức cấu âm (các hàng).
 
-Place of articulation refers to the point of tighest constriction in the
-vocal tract, as in vowels. However, in consonants, the gap at the place
-of constriction is smaller or the airflow in the tract is completely
-blocked for a period of time. In addition, the constriction can be
-created at different positions of the vocal tract using different
-articulators beyond the tongue, such as using lips, glottis, or uvula.
+Vị trí cấu âm (place of articulation) đề cập đến điểm thắt hẹp nhất trong đường dẫn thanh, tương tự như ở nguyên âm. Tuy nhiên, ở phụ âm, khe hở tại vị trí thắt hẹp nhỏ hơn hoặc luồng khí trong đường dẫn thanh bị chặn hoàn toàn trong một khoảng thời gian. Ngoài ra, sự thắt hẹp có thể được tạo ra ở các vị trí khác nhau của đường dẫn thanh bằng cách sử dụng các bộ phận cấu âm khác nhau ngoài lưỡi, chẳng hạn như sử dụng môi, thanh môn hoặc lưỡi gà.
 
-Manner of articulation refers to the manner that the constriction is
-created, including its temporal characteristics. For instance,
-*plosives* (e.g., unvoiced \[k\], \[p\] or voiced \[g\], \[b\]) consist
-of a complete blockage, aka. *closure,* of the vocal tract. This causes
-accumulation of air pressure in the tract before the blockage, which
-then results in as a noisy burst of airflow when the closure is
-released. *Trill consonants*, such as \[r\], consist of several rapid
-and subsequent closures of the tract caused by tongue vibrating against
-the oral cavity structures at the given place of articulation (e.g.,
-tongue tip vibrating against alveolar ridge in \[r\]). *Taps and flaps*
-are similar to trills, but only consist of one quick closure and its
-release. *Fricatives* are turbulent sounds where the constriction is so
-narrow that the air flowing though it becomes turbulent. This turbulence
-causes the "hissing" sound characteristic of fricatives, such as in
-\[s\], \[f\], and \[h\] (e.g., as in "*she*" or "*foam*"). *Nasals *are
-sounds where the oral cavity has a complete closure, but the air can
-enter the nasal cavity through the velar port and exit through nostrils,
-adding another branch to the vocal tract with its own resonances and
-antiresonances (see also [speech
-production](Speech_production_and_acoustic_properties)). *Approximants*
-are sounds where articulators approach each other without becoming
-narrow enough to introduce turbulence to the sound. Among the
-approximants, *g*lides are sounds similar to vowels, but act as syllable
-boundaries instead of syllabic nuclei (see below) typically with
-articulatory movement taking place throughout the sound (e.g., \[y\] as
-in "yes" or \[w\] in "water"). Lateral approximants consist of sounds
-where some part of the tongue touches the roof of the mouth but the air
-can flow freely from both sides of the tongue (e.g., \[l\] as in
-"love"). There are also other categories of consonants and ways to
-categorize them, and an interested reader is suggested to consult some
-phonetics textbook for more information.
+Phương thức cấu âm (manner of articulation) đề cập đến cách thức mà sự thắt hẹp được tạo ra, bao gồm cả các đặc trưng thời gian của nó. Ví dụ, *âm tắc* (plosives) (ví dụ: âm vô thanh [k], [p] hoặc âm hữu thanh [g], [b]) bao gồm sự đóng kín hoàn toàn, hay còn gọi là *bế tắc* (closure), đường dẫn thanh. Điều này gây ra sự tích tụ áp suất khí trong đường dẫn thanh trước điểm bế tắc, sau đó tạo ra một luồng khí bật ra ồn ào khi bế tắc được giải phóng. *Âm rung* (trill consonants), chẳng hạn như [r], bao gồm nhiều lần đóng và mở nhanh liên tiếp của đường dẫn thanh do lưỡi rung động vào các cấu trúc khoang miệng tại vị trí cấu âm tương ứng (ví dụ: đầu lưỡi rung vào gờ chân răng trong âm [r]). *Âm vỗ* (taps and flaps) tương tự như âm rung, nhưng chỉ gồm một lần đóng nhanh và giải phóng. *Âm xát* (fricatives) là những âm rối, trong đó sự thắt hẹp nhỏ đến mức luồng khí đi qua trở nên rối loạn. Sự rối loạn này tạo ra âm thanh "xì" đặc trưng của âm xát, chẳng hạn như trong [s], [f] và [h] (ví dụ: như trong "*she*" hoặc "*foam*"). *Âm mũi* (nasals) là những âm mà khoang miệng bị đóng kín hoàn toàn, nhưng không khí có thể đi vào khoang mũi qua cổng màn hầu (velar port) và thoát ra qua lỗ mũi, bổ sung thêm một nhánh vào đường dẫn thanh với các cộng hưởng và phản cộng hưởng riêng (xem thêm [sản sinh lời nói](Speech_production_and_acoustic_properties)). *Âm tiếp cận* (approximants) là những âm mà các bộ phận cấu âm tiến lại gần nhau nhưng không đủ hẹp để gây ra sự rối loạn cho âm thanh. Trong số các âm tiếp cận, *âm lướt* (glides) là những âm tương tự nguyên âm, nhưng đóng vai trò là ranh giới âm tiết thay vì hạt nhân âm tiết (xem bên dưới), thường đi kèm với chuyển động cấu âm diễn ra xuyên suốt âm thanh đó (ví dụ: [y] như trong "yes" hoặc [w] trong "water"). Âm tiếp cận bên (lateral approximants) bao gồm những âm mà một phần lưỡi chạm vào vòm miệng nhưng không khí có thể tự do đi qua hai bên lưỡi (ví dụ: [l] như trong "love"). Ngoài ra còn có các nhóm phụ âm khác và các cách phân loại khác, bạn đọc quan tâm nên tham khảo thêm các giáo trình ngữ âm học để biết thêm thông tin.
 
 ![consonants](attachments/197423276.png)
-**Fig.3: IPA chart for pulmonic consonants (reproduced by CC BY-SA
-3.0).**
+**Hình 3: Bảng IPA cho phụ âm thuộc phổi (pulmonic consonants) (tái bản theo giấy phép CC BY-SA 3.0).**
 
   
 
-The majority of consonant sounds, including those reviewed above and
-listed in Fig. 3, are called *pulmonic consonants.* This means that the
-air flow (energy) for sound production originates from lung pressure,
-whether voiced or not. Besides the pulmonic sounds, some languages make
-use of *non-pulmonic consonants*. These can include *implosives*
-(plosives that are formed during inhalation of air), *clicks* (produced
-by subpressurized pockets of air between two concurrent closures that
-are then suddenly released), and *ejectives* (where the excitation
-energy for the sound is formed at the glottis by lowering the phrarynx,
-closing the glottis, and then raising the pharynx, resulting in
-increased air pressure in the tract while an obstruction is maintained
-at the place of articulation).
+Đa số các âm phụ âm, bao gồm những âm đã được xem xét ở trên và được liệt kê trong Hình 3, được gọi là *phụ âm thuộc phổi* (pulmonic consonants). Điều này có nghĩa là luồng khí (năng lượng) để sản sinh âm thanh bắt nguồn từ áp suất phổi, bất kể là âm hữu thanh hay vô thanh. Bên cạnh các âm thuộc phổi, một số ngôn ngữ sử dụng các *phụ âm không thuộc phổi* (non-pulmonic consonants). Các âm này có thể bao gồm *âm hút vào* (implosives — các âm tắc được hình thành trong quá trình hít vào), *âm tặc lưỡi* (clicks — được tạo ra bởi các túi khí giảm áp giữa hai lần đóng đồng thời rồi bất ngờ được giải phóng), và *âm tống ra* (ejectives — trong đó năng lượng kích thích cho âm thanh được tạo ra tại thanh môn bằng cách hạ thấp hầu, đóng thanh môn, rồi nâng hầu lên, dẫn đến tăng áp suất khí trong đường dẫn thanh trong khi vẫn duy trì sự tắc nghẽn tại vị trí cấu âm).
 
-*[Coarticulation](https://en.wikipedia.org/wiki/Coarticulation)* is an
-important speech phenomenon where realization of speech sounds is
-affected by the neighboring speech sounds. This is since articulatory
-gestures for speech production are almost always anticipating the
-production of the next sound (aka. *anticipatory coarticulation)* or
-still recovering their positions from the previous sound (aka.
-*perseverative* coarticulation). Since all articulators can only move
-with a finite speed from one articulatory configuration to another,
-coarticulation is present in virtually all observable speech beyond
-isolated vowels. Given that phones are the smallest sound units of a
-language, coarticulation can have a large effect on the acoustic form
-that phones take in actual continuous speech, introducing additional
-non-phonemic variability (see below) in the acoustical form of phones.
+*[Đồng cấu âm](https://en.wikipedia.org/wiki/Coarticulation)* (coarticulation) là một hiện tượng lời nói quan trọng, trong đó sự hiện thực hóa của các âm lời nói bị ảnh hưởng bởi các âm lân cận. Nguyên nhân là do các cử động cấu âm để sản sinh lời nói hầu như luôn dự đoán trước việc sản xuất âm tiếp theo (gọi là *đồng cấu âm tiên liệu* — anticipatory coarticulation) hoặc vẫn đang phục hồi vị trí từ âm trước đó (gọi là *đồng cấu âm lưu tồn* — perseverative coarticulation). Vì tất cả các bộ phận cấu âm chỉ có thể di chuyển với tốc độ hữu hạn từ cấu hình cấu âm này sang cấu hình cấu âm khác, đồng cấu âm hiện diện trong hầu hết mọi lời nói quan sát được, ngoại trừ các nguyên âm cô lập. Xét rằng âm tố là đơn vị âm thanh nhỏ nhất của một ngôn ngữ, đồng cấu âm có thể có ảnh hưởng lớn đến hình thức âm học mà âm tố thể hiện trong lời nói liên tục thực tế, gây ra thêm biến thiên phi âm vị (xem bên dưới) trong hình thức âm học của các âm tố.
 
 (content:phonemes)=
-#### Phones vs. phonemes
+#### Âm tố vs. Âm vị (Phones vs. Phonemes)
 
-As mentioned above, phones are sounds of a language that have an
-articulatory, and thereby also acoustic, basis. Another commonly
-encountered basic unit of speech is a *phoneme* (denoted with slashes /
-/)*.* Phonemes are defined in terms of their meaning contrasting
-function: two different phones of a language are also different
-phonemes, if they can change the meaning of a word.  For example,
-consider words "*cat*" (\[k\] \[ae\] \[t\]) and "*bat*" (\[b\]
-\[ae\] \[t\]). In case of English, the initial \[k\] and \[b\] phones
-are also distinct phonemes /k/ and /b/, as they change the meaning of
-the otherwise identical word. Also note that \[k\] \[ae\] \[t\] and
-\[b\] \[ae\] \[t\] are so-called *minimal pairs*, as they only differ by
-one phoneme. A good rule of thumb is that *phones are defined in terms
-of their articulatory or acoustic properties,* whereas *each phonemic
-category consists of all possible sounds that can be substituted for
-each other without affecting the meaning of any word in the given
-language.*
+Như đã đề cập ở trên, âm tố là các âm thanh của một ngôn ngữ có cơ sở cấu âm, và do đó cũng có cơ sở âm học. Một đơn vị cơ bản khác thường gặp của lời nói là *âm vị* (phoneme, ký hiệu trong dấu gạch chéo / /). Âm vị được định nghĩa theo chức năng đối lập nghĩa: hai âm tố khác nhau của một ngôn ngữ cũng là hai âm vị khác nhau, nếu chúng có thể làm thay đổi nghĩa của một từ. Ví dụ, xét hai từ "*cat*" ([k] [ae] [t]) và "*bat*" ([b] [ae] [t]). Trong tiếng Anh, các âm tố [k] và [b] ở vị trí đầu cũng là các âm vị /k/ và /b/ riêng biệt, vì chúng làm thay đổi nghĩa của từ vốn giống nhau ở phần còn lại. Cũng cần lưu ý rằng [k] [ae] [t] và [b] [ae] [t] là các *cặp tối thiểu* (minimal pairs), vì chúng chỉ khác nhau ở một âm vị. Một nguyên tắc chung hữu ích là: *âm tố được định nghĩa dựa trên các thuộc tính cấu âm hoặc âm học*, trong khi *mỗi phạm trù âm vị bao gồm tất cả các âm có thể thay thế cho nhau mà không làm thay đổi nghĩa của bất kỳ từ nào trong ngôn ngữ đang xét.*
 
-*Allophones* are the alternative phones that all stand for the same
-phoneme in the given language. For instance, phones \[r\] and \[l\] can
-be considered as allophones of the same Japanese phoneme, as they can be
-used interchangeable in Japanese without affecting the communicated
-meanings. In English, \[r\] and \[l\] are not allophones, as they
-distinguish meanings (e.g., as in "*lock*" and "*rock*"). In fact,
-listeners tend to become worse in discriminating those non-native
-phonemic contrasts from each other that do not mark a phonemic contrast
-in their native language. This change in discrimination comes with
-language experience, and young infants start with the capability to
-discriminate both native and non-native contrasts (e.g., Werker & Tees,
-1984).
+*Tha âm* (allophones) là các âm tố thay thế, tất cả đều đại diện cho cùng một âm vị trong ngôn ngữ đang xét. Ví dụ, âm tố [r] và [l] có thể được xem là tha âm của cùng một âm vị trong tiếng Nhật, vì chúng có thể được sử dụng thay thế cho nhau trong tiếng Nhật mà không ảnh hưởng đến ý nghĩa giao tiếp. Trong tiếng Anh, [r] và [l] không phải là tha âm, vì chúng phân biệt nghĩa (ví dụ: như trong "*lock*" và "*rock*"). Trên thực tế, người nghe có xu hướng trở nên kém hơn trong việc phân biệt các tương phản âm vị không phải tiếng mẹ đẻ, nếu những tương phản đó không đánh dấu sự phân biệt âm vị trong ngôn ngữ mẹ đẻ của họ. Sự thay đổi trong khả năng phân biệt này đi kèm với kinh nghiệm ngôn ngữ, và trẻ sơ sinh bắt đầu với khả năng phân biệt cả các tương phản bản ngữ và phi bản ngữ (ví dụ: Werker & Tees, 1984).
 
-### Syllables
+### Âm tiết (Syllables)
 
-The second unit in the "size hierarchy" of spoken language is a
-syllable. Syllables are sequences of sounds (one or more), consisting of
-a syllable *nucleus* (typically a vowel) and optional initial and final
-sound sequences, also known as *onset* and *coda*, respectively. Onsets
-and coda tend to have consonant sounds. Sometimes onset is separated
-from the *rime*, where the rime then consists of the nucleus and coda.
-Syllables can be considered as rhythmic units, as the alternation
-between consonants and vocalic syllabic nuclei give rise to the typical
-rhythmic patterns of different languages, as vowels generally have
-higher energy (are louder) than consonants. Concept of *sonority
-sequencing principle* (SSP) refers to this sequential alternation
-between less loud consonants and louder syllable nuclei. More
-specifically, in SSP, the first phone of syllable onset is supposed to
-be the least sonorous of the sounds preceding the syllable nucleus. Then
-the sonority increases towards the nucleus if more than one consonant
-exists in the onset. In the same manner, sonority of the consonants in
-the syllable coda (offset) decreases towards the end of the syllable.
-*Sonority hierarchy* determines the relative sonority ("loudness") of
-different phones. As
-[wikipedia](https://en.wikipedia.org/wiki/Sonority_Sequencing_Principle)
-states, "*typically they *\[relative sonorities\] *are
-[vowel](https://en.wikipedia.org/wiki/Vowel "Vowel") \>
-[glide](https://en.wikipedia.org/wiki/Semivowel "Semivowel") \>
-[liquid](https://en.wikipedia.org/wiki/Liquid_consonant "Liquid consonant")
-\>
-[nasal](https://en.wikipedia.org/wiki/Nasal_consonant "Nasal consonant")
-\> [obstruent](https://en.wikipedia.org/wiki/Obstruent "Obstruent") (or
-\>
-[fricative](https://en.wikipedia.org/wiki/Fricative_consonant "Fricative consonant")
-\>
-[plosive](https://en.wikipedia.org/wiki/Stop_consonant "Stop consonant")
-\>
-[click)](https://en.wikipedia.org/wiki/Click_consonant "Click consonant")*".
+Đơn vị thứ hai trong "hệ thống phân cấp kích thước" của ngôn ngữ nói là âm tiết. Âm tiết là các chuỗi âm thanh (một hoặc nhiều), bao gồm một *hạt nhân âm tiết* (nucleus, thường là nguyên âm) và các chuỗi âm đầu và cuối tùy chọn, còn được gọi là *khởi âm* (onset) và *kết âm* (coda). Khởi âm và kết âm thường là các phụ âm. Đôi khi khởi âm được tách riêng khỏi *vần* (rime), trong đó vần bao gồm hạt nhân âm tiết và kết âm. Âm tiết có thể được xem như các đơn vị nhịp điệu, vì sự luân phiên giữa phụ âm và hạt nhân âm tiết nguyên âm tạo nên các mẫu nhịp điệu đặc trưng của các ngôn ngữ khác nhau, do nguyên âm thường có năng lượng cao hơn (nghe to hơn) so với phụ âm. Khái niệm *nguyên lý trình tự độ vang* (sonority sequencing principle — SSP) đề cập đến sự luân phiên tuần tự này giữa các phụ âm ít vang hơn và các hạt nhân âm tiết vang hơn. Cụ thể hơn, trong SSP, âm tố đầu tiên của khởi âm được cho là có độ vang thấp nhất trong số các âm đứng trước hạt nhân âm tiết. Sau đó, độ vang tăng dần về phía hạt nhân nếu có nhiều hơn một phụ âm trong khởi âm. Tương tự, độ vang của các phụ âm trong kết âm giảm dần về phía cuối âm tiết. *Hệ thống phân cấp độ vang* (sonority hierarchy) xác định độ vang tương đối ("độ to") của các âm tố khác nhau. Như [wikipedia](https://en.wikipedia.org/wiki/Sonority_Sequencing_Principle) mô tả, "*thông thường chúng* [các độ vang tương đối] *là [nguyên âm](https://en.wikipedia.org/wiki/Vowel "Vowel") > [âm lướt](https://en.wikipedia.org/wiki/Semivowel "Semivowel") > [âm lỏng](https://en.wikipedia.org/wiki/Liquid_consonant "Liquid consonant") > [âm mũi](https://en.wikipedia.org/wiki/Nasal_consonant "Nasal consonant") > [âm cản](https://en.wikipedia.org/wiki/Obstruent "Obstruent") (hoặc > [âm xát](https://en.wikipedia.org/wiki/Fricative_consonant "Fricative consonant") > [âm tắc](https://en.wikipedia.org/wiki/Stop_consonant "Stop consonant") > [âm tặc lưỡi](https://en.wikipedia.org/wiki/Click_consonant "Click consonant"))*".
 
-Due to coarticulation that can have large impact on individual phone
-segments and due to rhythmic transparency of syllables, some authors
-consider syllables as more robust perceptual units of language than
-individual phones (e.g., Nusbaum & DeGroot, 1991), including also young
-children (see Hallé & Cristia, 2012, for an overview). In addition,
-children and illiterate listeners have better introspective access to
-syllabic structure of speech in contrast to underlying phonetic or
-phonemic constituents (Liberman et al., 1974; Morais et al., 1989).
-However, coarticulation has also effects across subsequent syllables,
-and human speech perception also makes use of cues beyond the time-scale
-of individual syllables. However, syllabic organization of speech is
-still central to understanding how speech is organized. Studies on
-conversational speech show that onset and nucleus of a syllable are much
-more central to succesful comprehension of speech, and hence also
-produced more accurately. In contrast, coda often undergo various types
-of *syllabic reduction* where one or more phones of the coda are not
-pronunced at all (e.g., Greenberg et al., 2003).
+Do đồng cấu âm có thể ảnh hưởng lớn đến từng đoạn âm tố riêng lẻ và do tính minh bạch về nhịp điệu của âm tiết, một số tác giả xem âm tiết là đơn vị tri nhận vững chắc hơn của ngôn ngữ so với từng âm tố riêng lẻ (ví dụ: Nusbaum & DeGroot, 1991), bao gồm cả ở trẻ nhỏ (xem Hallé & Cristia, 2012, để có cái nhìn tổng quan). Ngoài ra, trẻ em và người nghe không biết chữ có khả năng tiếp cận nội quan tốt hơn với cấu trúc âm tiết của lời nói so với các thành phần ngữ âm hoặc âm vị nền tảng (Liberman và cộng sự, 1974; Morais và cộng sự, 1989). Tuy nhiên, đồng cấu âm cũng có ảnh hưởng xuyên suốt các âm tiết kế tiếp nhau, và quá trình tri nhận lời nói của con người cũng sử dụng các dấu hiệu vượt ra ngoài thang thời gian của từng âm tiết riêng lẻ. Dù vậy, tổ chức âm tiết của lời nói vẫn giữ vai trò trung tâm trong việc hiểu cách lời nói được tổ chức. Các nghiên cứu trên lời nói hội thoại cho thấy khởi âm và hạt nhân của âm tiết đóng vai trò trung tâm hơn nhiều đối với việc hiểu thành công lời nói, và do đó cũng được sản xuất chính xác hơn. Ngược lại, kết âm thường phải trải qua nhiều loại *giảm âm tiết* (syllabic reduction), trong đó một hoặc nhiều âm tố của kết âm hoàn toàn không được phát âm (ví dụ: Greenberg và cộng sự, 2003).
 
-Different languages employ different syllabic structures. Syllables (of
-a language) are sometimes denoted in terms of their constituent vowels
-(V) and consonants (C), where CV-syllables (one consonant onset + a
-vowel nucleus) are universally the most common. In addition, each
-language has its own inventory of syllables that can be of form CVC,
-CVV, CVCC, CVVCC etc..  For instance, English has on average quite long
-syllables, resulting on many *monosyllabic words (bat: \[b\]*
-\[ae\] \[t\], *food:* \[f\] \[u:\] \[d\], *laugh: *\[l\] \[ae\] \[f\]).
-In Finnish, CV syllables are frequent and hence many frequently spoken
-words emerge from combinations of several syllables (e.g., *kissa :* \[k
-i s\] . \[s a\] for *cat, *or *nauraa:* \[n a u\].\[r a:\] for *to*
-*laugh*; note that . marks for syllable boundary and : for a long
-vowel/consonant quantity).
+Các ngôn ngữ khác nhau sử dụng các cấu trúc âm tiết khác nhau. Âm tiết (của một ngôn ngữ) đôi khi được ký hiệu theo các nguyên âm (V) và phụ âm (C) cấu thành, trong đó âm tiết CV (một khởi âm phụ âm + một hạt nhân nguyên âm) là phổ biến nhất trên toàn cầu. Ngoài ra, mỗi ngôn ngữ có kho tàng âm tiết riêng, có thể ở dạng CVC, CVV, CVCC, CVVCC, v.v. Ví dụ, tiếng Anh trung bình có các âm tiết khá dài, dẫn đến nhiều *từ đơn âm tiết* (bat: [b] [ae] [t], food: [f] [u:] [d], laugh: [l] [ae] [f]). Trong tiếng Phần Lan, âm tiết CV phổ biến và do đó nhiều từ thông dụng được hình thành từ sự kết hợp của nhiều âm tiết (ví dụ: *kissa:* [k i s].[s a] nghĩa là *con mèo*, hoặc *nauraa:* [n a u].[r a:] nghĩa là *cười*; lưu ý rằng dấu . đánh dấu ranh giới âm tiết và dấu : biểu thị trường độ nguyên âm/phụ âm dài).
 
-### Words
+### Từ (Words)
 
-Words are the minimum meaning-bearing units of spoken (and written)
-language, i.e., a word in isolation has some meaning attached to it. In
-contrast, isolated phones and syllables do not carry a meaning (unless
-the word is a monosyllabic one). Every word has at least one syllable,
-and, in principle, syllables do not cross word bondaries but align with
-them. In several languages, spoken words align relatively well with
-written words. However, words in speech are not separated by clear
-articulatory or acoustic markers, such as pauses, whereas written text
-transparently delimits individual words by intervening whitespaces.
+Từ là đơn vị mang nghĩa nhỏ nhất của ngôn ngữ nói (và ngôn ngữ viết), tức là một từ đứng riêng lẻ vẫn mang một ý nghĩa nhất định. Ngược lại, các âm tố và âm tiết cô lập không mang nghĩa (trừ khi từ đó là từ đơn âm tiết). Mỗi từ có ít nhất một âm tiết, và về nguyên tắc, âm tiết không vượt qua ranh giới từ mà căn chỉnh theo chúng. Trong nhiều ngôn ngữ, từ nói căn chỉnh khá tốt với từ viết. Tuy nhiên, các từ trong lời nói không được phân tách bởi các dấu hiệu cấu âm hoặc âm học rõ ràng, chẳng hạn như khoảng dừng, trong khi văn bản viết phân định minh bạch từng từ bằng các khoảng trắng xen kẽ.
 
-### Utterances
+### Phát ngôn (Utterances)
 
-Utterance is the smallest unpaused act of speech produced by one
-speaker, as delineated by clear pauses (or changes of speaker). In
-contrast to written language, where *a sentence* is one grammatical
-expression with a communicated meaning, utterances in spoken language
-can vary from individual words to much longer streams of words and
-grammatical constructs. In other words, speech does not consist of
-clearly delineated sentences (or clauses), but of speaking acts of
-varying durations. Speakers may use
-[*fillers*](https://en.wikipedia.org/wiki/Filler_(linguistics)) (aka.
-*hesitations*, *filled pauses*) such as "*uhm*" or "*ah*" or prolonged
-vowels to signal that they aim to continue their utterance, but need
-some to reorganize their thinking in order to mentally construct the
-subsequent speech.
+Phát ngôn là hành vi lời nói nhỏ nhất không bị ngắt quãng do một người nói tạo ra, được phân định bởi các khoảng dừng rõ ràng (hoặc sự thay đổi người nói). Trái ngược với ngôn ngữ viết, trong đó *một câu* là một biểu thức ngữ pháp với ý nghĩa được truyền đạt, các phát ngôn trong ngôn ngữ nói có thể dao động từ những từ riêng lẻ đến các chuỗi từ và cấu trúc ngữ pháp dài hơn nhiều. Nói cách khác, lời nói không bao gồm các câu (hoặc mệnh đề) được phân định rõ ràng, mà bao gồm các hành vi nói có độ dài khác nhau. Người nói có thể sử dụng các [*từ đệm*](https://en.wikipedia.org/wiki/Filler_(linguistics)) (còn gọi là *từ ngập ngừng*, *khoảng dừng lấp đầy*) chẳng hạn như "*uhm*" hoặc "*ah*" hoặc kéo dài nguyên âm để báo hiệu rằng họ muốn tiếp tục phát ngôn, nhưng cần thời gian để tổ chức lại suy nghĩ nhằm kiến tạo phần lời nói tiếp theo trong tâm trí.
 
-### Morphological units
+### Các đơn vị hình thái học (Morphological units)
 
-Besides the above-listed units of speech, there are a number other units
-and structural concepts of language that linguistic theories make use
-of. They are perhaps less frequently utilized in speech processing, but
-become relevant when speech is being mapped to written language or vice
-versa, or when speech processing tools are used for linguistic research.
-One such an area of linguistics is *morphology*, which studies word
-forms, formation, and relationships between words in the same language.
-In morphology, *morpheme* is the smallest grammatical unit of speech,
-which may, but does not have to be, a word. Morphemes can be divided
-into *free morphemes*, which can act as words in isolation (e.g.,
-"cat"), and *bound morphemes*, which occur as prefixes or suffixes of
-words (e.g., -s in "cats"). In addition, bound morphemes can be
-classified into *inflectional morphemes* and *derivational morphemes.*
-Inflectional morphemes change the grammatical meaning of the sentence,
-but do not alter the basic meaning of the word that is being inflected.
-Derivational morphemes alter the original word by creating a new word
-with a separate meaning. *Allomorphs* are different pronunciation forms
-of the same underlying morpheme.
+Bên cạnh các đơn vị lời nói đã liệt kê ở trên, còn có một số đơn vị và khái niệm cấu trúc khác của ngôn ngữ mà các lý thuyết ngôn ngữ học sử dụng. Chúng có thể ít được sử dụng thường xuyên hơn trong xử lý lời nói, nhưng trở nên liên quan khi ánh xạ lời nói sang ngôn ngữ viết hoặc ngược lại, hoặc khi các công cụ xử lý lời nói được sử dụng cho nghiên cứu ngôn ngữ học. Một lĩnh vực ngôn ngữ học như vậy là *hình thái học* (morphology), nghiên cứu các hình thức từ, quá trình tạo từ và mối quan hệ giữa các từ trong cùng một ngôn ngữ. Trong hình thái học, *hình vị* (morpheme) là đơn vị ngữ pháp nhỏ nhất của lời nói, có thể — nhưng không nhất thiết phải — là một từ. Hình vị có thể được chia thành *hình vị tự do* (free morphemes), có thể đứng riêng như một từ (ví dụ: "cat"), và *hình vị ràng buộc* (bound morphemes), xuất hiện dưới dạng tiền tố hoặc hậu tố của từ (ví dụ: -s trong "cats"). Ngoài ra, hình vị ràng buộc có thể được phân loại thành *hình vị biến đổi* (inflectional morphemes) và *hình vị phái sinh* (derivational morphemes). Hình vị biến đổi thay đổi ý nghĩa ngữ pháp của câu nhưng không làm thay đổi nghĩa cơ bản của từ được biến đổi. Hình vị phái sinh thay đổi từ gốc bằng cách tạo ra một từ mới với nghĩa riêng biệt. *Tha hình vị* (allomorphs) là các hình thức phát âm khác nhau của cùng một hình vị nền tảng.
 
-Besides morphemes, morphology deals with *lexemes.* Lexeme is a unit of
-meaning from which different inflections (*word-forms*) can be derived.
-Hence, all words belong to some lexeme, but one lexeme can have many
-word-forms (e.g., *"do", "did", "does"*). Set of lexemes in a language
-is called *a lexicon*.
+Bên cạnh hình vị, hình thái học còn nghiên cứu về *đơn vị từ vựng* (lexemes). Đơn vị từ vựng là một đơn vị mang nghĩa mà từ đó có thể phái sinh các biến thể khác nhau (*hình thức từ* — word-forms). Do đó, tất cả các từ đều thuộc về một đơn vị từ vựng nào đó, nhưng một đơn vị từ vựng có thể có nhiều hình thức từ (ví dụ: *"do", "did", "does"*). Tập hợp các đơn vị từ vựng trong một ngôn ngữ được gọi là *từ vựng* (lexicon).
 
-## Prosody, aka. suprasegmental properties of speech
+## Ngữ điệu, hay các thuộc tính siêu đoạn của lời nói
 
-[Prosody](https://en.wikipedia.org/wiki/Prosody_(linguistics)) aka.
-suprasegmental phenomena in speech refers to those patterns in speech
-that take place at time-scales larger than individual phones (segments).
-Many of the suprasegmental phenomena, such as intonation, stress, and
-rhythm, play a linguistic function, hence providing an additional means
-to alter the meaning and implications of spoken message without changing
-the lexical and grammatical structure of the sentence. Others are
-related to other information encoded in speech, such as cues for
-speaker's emotional state, attitude, or social background. Here we only
-focus on those aspects of suprasegmentals that play a linguistic role.
+[Ngữ điệu](https://en.wikipedia.org/wiki/Prosody_(linguistics)) (prosody), hay các hiện tượng siêu đoạn trong lời nói, đề cập đến những mẫu hình trong lời nói diễn ra ở thang thời gian lớn hơn từng âm tố (đoạn) riêng lẻ. Nhiều hiện tượng siêu đoạn, chẳng hạn như ngữ điệu (intonation), trọng âm và nhịp điệu, đóng vai trò ngôn ngữ học, do đó cung cấp một phương tiện bổ sung để thay đổi ý nghĩa và hàm ý của thông điệp nói mà không cần thay đổi cấu trúc từ vựng và ngữ pháp của câu. Các hiện tượng khác liên quan đến những thông tin khác được mã hóa trong lời nói, chẳng hạn như các dấu hiệu về trạng thái cảm xúc, thái độ hoặc nền tảng xã hội của người nói. Ở đây chúng tôi chỉ tập trung vào những khía cạnh của hiện tượng siêu đoạn đóng vai trò ngôn ngữ học.
 
-### Intonation
+### Ngữ điệu (Intonation)
 
-*Intonation* corresponds to variations in fundamental frequency (F0) of
-speech as a function of time in speech, as perceived in terms of pitch.
-By altering the relative pitch as a function of underlying linguistic
-constituents or as a function of relative position in the utterance, the
-speaker can signal information such as *emphasis*, *surprisal*,
-*question* (vs. statement), *or irony.* For instance, English speakers
-often use falling intonation contour (across the utterance) for
-statements and rising intonation pattern for questions. Marking of focus
-and stress can be done with sudden increase in pitch during the marked
-syllable or word. In addition, *tone languages* (e.g., Mandarin Chinese)
-use pitch to phonemically to distinguish meanings of phonetically
-otherwise equivalent words. In general, the presence and function of
-intonational patterns depends on the language in question. Intonation
-can also contain other structural cues to speech, such as [*boundary
-tones*](https://en.wikipedia.org/wiki/Boundary_tone) to signify end of
-an sentence or utterance (Pierrehumbert, 1980), thereby also signifying
-end of an intonational phrase.  
+*Ngữ điệu* (intonation) tương ứng với các biến thiên của tần số cơ bản (F0) trong lời nói theo hàm thời gian, như được tri nhận qua cao độ. Bằng cách thay đổi cao độ tương đối theo hàm của các thành phần ngôn ngữ nền tảng hoặc theo hàm vị trí tương đối trong phát ngôn, người nói có thể truyền tải các thông tin như *nhấn mạnh*, *ngạc nhiên*, *câu hỏi* (so với câu trần thuật), hoặc *mỉa mai*. Ví dụ, người nói tiếng Anh thường sử dụng đường nét ngữ điệu đi xuống (trên toàn phát ngôn) cho câu trần thuật và mẫu ngữ điệu đi lên cho câu hỏi. Việc đánh dấu tiêu điểm và trọng âm có thể được thực hiện bằng sự tăng đột ngột cao độ trong âm tiết hoặc từ được đánh dấu. Ngoài ra, các *ngôn ngữ thanh điệu* (tone languages) (ví dụ: tiếng Quan Thoại) sử dụng cao độ ở cấp độ âm vị để phân biệt nghĩa của các từ vốn tương đương về mặt ngữ âm. Nhìn chung, sự tồn tại và chức năng của các mẫu ngữ điệu phụ thuộc vào ngôn ngữ đang xét. Ngữ điệu cũng có thể chứa các dấu hiệu cấu trúc khác của lời nói, chẳng hạn như [*âm ranh giới*](https://en.wikipedia.org/wiki/Boundary_tone) (boundary tones) để báo hiệu kết thúc câu hoặc phát ngôn (Pierrehumbert, 1980), từ đó cũng báo hiệu kết thúc một cụm ngữ điệu.  
 
-### Stress
+### Trọng âm (Stress)
 
-*Stress* (aka. *accent*) corresponds to relative emphasis given to one
-syllable or word over the others in the given phrasal context. Stress
-can be realized by many means, including alternations in energy
-(loudness), pitch, and segment (typically vowel) duration with respect
-to the surrounding speech. Besides signifying emphasis, some languages
-also employ fixed or semi-regular stress patterns on words.
+*Trọng âm* (stress, còn gọi là *accent*) tương ứng với sự nhấn mạnh tương đối dành cho một âm tiết hoặc một từ so với các âm tiết/từ khác trong ngữ cảnh cụm từ đang xét. Trọng âm có thể được thể hiện bằng nhiều phương tiện, bao gồm sự luân phiên về năng lượng (độ to), cao độ và trường độ đoạn (thường là nguyên âm) so với phần lời nói xung quanh. Bên cạnh việc biểu thị sự nhấn mạnh, một số ngôn ngữ còn sử dụng các mẫu trọng âm cố định hoặc bán đều đặn trên từ.
 
-*Word stress* refers to the emphasis of a syllable or particular set of
-syllables within a word, and where multiple stressed syllables can be
-divided into those with primary and secondary stress. For instance,
-Finnish as nearly always primary stress on the first syllable of the
-word, and secondary stress falls on the following odd-numbered
-syllables. In English, words tend to have stress on the initial
-syllables, but there are multiple exceptions to this (e.g., word
-"*guitar*", where the stress is on "-tar").  Some languages are
-sometimes considered to be completely void of stress.
+*Trọng âm từ* (word stress) đề cập đến sự nhấn mạnh một âm tiết hoặc một tập hợp âm tiết cụ thể trong từ, trong đó nhiều âm tiết được nhấn có thể được chia thành những âm có trọng âm chính và trọng âm phụ. Ví dụ, tiếng Phần Lan hầu như luôn có trọng âm chính rơi vào âm tiết đầu tiên của từ, và trọng âm phụ rơi vào các âm tiết lẻ tiếp theo. Trong tiếng Anh, các từ có xu hướng nhấn trọng âm vào âm tiết đầu, nhưng có nhiều ngoại lệ (ví dụ: từ "*guitar*", trọng âm rơi vào "-tar"). Một số ngôn ngữ đôi khi được xem là hoàn toàn không có trọng âm.
 
-*Sentence stress* (aka. *prosodic stress*) refers to stress on certain
-words or parts of words within an utterance, either signifying emphasis
-or contrast (e.g., "No, **I** went home" vs. "No, I went **home**";
-stressed word highlighted).
+*Trọng âm câu* (sentence stress, còn gọi là *trọng âm ngữ điệu* — prosodic stress) đề cập đến trọng âm trên một số từ hoặc phần của từ nhất định trong một phát ngôn, nhằm biểu thị sự nhấn mạnh hoặc tương phản (ví dụ: "No, **I** went home" so với "No, I went **home**"; từ được nhấn mạnh được in đậm).
 
-### Rhythm
+### Nhịp điệu (Rhythm)
 
-Speech *rhythm* is a result of complex interplay of several factors in
-speech production, where the flow of chosen words is also affected by
-stress patterns, segmental and pause durations, and general syllable
-structure of the given language. At a general level, rhythm refers to
-some kind of sense of recurrence in the speech, such as alternation
-between stressed and unstressed syllables.
+*Nhịp điệu* (rhythm) của lời nói là kết quả của sự tương tác phức tạp giữa nhiều yếu tố trong quá trình sản sinh lời nói, trong đó dòng chảy của các từ được chọn còn bị ảnh hưởng bởi các mẫu trọng âm, trường độ đoạn và khoảng dừng, cũng như cấu trúc âm tiết tổng quát của ngôn ngữ đang xét. Ở mức độ tổng quát, nhịp điệu đề cập đến một cảm giác lặp lại nào đó trong lời nói, chẳng hạn như sự luân phiên giữa âm tiết nhấn và không nhấn.
 
-A more narrow definition of rhythm relates to the idea of *isochrony*,
-according to which languages can be categorized into three rhythmic
-categories in terms of what is the determining recurrent structure in
-the signal (Pike, 1945; see also, e.g., Nespor et al., 2011). The first
-category consists of syllable-timed languages, where duration of each
-syllable is equal. The second corresponds to mora-timed languages, where
-duration of each mora is equal (see
-[mora](https://en.wikipedia.org/wiki/Mora_(linguistics)) on Wikipedia).
-The last category consists of stress-timed languages, where the interval
-between stressed syllablees is equal. In practice, evidence for such a
-precise rhythmic regularities in actual speech data is limited, although
-many would likely agree that some languages tend to share some rhythmic
-characteristics that make them distinct from the rhythm of others.
+Một định nghĩa hẹp hơn về nhịp điệu liên quan đến khái niệm *đẳng thời* (isochrony), theo đó các ngôn ngữ có thể được phân loại thành ba nhóm nhịp điệu dựa trên cấu trúc lặp lại quyết định trong tín hiệu (Pike, 1945; xem thêm Nespor và cộng sự, 2011). Nhóm thứ nhất bao gồm các ngôn ngữ nhịp âm tiết (syllable-timed), trong đó trường độ mỗi âm tiết bằng nhau. Nhóm thứ hai tương ứng với các ngôn ngữ nhịp mora (mora-timed), trong đó trường độ mỗi mora bằng nhau (xem [mora](https://en.wikipedia.org/wiki/Mora_(linguistics)) trên Wikipedia). Nhóm cuối cùng bao gồm các ngôn ngữ nhịp trọng âm (stress-timed), trong đó khoảng thời gian giữa các âm tiết nhấn trọng âm bằng nhau. Trên thực tế, bằng chứng cho những quy luật nhịp điệu chính xác như vậy trong dữ liệu lời nói thực tế còn hạn chế, mặc dù nhiều người có lẽ sẽ đồng ý rằng một số ngôn ngữ có xu hướng chia sẻ một số đặc trưng nhịp điệu khiến chúng khác biệt với nhịp điệu của các ngôn ngữ khác.
 
-## Phonetic transcription and speech annotation
+## Chuyển ngữ ngữ âm và chú thích lời nói
 
-*Phonetic transcription* is the process of marking down the phonetic
-structure of speech, typically aligned with the timeline of the speech
-waveform. Transcription is usually conducted according to IPA standards.
-The process can be carried out using either *narrow transcription* or
-*broad transcription*. In broad transcription, the marking typically
-consists of the most distinct phonetic elements in the speech data, such
-as individual phones and their basic allophonic variations. In *phonemic
-transcription*, which is the broadest level possible, only the phonemes
-corresponding to the speech are transcribed. In contrast, narrow
-transcription contains more phonetic detail regarding realization of the
-speech sounds. These details can include information on stress and
-intonation, and the transcription may also consists of diacritics, which
-provide more details on the articulatory/acoustic realization of the
-phones compared to their standard definitions in the IPA system (see the
-full [IPA
-chart](https://upload.wikimedia.org/wikipedia/commons/8/8f/IPA_chart_2020.svg)).
+*Chuyển ngữ ngữ âm* (phonetic transcription) là quá trình ghi lại cấu trúc ngữ âm của lời nói, thường được căn chỉnh theo trục thời gian của dạng sóng lời nói. Chuyển ngữ thường được thực hiện theo tiêu chuẩn IPA. Quá trình này có thể được tiến hành bằng *chuyển ngữ hẹp* (narrow transcription) hoặc *chuyển ngữ rộng* (broad transcription). Trong chuyển ngữ rộng, ký hiệu thường bao gồm các thành phần ngữ âm nổi bật nhất trong dữ liệu lời nói, chẳng hạn như các âm tố riêng lẻ và các biến thể tha âm cơ bản của chúng. Trong *chuyển ngữ âm vị* (phonemic transcription), cấp độ rộng nhất có thể, chỉ các âm vị tương ứng với lời nói được chuyển ngữ. Ngược lại, chuyển ngữ hẹp chứa nhiều chi tiết ngữ âm hơn về sự hiện thực hóa của các âm lời nói. Những chi tiết này có thể bao gồm thông tin về trọng âm và ngữ điệu, và bản chuyển ngữ cũng có thể bao gồm các dấu phụ (diacritics), cung cấp thêm chi tiết về sự hiện thực hóa cấu âm/âm học của các âm tố so với định nghĩa chuẩn trong hệ thống IPA (xem đầy đủ tại [bảng IPA](https://upload.wikimedia.org/wikipedia/commons/8/8f/IPA_chart_2020.svg)).
 
-*Annotation of speech* is a more general term than phonetic
-transcription. Annotations may consist of different layers of
-information in addition to (or instead of) the phonetic information. For
-instance, speech annotations may contain syllable and word boundaries
-and identities of the corresponding units. These identities can be
-marked down phonetically or ortographically, and are recorded either as
-actually pronunced or as *canonical* (i.e., as they would be listed in a
-dictionary). When contents of speech are marked as regular text, it is
-called *orthographic transcription.* Other commonly utilized annotation
-layers include utterance boundaries, speaker identities/turns,
-grammatical information such as parts of speech, morphological
-information, or potential presence of special non-speech events such as
-different categories of background noise. Since production of
-high-quality annotations usually requires manual human work and is very
-slow, different speech datasets tend to contain annotations that were of
-primary research interest to the person or team collecting and preparing
-the dataset.
+*Chú thích lời nói* (annotation of speech) là một thuật ngữ tổng quát hơn so với chuyển ngữ ngữ âm. Các chú thích có thể bao gồm nhiều lớp thông tin khác nhau ngoài (hoặc thay cho) thông tin ngữ âm. Ví dụ, chú thích lời nói có thể chứa các ranh giới âm tiết và từ cùng danh tính của các đơn vị tương ứng. Các danh tính này có thể được ghi lại theo ngữ âm hoặc chính tả, và được ghi nhận hoặc theo cách thực tế được phát âm hoặc theo dạng *chuẩn tắc* (canonical — tức là như chúng sẽ được liệt kê trong từ điển). Khi nội dung lời nói được ghi lại dưới dạng văn bản thông thường, quá trình này được gọi là *chuyển ngữ chính tả* (orthographic transcription). Các lớp chú thích phổ biến khác bao gồm ranh giới phát ngôn, danh tính/lượt nói của người nói, thông tin ngữ pháp như từ loại, thông tin hình thái học, hoặc sự hiện diện tiềm năng của các sự kiện phi lời nói đặc biệt như các loại tiếng ồn nền khác nhau. Vì việc tạo ra các chú thích chất lượng cao thường đòi hỏi công việc thủ công của con người và rất chậm, các bộ dữ liệu lời nói khác nhau thường chỉ chứa các chú thích thuộc mối quan tâm nghiên cứu chính của người hoặc nhóm thu thập và chuẩn bị bộ dữ liệu đó.
 
-Automatic speech processing tools can be of use in speeding up the
-annotation by, e.g., providing an initial version of annotations for
-humans to verify and correct. A particularly useful instance of
-automatic tools is the so-called *forced-alignment* with an automatic
-speech recognizer, which is suitable for cases where the acoustic speech
-signal and the corresponding spoken text are known. Assuming that the
-text is faithful to the underlying speech contents, a good recognizer
-can produce much more accurate phonemic transcription and/or timestamps
-for word boundaries than what would be achievable by regular automatic
-speech recognition without the reference text.
+Các công cụ xử lý lời nói tự động có thể hữu ích trong việc tăng tốc quá trình chú thích, ví dụ bằng cách cung cấp phiên bản chú thích ban đầu để con người xác minh và hiệu chỉnh. Một trường hợp đặc biệt hữu ích của các công cụ tự động là *căn chỉnh cưỡng bức* (forced alignment) với một hệ thống nhận dạng lời nói tự động, phù hợp cho các trường hợp đã biết tín hiệu lời nói âm học và văn bản nói tương ứng. Giả sử văn bản trung thành với nội dung lời nói nền tảng, một hệ thống nhận dạng tốt có thể tạo ra bản chuyển ngữ âm vị chính xác hơn nhiều và/hoặc các dấu thời gian cho ranh giới từ so với những gì có thể đạt được bằng nhận dạng lời nói tự động thông thường mà không có văn bản tham chiếu.
 
 
 {cite:empty}`Greenberg2003,Halle2012,Liberman1974,Morais1989,Nespor2011,Nusbaum1991,Pierrehumbert1980,pike1945intonation,wt84`
 
-## References
+## Tài liệu tham khảo
 
 
 ```{bibliography}
@@ -507,7 +119,7 @@ speech recognition without the reference text.
 - Greenberg, S., Carvey, H., Hitchcock, L., and Chang, S. (2003). Temporal properties of spontaneous speech – a syllable centric perspective. *Speech Communication*, *31*, 465–485,
 <https://doi.org/10.1016/j.wocn.2003.09.005>
 
-- Hallé, P., & Christia, A. (2012). Global and detailed speech representations in early language acquisition. In S. Fuchs, M. Weirich, D. Pape, & P. Perrier (Eds.). *Speech planning and dynamics*. Frankfurt am Main: Peter Lang.
+- Hallé, P., & Christia, A. (2012). Global and detailed speech representations in early language acquisition. In S. Fuchs, M. Weirich, D. Pape, & P. Perrier (Eds.). *Speech planning and dynamics*. Frankfurt am Main: Peter Lang.
 
 - Liberman, I. Y., Shankweiler, D., Fischer, W. F., & Carter, B. (1974). Explicit syllable and phoneme segmentation in the young child. Journal of Experimental Child Psychology, 18, 201–212.
 
@@ -524,6 +136,6 @@ speech recognition without the reference text.
 - Werker, J. F., & Tees, R. C. (1984). Cross-language speech perception: Evidence for perceptual reorganization during the first year of life. Infant Behavior & Development, 7(1), 49–63. https://doi.org/10.1016/S0163-6383(84)80022-3
 -->
   
-Also, substantial reuse of materials from related
-[Wikipedia](https://www.wikipedia.org/) articles.
+Ngoài ra, tài liệu này cũng tái sử dụng đáng kể nội dung từ các bài viết liên quan trên
+[Wikipedia](https://www.wikipedia.org/).
 

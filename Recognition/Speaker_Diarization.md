@@ -1,179 +1,60 @@
-# Speaker Diarization
+# Phân đoạn và định danh người nói (Speaker Diarization)
 
-## Introduction to Speaker Diarization
+## Giới thiệu về phân đoạn và định danh người nói
 
-Speaker diarization is the process of segmenting and clustering a speech
-recording into homogeneous regions and answers the question “who spoke
-when” without any prior knowledge about the speakers. A typical
-diarization system performs three basic tasks. Firstly, it discriminates
-speech segments from the non-speech ones. Secondly, it detects speaker
-change points to segment the audio data. Finally, it groups these
-segmented regions into speaker homogeneous clusters. 
+Phân đoạn và định danh người nói (speaker diarization) là quá trình phân đoạn và phân cụm một bản ghi tiếng nói thành các vùng đồng nhất (homogeneous regions) nhằm trả lời câu hỏi "ai nói lúc nào" mà không cần bất kỳ thông tin tiên nghiệm nào về những người nói. Một hệ thống phân đoạn định danh điển hình thực hiện ba tác vụ cơ bản. Thứ nhất, nó phân biệt các phân đoạn tiếng nói với các phân đoạn phi tiếng nói. Thứ hai, nó phát hiện các điểm thay đổi người nói để phân đoạn dữ liệu âm thanh. Cuối cùng, nó nhóm các vùng đã phân đoạn này vào các cụm đồng nhất của từng người nói.
 
-  
-![](missing_picture)
 An overview of a speaker diarization system.
+*(Sơ đồ tổng quan về hệ thống phân đoạn và định danh người nói)*
 
-  
+Mặc dù có nhiều hướng tiếp cận khác nhau để thực hiện phân đoạn định danh người nói, hầu hết các hệ thống đều tuân theo quy trình sau:
 
-Although there are many different approaches to perform speaker
-diarization, most of them follow the following scheme: 
+-   **Trích xuất đặc trưng (Feature extraction):** Trích xuất thông tin cụ thể từ tín hiệu âm thanh để phục vụ cho việc mô hình hóa và phân loại người nói ở các giai đoạn sau. Các đặc trưng được trích xuất lý tưởng nhất là tối đa hóa sự biến thiên giữa các người nói (inter-speaker variability), tối thiểu hóa sự biến thiên trong cùng một người nói (intra-speaker variability) và biểu diễn được các thông tin liên quan.
+-   **Phân đoạn người nói (Speaker segmentation):** Chia tách dữ liệu âm thanh thành các phân đoạn đồng nhất về mặt âm học theo danh tính người nói. Nó phát hiện tất cả các vị trí ranh giới trong mỗi vùng tiếng nói tương ứng với các điểm thay đổi người nói, các điểm này sau đó được sử dụng cho việc phân cụm người nói.
+-   **Phân cụm người nói (Speaker clustering):** Nhóm các phân đoạn tiếng nói thuộc về một người nói cụ thể lại với nhau. Nó có hai danh mục chính dựa trên yêu cầu xử lý: phân cụm trực tuyến (online) và phân cụm ngoại tuyến (offline). Trong phân cụm trực tuyến, các phân đoạn tiếng nói được hợp nhất hoặc chia tách trong các vòng lặp liên tiếp cho đến khi thu được số lượng người nói tối ưu. Vì toàn bộ tệp tiếng nói đều có sẵn trước khi đưa ra quyết định trong phân cụm ngoại tuyến, phương pháp này cung cấp kết quả tốt hơn nhiều so với phân cụm trực tuyến. Kỹ thuật phân cụm người nói phổ biến và được sử dụng rộng rãi nhất là Phân cụm phân cấp tích lũy (Agglomerative Hierarchical Clustering - AHC). AHC xây dựng một cấu trúc phân cấp các cụm, thể hiện mối quan hệ giữa các phân đoạn tiếng nói, và hợp nhất các phân đoạn tiếng nói dựa trên độ tương đồng. Các hướng tiếp cận AHC có thể được phân loại thành phân cụm dưới-lên (bottom-up) và trên-xuống (top-down).
 
-Feature extraction: It extracts specific information from the audio
-signal and allows subsequent speaker modeling and classification. The
-extracted features should ideally maximize inter-speaker variability and
-minimize intra-speaker variability, and represent the relevant
-information. 
+Hai yếu tố cần được định nghĩa trong cả phân cụm dưới-lên và trên-xuống là:
 
-Speaker segmentation: It partitions the audio data into acoustically
-homogeneous segments according to speaker identities. It detects all
-boundary locations within each speech region that corresponds to speaker
-change points which are subsequently used for speaker clustering. 
+1.  **Khoảng cách giữa các phân đoạn tiếng nói** để xác định độ tương đồng âm học. Chỉ số khoảng cách được sử dụng để quyết định xem hai cụm có phải hợp nhất (phân cụm dưới-lên) hoặc chia tách (phân cụm trên-xuống) hay không.
+2.  **Tiêu chí dừng (stopping criterion)** để xác định khi nào đạt được số lượng cụm (người nói) tối ưu.
 
-Speaker clustering: Speaker clustering groups speech segments that
-belong to a particular speaker. It has two major categories based on its
-processing requirements. Its two main categories are online and offline
-speaker clustering. In the former, speech segments are merged or split
-in consecutive iterations until the optimum number of speakers is
-acquired. Since the entire speech file is available before decision
-making in the later, it provides better results more than the online
-speaker clustering. The most widely used and popular technique for
-speaker clustering is Agglomerative Hierarchical Clustering (AHC). AHC
-builds a hierarchy of clusters, that shows the relations between speech
-segments, and merges speech segments based on similarity. AHC approaches
-can be classified into bottom-up and top-down clustering.
+**Dưới-lên (Bottom-up / Agglomerative):** Bắt đầu từ một số lượng lớn các phân đoạn tiếng nói ban đầu và hợp nhất các phân đoạn tiếng nói gần nhau nhất một cách lặp đi lặp lại cho đến khi đáp ứng tiêu chí dừng. Kỹ thuật này được sử dụng rộng rãi nhất trong phân đoạn định danh người nói vì nó được áp dụng trực tiếp trên đầu ra của các phân đoạn tiếng nói từ bước phân đoạn người nói. Một ma trận khoảng cách giữa mọi cặp cụm khả thi được tính toán và cặp cụm có giá trị BIC cao nhất sẽ được hợp nhất. Sau đó, các cụm đã hợp nhất được loại bỏ khỏi ma trận khoảng cách. Cuối cùng, bảng ma trận khoảng cách được cập nhật bằng cách sử dụng khoảng cách giữa cụm mới hợp nhất và tất cả các cụm còn lại. Quá trình này được thực hiện lặp đi lặp lại cho đến khi đáp ứng tiêu chí dừng hoặc tất cả các cặp có giá trị BIC nhỏ hơn 0.
 
-Two items need to be defined in both bottom-up and top-down clustering:
+**Trên-xuống (Top-down):** Các phương pháp phân cụm phân cấp trên-xuống bắt đầu từ một số lượng nhỏ các cụm, thông thường là một cụm duy nhất chứa tất cả các phân đoạn tiếng nói, và các cụm ban đầu này được chia tách lặp đi lặp lại cho đến khi đáp ứng tiêu chí dừng. Phương pháp này không được sử dụng rộng rãi như phân cụm dưới-lên.
 
-1. A distance between speech segments to determine acoustic similarity.
-The distance metric is used to decide whether or not two clusters must
-be merged (bottom-up clustering) or split (top-down clustering).
-
-2. A stopping criterion to determine when the optimal number of
-clusters (speakers) is reached.
-
-  
-
-Bottom-up (Agglomerative): It starts from a large number of speech
-segments and merges the closest speech segments iteratively until a
-stopping criterion is met. This technique is the most widely used in
-speaker diarization since it is directly applied on the output of speech
-segments from speaker segmentation. A matrix of distances between every
-possible pair of clusters is computed and the pair with highest BIC
-value is merged. Then, the merged clusters are removed from the distance
-matrix. Finally, the distance matrix table is updated using the
-distances between the new merged cluster and all remaining clusters.
-This process is done iteratively until the stopping criterion is met or
-all pairs have a BIC value less than zero.
-
-Top-down: Top-down Hierarchical Clustering methods start from a small
-number of clusters, usually a single cluster that contains several
-speech segments, and the initial clusters are split iteratively until a
-stopping criterion is met. It is not as widely used as the bottom-up
-clustering.
-
-  
-![](missing_picture)
 Bottom-Up and Top-down approaches to clustering
+*(Các hướng tiếp cận phân cụm Dưới-lên và Trên-xuống)*
 
-## Approaches to Speaker Diarization
+## Các hướng tiếp cận phân đoạn và định danh người nói
 
-  
+Phần này mô tả một số hệ thống phân đoạn định danh người nói tiên tiến nhất hiện nay.
 
-This section describes some of the state-of-the-art speaker diarization
-systems.
+**Hệ thống phân đoạn định danh dựa trên HMM/GMM:** Mỗi người nói được biểu diễn bằng một trạng thái của một mô hình HMM và các xác suất phát xạ trạng thái (state emission probabilities) được mô hình hóa bằng các mô hình GMM. Việc phân cụm ban đầu được thực hiện bằng cách phân chia tín hiệu âm thanh thành các phần bằng nhau để tạo ra một tập hợp các phân đoạn $\{s_i\}$. Gọi $c_i$ đại diện cho cụm người nói thứ $i$, $b_i$ đại diện cho xác suất phát xạ của cụm $c_i$ và $f_t$ biểu thị một vectơ đặc trưng tại thời điểm $t$. Khi đó, log-likelihood $\log b_i(s_t)$ của đặc trưng $f_t$ đối với cụm $c_i$ được tính toán như sau:
 
-HMM/GMM based speaker diarization system: Each speaker is represented by
-a state of an HMM and the state emission probabilities are modeled using
-GMMs. The initial clustering is performed initially by partitioning the
-audio signal equally which generates a set of segments { $ s_i $ }.
-Let  $ c_i $ represent  $ i^{th} $ speaker cluster,  $ b_i $
-represent the emission probability of cluster  $ c_i $ and  $ f_t
-$ denote a given feature vector at time $ t $ . Then, the
-log-likelihood  $ \log b_i(s_t) $ of the feature ft for cluster  $
-c_i $ is calculated as follows:
+$$ \log b_i(s_t)=\log \sum_{(r)} {w}^r_i N (f_t,{\mu}^r_i,\Sigma_{(i)}^r) $$
 
-$$ \log b_i(s_t)=\log \sum_{(r)} {w}^r_i N
-(f_i,{\mu}^r_i,\sum_{(i)}^r) $$
+ở đây $N()$ là hàm mật độ xác suất Gauss và $w^r_i, \mu^r_i, \Sigma_{(i)}^r$ tương ứng là trọng số, kỳ vọng và ma trận hiệp phương sai của thành phần hỗn hợp Gauss thứ $r$ của cụm $c_i$.
 
-  
-where  $ N() $ is a Gaussian pdf and  $ {w}^r_i,
-{\mu}^r_i,\sum_{(i)}^r) $ are the weights, means and covariance
-matrices of the  $ r^{th} $ Gaussian mixture component of cluster 
-$ c_i $ , respectively.
+Phân cụm phân cấp tích lũy bắt đầu bằng việc ước lượng quá mức (overestimating) số lượng cụm ban đầu. Tại mỗi vòng lặp, các cụm tương đồng nhất được hợp nhất dựa trên khoảng cách BIC. Phép đo khoảng cách dựa trên tiêu chí thông tin Bayes delta sửa đổi (modified delta Bayesian Information Criterion) [Ajmera and Wooters, 2003]. Khoảng cách BIC sửa đổi không tính đến thành phần phạt (penalty term) tương ứng với số lượng các tham số tự do của phân phối Gauss đa biến và được biểu diễn dưới dạng:
 
-The agglomerative hierarchical clustering starts by overestimating the
-number of clusters. At each iteration, the clusters that are most
-similar are merged based on the BIC distance. The distance measure is
-based on modified delta Bayesian information criterion [Ajmera and
-Wooters, 2003]. The modified BIC distance does not take into account
-the penalty term that corresponds to the number of free parameters of a
-multivariate Gaussian distribution and is expressed as: 
+$$ \Delta BIC (c_i,c_j)= \log \sum_{f_t \in ( {c_i \; \cup \; c_j})} b_{ij}(f_t) - \log \sum_{f_t \in c_i} b_{i}(f_t) - \log \sum_{f_t \in c_j} b_{j}(f_t) $$
 
-$$ \Delta BIC (c_i,c_j)= \log \sum_{f_t \in ( {ci \; \cup \;
-c_j})} \log b_{ij}(f_t) - \log \sum_{f_t \in ci} \log b_{i}(f_t) - \log 
-\sum_{f_t \in cj} \log b_{j}(f_t) $$
+ở đây $b_{ij}$ là phân phối xác suất của các cụm kết hợp $c_i$ và $c_j$.
 
-where  $ b_{ij} $ is the probability distribution of the combined
-clusters  $ c_i $ and  $ c_j. $
+Các cụm tạo ra điểm số $\Delta BIC$ cao nhất được hợp nhất tại mỗi vòng lặp. Thời lượng tối thiểu của các phân đoạn tiếng nói thông thường bị ràng buộc cho mỗi lớp để ngăn chặn việc giải mã các phân đoạn quá ngắn. Số lượng cụm giảm dần sau mỗi vòng lặp. Khi khoảng cách $\Delta BIC$ lớn nhất giữa các cụm này nhỏ hơn giá trị ngưỡng 0, hệ thống phân đoạn định danh người nói sẽ dừng và đưa ra giả thuyết kết quả cuối cùng.
 
-The clusters that produce the highest BIC score are merged at each
-iteration. A minimum duration of speech segments is normally constrained
-for each class to prevent decoding short segments. The number of
-clusters is reduced at each iteration. When the maximum  $ \Delta BIC$ distance among these clusters is less than threshold value 0, the
-speaker diarization system stops and outputs the hypothesis.
+**Các kỹ thuật phân tích nhân tố (Factor analysis):** Các kỹ thuật phân tích nhân tố, vốn là công nghệ tiên tiến nhất trong nhận dạng người nói, gần đây đã được áp dụng thành công trong phân đoạn định danh người nói. Các cụm tiếng nói trước tiên được biểu diễn bằng các vectơ i-vector và các giai đoạn phân cụm tiếp theo được thực hiện dựa trên mô hình hóa i-vector. Việc sử dụng kỹ thuật phân tích nhân tố để mô hình hóa các phân đoạn tiếng nói giúp giảm số chiều của vectơ đặc trưng bằng cách giữ lại hầu hết các thông tin liên quan. Một khi các cụm tiếng nói được biểu diễn bằng các i-vector, kỹ thuật tính điểm khoảng cách cosine và PLDA có thể được áp dụng để quyết định xem hai cụm thuộc về cùng một người nói hay các người nói khác nhau.
 
-Factor analysis techniques: Factor analysis techniques which are the
-state of the art in speaker recognition have recently been successfully
-used in speaker diarization. The speech clusters are first represented
-by i-vectors and the successive clustering stages are performed based on
-i-vector modeling. The use of factor analysis technique to model speech
-segments reduces the dimension of the feature vector by retaining most
-of the relevant information. Once the speech clusters are represented by
-i-vectors, cosine-distance and PLDA scoring techniques can be applied to
-decide if two clusters belong to the same or different speaker(s). 
+**Hướng tiếp cận học sâu (Deep learning):** Phân đoạn định danh người nói đóng vai trò quan trọng cho nhiều công nghệ tiếng nói khi có sự xuất hiện của nhiều người nói, nhưng hầu hết các phương pháp hiện tại sử dụng phân cụm i-vector cho các phân đoạn tiếng nói ngắn có khả năng quá cồng kềnh và tốn kém để đóng vai trò tiền xử lý (frontend). Vì vậy, Daniel Povey đã đề xuất một hướng tiếp cận thay thế để học các biểu diễn thông qua mạng nơ-ron sâu nhằm loại bỏ hoàn toàn quy trình trích xuất i-vector khỏi hệ thống. Kiến trúc được đề xuất đồng thời học một vectơ nhúng (embedding) có số chiều cố định cho các phân đoạn âm học có độ dài biến thiên và một hàm tính điểm để đo khả năng các phân đoạn này bắt nguồn từ cùng một người nói hay những người nói khác nhau. Hệ thống dựa trên mạng nơ-ron được đề xuất này đạt hiệu suất tương đương hoặc vượt trội so với các hệ thống baseline tiên tiến nhất.
 
-Deep learning approaches: Speaker diarization is crucial for many speech
-technologies in the presence of multiple speakers, but most of the
-current methods that employ i-vector clustering for short segments of
-speech are potentially too cumbersome and costly for the front-end role.
-Thus, it has been proposed by Daniel Povey an alternative approach for
-learning representations via deep neural networks to remove the i-vector
-extraction process from the pipeline entirely. The proposed architecture
-simultaneously learns a fixed-dimensional embedding for acoustic
-segments of variable length and a scoring function for measuring the
-likelihood that the segments originated from the same or different
-speakers.  The proposed neural based system matches or exceeds the
-performance of state-of-the-art baselines.
+## Các tiêu chí đánh giá hiệu suất
 
-## Evaluation Metrics
+Tỷ lệ lỗi phân đoạn định danh (Diarization Error Rate - DER) là chỉ số được sử dụng để đo lường hiệu suất của các hệ thống phân đoạn định danh người nói. Nó được tính bằng tỷ lệ thời gian không được quy cho chính xác cho một người nói hoặc phi tiếng nói trên tổng thời gian.
 
-Diarization Error Rate (DER) is the metric used to measure the
-performance of speaker diarization systems. It is measured as the
-fraction of time that is not attributed correctly to a speaker or
-non-speech.
+DER được cấu thành từ ba loại lỗi sau:
 
-The DER is composed of the following three errors:
+-   **Lỗi người nói (Speaker Error):** Là tỷ lệ phần trăm thời gian tính điểm (scored time) mà ID người nói bị gán sai cho một người nói khác. Lỗi người nói chủ yếu là lỗi của hệ thống phân đoạn định danh (tức là nó không liên quan đến lỗi phát hiện tiếng nói/phi tiếng nói). Nó cũng không tính đến các phần tiếng nói chồng chéo (overlap speech) không được phát hiện.
+-   **Báo động giả (False Alarm):** Là tỷ lệ phần trăm thời gian tính điểm mà một người nói giả thuyết được dán nhãn là phi tiếng nói trong bản tham chiếu. Lỗi báo động giả xảy ra chủ yếu do lỗi phát hiện tiếng nói/phi tiếng nói (tức là bộ phát hiện tiếng nói coi một phân đoạn phi tiếng nói là một phân đoạn tiếng nói). Do đó, lỗi báo động giả không liên quan đến lỗi phân đoạn và phân cụm.
+-   **Bỏ sót tiếng nói (Missed Speech):** Là tỷ lệ phần trăm thời gian tính điểm mà một phân đoạn phi tiếng nói giả thuyết thực tế tương ứng với một phân đoạn tiếng nói của người nói trong bản tham chiếu. Lỗi bỏ sót tiếng nói xảy ra chủ yếu do lỗi phát hiện tiếng nói (tức là phân đoạn tiếng nói bị coi là phân đoạn phi tiếng nói). Do đó, lỗi bỏ sót tiếng nói không liên quan đến lỗi phân đoạn và phân cụm.
 
-- **Speaker Error**: It is the percentage of scored time that a speaker ID is
-assigned to the wrong speaker. Speaker error is mainly a diarization
-system error (i.e., it is not related to speech/non-speech detection.)
-It also does not take into account the overlap speeches not detected.
-
-- **False Alarm**: It is the percentage of scored time that a hypothesized
-speaker is labelled as a non-speech in the reference. The false alarm
-error occurs mainly due to the the speech/non-speech detection error
-(i.e., the speech/non-speech detection considers a non-speech segment as
-a speech segment). Hence, false alarm error is not related to
-segmentation and clustering errors.
-
-- **Missed Speech**: It is the percentage of scored time that a hypothesized
-non-speech segment corresponds to a reference speaker segment. The
-missed speech occurs mainly due to the the speech/non-speech detection
-error (i.e., the speech segment is considered as a non-speech segment).
-Hence, missed speech is not related to segmentation and clustering
-errors.
-
-$$ DER = Speaker \; Error + False \; Alarm + Miss \; Speech $$
-
-  
+$$ DER = \text{Speaker Error} + \text{False Alarm} + \text{Missed Speech} $$
