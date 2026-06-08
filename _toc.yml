@@ -16,13 +16,13 @@ chapters:
   - file: Introduction/Why_speech_processing.md
   - file: Introduction/Speech_production_and_acoustic_properties.ipynb
   - url: https://en.wikipedia.org/wiki/Speech_perception
-    title: Speech perception (Wikipedia)
+    title: Nhận thức tiếng nói (Wikipedia)
   - file: Introduction/Linguistic_structure_of_speech.md
   - url: https://en.wikipedia.org/wiki/Speech-language_pathology
-    title: Speech-language pathology (Wikipedia)
+    title: Bệnh lý học ngôn ngữ và tiếng nói (Wikipedia)
   - file: Introduction/Applications_and_systems_structures
   - url: http://pressbooks-dev.oer.hawaii.edu/messageprocessing/
-    title: Social and cognitive processes in human communication (external)
+    title: Quá trình nhận thức và xã hội trong giao tiếp của con người (liên kết ngoài)
 - file: Representations/Representations.md
   sections:
   - file: Representations/Waveform.ipynb
@@ -44,9 +44,9 @@ chapters:
   sections:
   - file: Preprocessing/Pre-emphasis.md 
   - url: https://en.wikipedia.org/wiki/Noise_gate
-    title: Noise gate (Wikipedia)
+    title: Cổng chống ồn (Noise gate - Wikipedia)
   - url: https://en.wikipedia.org/wiki/Dynamic_range_compression
-    title: Dynamic Range Compression (Wikipedia)
+    title: Nén dải động (Dynamic Range Compression - Wikipedia)
 - file: Modelling_tools_in_speech_processing.md
   sections:
   - file: Modelling/Source_modelling_and_perceptual_modelling.md
@@ -67,13 +67,13 @@ chapters:
 - file: Speech_analysis.md
   sections:
   - url: https://en.wikipedia.org/wiki/Voice_analysis
-    title: Voice and speech analysis (Wikipedia)
+    title: Phân tích giọng nói và tiếng nói (Wikipedia)
   - file: Analysis/Measurements_for_medical_applications.md
     sections:
       - url: https://en.wikipedia.org/wiki/Electroglottograph
-        title: Electroglottography (Wikipedia)
+        title: Đo điện thanh môn (Electroglottography - Wikipedia)
       - url: https://en.wikipedia.org/wiki/Videokymography
-        title: Videokymography (Wikipedia)
+        title: Đo rung thanh quản qua video (Videokymography - Wikipedia)
   - file: Analysis/Forensic_speaker_recognition.ipynb
 - file: Recognition_tasks_in_speech_processing.md
   sections:
